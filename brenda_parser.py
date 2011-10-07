@@ -22,6 +22,7 @@ import re
 import errno
 
 from StringIO import StringIO
+from collections import defaultdict
 
 
 class ArgumentError(StandardError):
@@ -243,7 +244,7 @@ class BRENDAParser(object):
             tmp = StringIO(self._file_handle.read())
             self._file_handle.close()
             self._file_handle = tmp
-        self.enzymes = dict()
+        self.enzymes = defaultdict(set)
         self._line_number = 0
 
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -375,8 +376,10 @@ class BRENDAParser(object):
             text = text[:mobj.start()] + text[mobj.end():].strip()
         else:
             comment = None
-        self.enzymes[text] = Enzyme(text)
-        self._current = self.enzymes[text]
+        self._current = Enzyme(text)
+        ec_num = text.split(".")
+        for i in range(1, len(ec_num) + 1):
+            self.enzymes[".".join(ec_num[:i])].add(self._current)
 
     def _parse_protein(self, text):
         """
