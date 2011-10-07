@@ -20,6 +20,7 @@ BRENDA Enzyme Database Parser
 
 import re
 import errno
+import codecs
 
 from StringIO import StringIO
 from collections import defaultdict
@@ -90,6 +91,9 @@ class Enzyme(object):
     def __str__(self):
         return self.ec_class
 
+    def __repr__(self):
+        return self.ec_class
+
 
 class BRENDAEntryComment(object):
     """
@@ -109,6 +113,9 @@ class BRENDAEntryComment(object):
     def __str__(self):
         return self.msg
 
+    def _repr__(self):
+        return self.msg
+
 
 class BRENDAEntry(BRENDAEntryComment):
     """
@@ -124,9 +131,6 @@ class BRENDAEntry(BRENDAEntryComment):
                 references=references, *args, **kw_args)
         self.information = information
         self.comment = comment
-
-    def __str__(self):
-        return self.information
 
 
 class BRENDAOrganism(object):
@@ -150,7 +154,7 @@ class BRENDAOrganism(object):
     def __init__(self, name, identifier, references, information, comment,
             *args, **kw_args):
         """
-        Initialisation of a BRENDAEntryComment instance.
+        Initialisation of a BRENDAOrganism instance.
         """
         if self.__class__._memory.has_key((self.__class__, name)):
             return
@@ -177,8 +181,6 @@ class BRENDAParser(object):
     """
 
     _subsections = {
-            "PROTEIN": "PR",
-            "REFERENCE": "RF",
             "ACTIVATING_COMPOUND": "AC",
             "APPLICATION": "AP",
             "COFACTOR": "CF",
@@ -187,6 +189,7 @@ class BRENDAParser(object):
             "CAS_REGISTRY_NUMBER": "CR",
             "ENGINEERING": "EN",
             "GENERAL_STABILITY": "GS",
+            "IC50_VALUE": "IC50",
             "INHIBITORS": "IN",
             "KI_VALUE": "KI",
             "KM_VALUE": "KM",
@@ -201,26 +204,28 @@ class BRENDAParser(object):
             "PH_STABILITY": "PHS",
             "PI_VALUE": "PI",
             "POSTTRANSLATIONAL_MODIFICATION": "PM",
+            "PROTEIN": "PR",
             "PURIFICATION": "PU",
-            "IC50_VALUE": "IC50",
             "REACTION": "RE",
+            "REFERENCE": "RF",
             "RENATURED": "RN",
             "RECOMMENDED_NAME": "RN",
             "REACTION_TYPE": "RT",
             "SPECIFIC_ACTIVITY": "SA",
-            "SYNONYMS": "SY",
+            "SYSTEMATIC_NAME": "SN",
             "SUBSTRATE_PRODUCT": "SP",
             "STORAGE_STABILITY": "SS",
             "SOURCE_TISSUE": "ST",
             "SUBUNITS": "SU",
-            "SYSTEMATIC_NAME": "SN",
+            "SYNONYMS": "SY",
             "TURNOVER_NUMBER": "TN",
             "TEMPERATURE_OPTIMUM": "TO",
             "TEMPERATURE_RANGE": "TR",
             "TEMPERATURE_STABILITY": "TS"
             }
 
-    def __init__(self, filename, low_memory=False, *args, **kw_args):
+    def __init__(self, filename, encoding="iso-8859-1", low_memory=False,
+            *args, **kw_args):
         """
         Initialisation of a BRENDAParser instance.
         """
@@ -228,24 +233,28 @@ class BRENDAParser(object):
         self._filename = filename
         self._file_handle = None
         self._low_memory = low_memory
-        self._organisms_tag = re.compile(r"\#(.+?)\#")
-        self._comment_tag = re.compile(r" \((.+)\)")
-        self._reference_tag = re.compile(r"\<(.+?)\>")
-        self._information_pattern = re.compile(r"\{(.+?)\}")
-        self._numbers_pattern = re.compile(r"\d+")
-        self._prot_qualifier = re.compile(r" (\w+) (?=UniProt|Uniprot|SwissProt|Swissprot|GenBank|Genbank)")
+        self._encoding = encoding
+        self._organisms_tag = re.compile(r"\#(.+?)\#", re.UNICODE)
+        self._comment_tag = re.compile(r" \((.*)\)", re.UNICODE)
+        self._reference_tag = re.compile(r"\<(.+?)\>", re.UNICODE)
+        self._information_pattern = re.compile(r"\{(.*?)\}", re.UNICODE)
+        self._numbers_pattern = re.compile(r"\d+", re.UNICODE)
+        self._prot_qualifier = re.compile(r" (\w+) (?=UniProt|Uniprot|"\
+                "SwissProt|Swissprot|GenBank|Genbank)", re.UNICODE)
         self._current = None
         self.enzymes = None
         self._line_number = None
 
     def __enter__(self):
-        self._file_handle = open(self._filename, "r")
+        self._file_handle = codecs.open(self._filename, mode="r",
+                encoding=self._encoding)
         if not self._low_memory:
             tmp = StringIO(self._file_handle.read())
             self._file_handle.close()
             self._file_handle = tmp
-        self.enzymes = defaultdict(set)
+        self.enzymes = defaultdict(list)
         self._line_number = 0
+        return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         """
@@ -277,7 +286,8 @@ class BRENDAParser(object):
             elif line:
                 self._current.entries[line.lower()] =\
                         self._parse_information_field(line)
-        return self.enzymes
+        # convert to normal dictionary again
+        return dict(self.enzymes)
 
     def _parse_information_field(self, line, parser=None):
         """
@@ -316,6 +326,12 @@ class BRENDAParser(object):
         """
         Parse an entry of a specific information field.
         """
+        mobj = self._information_pattern.search(text)
+        if mobj:
+            information = mobj.group(1)
+            text = text[:mobj.start()] + text[mobj.end():]
+        else:
+            information = None
         mobj = self._comment_tag.search(text)
         if mobj:
             comment = self._parse_comment(mobj.group(1))
@@ -336,12 +352,6 @@ class BRENDAParser(object):
             text = text[:mobj.start()] + text[mobj.end():]
         else:
             references = None
-        mobj = self._information_pattern.search(text)
-        if mobj:
-            information = mobj.group(1)
-            text = text[:mobj.start()] + text[mobj.end():]
-        else:
-            information = None
         return BRENDAEntry(text.strip(), organisms, references, information,\
                 comment)
 
@@ -373,18 +383,25 @@ class BRENDAParser(object):
         # for now we ignore comments to the id
         if mobj:
             comment = self._parse_comment(mobj.group(1))
-            text = text[:mobj.start()] + text[mobj.end():].strip()
+            text = text[:mobj.start()] + text[mobj.end():]
         else:
             comment = None
+        text = text.strip()
         self._current = Enzyme(text)
         ec_num = text.split(".")
         for i in range(1, len(ec_num) + 1):
-            self.enzymes[".".join(ec_num[:i])].add(self._current)
+            self.enzymes[".".join(ec_num[:i])].append(self._current)
 
     def _parse_protein(self, text):
         """
 
         """
+        mobj = self._information_pattern.search(text)
+        if mobj:
+            information = mobj.group(1)
+            text = text[:mobj.start()] + text[mobj.end():]
+        else:
+            information = None
         mobj = self._comment_tag.search(text)
         if mobj:
             comment = self._parse_comment(mobj.group(1))
@@ -412,12 +429,6 @@ class BRENDAParser(object):
             text = text[:mobj.start()] + text[mobj.end():]
         else:
             references = None
-        mobj = self._information_pattern.search(text)
-        if mobj:
-            information = mobj.group(1)
-            text = text[:mobj.start()] + text[mobj.end():]
-        else:
-            information = None
         self._current.organisms[organism] = BRENDAOrganism(text.strip(),
                 identifier, references, information, comment)
 
