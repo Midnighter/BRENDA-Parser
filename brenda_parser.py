@@ -78,21 +78,21 @@ class Enzyme(object):
     identified by its EC number.
     """
 
-    def __init__(self, ec_class, *args, **kw_args):
+    def __init__(self, ec_number, *args, **kw_args):
         """
         Initialisation of an Enzyme instance.
         """
         object.__init__(self)
-        self.ec_class = ec_class
+        self.ec_number = ec_number
         self.organisms = dict()
         self.references = dict()
         self.entries = dict()
 
     def __str__(self):
-        return self.ec_class
+        return self.ec_number
 
     def __repr__(self):
-        return self.ec_class
+        return self.ec_number
 
 
 class BRENDAEntryComment(object):
@@ -287,7 +287,9 @@ class BRENDAParser(object):
                 self._current.entries[line.lower()] =\
                         self._parse_information_field(line)
         # convert to normal dictionary again
-        return dict(self.enzymes)
+        res =  dict(self.enzymes)
+        res["file_encoding"] = self._encoding
+        return res
 
     def _parse_information_field(self, line, parser=None):
         """
