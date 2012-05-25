@@ -234,6 +234,7 @@ class BRENDAParser(object):
         self._file_handle = None
         self._low_memory = low_memory
         self._encoding = encoding
+        self._white_space = re.compile(r"\s", re.UNICODE)
         self._organisms_tag = re.compile(r"\#(.+?)\#", re.UNICODE)
         self._comment_tag = re.compile(r" \((.*)\)", re.UNICODE)
         self._reference_tag = re.compile(r"\<(.+?)\>", re.UNICODE)
@@ -246,7 +247,7 @@ class BRENDAParser(object):
         self._line_number = None
 
     def __enter__(self):
-        self._file_handle = codecs.open(self._filename, mode="r",
+        self._file_handle = codecs.open(self._filename, mode="rb",
                 encoding=self._encoding)
         if not self._low_memory:
             tmp = StringIO(self._file_handle.read())
@@ -306,6 +307,7 @@ class BRENDAParser(object):
         for line in self._file_handle:
             self._line_number += 1
             line = line.strip("\n")
+            mobj = self._white_space.match(line)
             if not line:
                 if record:
                     entries.append(parser(" ".join(record)))
@@ -315,9 +317,7 @@ class BRENDAParser(object):
                     entries.append(parser(" ".join(record)))
                     record = list()
                 record.append(line[len(field_identifier):].strip())
-            elif line.startswith("\t"):
-                record.append(line.strip())
-            elif line.startswith(" ="):
+            elif mobj:
                 record.append(line.strip())
             else:
                 raise ArgumentError("unrecognised line: '%s' @ #%d", line,\
