@@ -21,6 +21,17 @@ always lists, as an example:
     >>> len(content["1.1.1.1"])
     1
 
+Warning
+-------
+
+Starting with the BRENDA text file release since 2011-12-08 there is an unexpected
+empty line in the file (line number 3049468) that breaks the expected format for the
+parser. Please delete the line but not the white space at the beginning of the next
+line.
+
+Notes
+-----
+
 There is one additional key "file_encoding" which contains the argument used
 for the parser when reading the file.
 
