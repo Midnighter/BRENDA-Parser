@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 
@@ -12,9 +11,11 @@ BRENDA Enzyme Database Parser
 :Date:
     2011-01-27
 :Copyright:
-    Copyright(c) 2011 Jacobs University of Bremen. All rights reserved.
+    Copyright |c| 2011, Jacobs University Bremen gGmbH, all rights reserved.
 :File:
-    errors.py
+    brenda_parser.py
+
+.. |c| unicode:: U+A9
 """
 
 
@@ -180,49 +181,92 @@ class BRENDAParser(object):
     Encapsulation of parsing a BRENDA database plain text file.
     """
 
-    _subsections = {
-            "ACTIVATING_COMPOUND": "AC",
-            "APPLICATION": "AP",
-            "COFACTOR": "CF",
-            "CLONED": "CL",
-            "CRYSTALLIZATION": "CR",
-            "CAS_REGISTRY_NUMBER": "CR",
-            "ENGINEERING": "EN",
-            "GENERAL_STABILITY": "GS",
-            "IC50_VALUE": "IC50",
-            "INHIBITORS": "IN",
-            "KI_VALUE": "KI",
-            "KM_VALUE": "KM",
-            "LOCALIZATION": "LO",
-            "METALS_IONS": "ME",
-            "MOLECULAR_WEIGHT": "MW",
-            "NATURAL_SUBSTRATE_PRODUCT": "NSP",
-            "OXIDATION_STABILITY": "OS",
-            "ORGANIC_SOLVENT_STABILITY": "OSS",
-            "PH_OPTIMUM": "PHO",
-            "PH_RANGE": "PHR",
-            "PH_STABILITY": "PHS",
-            "PI_VALUE": "PI",
-            "POSTTRANSLATIONAL_MODIFICATION": "PM",
-            "PROTEIN": "PR",
-            "PURIFICATION": "PU",
-            "REACTION": "RE",
-            "REFERENCE": "RF",
-            "RENATURED": "RN",
-            "RECOMMENDED_NAME": "RN",
-            "REACTION_TYPE": "RT",
-            "SPECIFIC_ACTIVITY": "SA",
-            "SYSTEMATIC_NAME": "SN",
-            "SUBSTRATE_PRODUCT": "SP",
-            "STORAGE_STABILITY": "SS",
-            "SOURCE_TISSUE": "ST",
-            "SUBUNITS": "SU",
-            "SYNONYMS": "SY",
-            "TURNOVER_NUMBER": "TN",
-            "TEMPERATURE_OPTIMUM": "TO",
-            "TEMPERATURE_RANGE": "TR",
-            "TEMPERATURE_STABILITY": "TS"
-            }
+    _sections = [
+            "ACTIVATING_COMPOUND",
+            "APPLICATION",
+            "COFACTOR",
+            "CLONED",
+            "CRYSTALLIZATION",
+            "CAS_REGISTRY_NUMBER",
+            "ENGINEERING",
+            "GENERAL_STABILITY",
+            "IC50_VALUE",
+            "INHIBITORS",
+            "KI_VALUE",
+            "KM_VALUE",
+            "LOCALIZATION",
+            "METALS_IONS",
+            "MOLECULAR_WEIGHT",
+            "NATURAL_SUBSTRATE_PRODUCT",
+            "OXIDATION_STABILITY",
+            "ORGANIC_SOLVENT_STABILITY",
+            "PH_OPTIMUM",
+            "PH_RANGE",
+            "PH_STABILITY",
+            "PI_VALUE",
+            "POSTTRANSLATIONAL_MODIFICATION",
+            "PROTEIN",
+            "PURIFICATION",
+            "REACTION",
+            "REFERENCE",
+            "RENATURED",
+            "RECOMMENDED_NAME",
+            "REACTION_TYPE",
+            "SPECIFIC_ACTIVITY",
+            "SYSTEMATIC_NAME",
+            "SUBSTRATE_PRODUCT",
+            "STORAGE_STABILITY",
+            "SOURCE_TISSUE",
+            "SUBUNITS",
+            "SYNONYMS",
+            "TURNOVER_NUMBER",
+            "TEMPERATURE_OPTIMUM",
+            "TEMPERATURE_RANGE",
+            "TEMPERATURE_STABILITY"
+            ]
+    _section_entries = [
+            "AC",
+            "AP",
+            "CF",
+            "CL",
+            "CR",
+            "CR",
+            "EN",
+            "GS",
+            "IC50",
+            "IN",
+            "KI",
+            "KM",
+            "LO",
+            "ME",
+            "MW",
+            "NSP",
+            "OS",
+            "OSS",
+            "PHO",
+            "PHR",
+            "PHS",
+            "PI",
+            "PM",
+            "PR",
+            "PU",
+            "RE",
+            "RF",
+            "RN",
+            "RN",
+            "RT",
+            "SA",
+            "SN",
+            "SP",
+            "SS",
+            "ST",
+            "SU",
+            "SY",
+            "TN",
+            "TO",
+            "TR",
+            "TS"
+            ]
 
     def __init__(self, filename, encoding="iso-8859-1", low_memory=False,
             *args, **kw_args):
@@ -242,6 +286,8 @@ class BRENDAParser(object):
         self._numbers_pattern = re.compile(r"\d+", re.UNICODE)
         self._prot_qualifier = re.compile(r" (\w+) (?=UniProt|Uniprot|"\
                 "SwissProt|Swissprot|GenBank|Genbank)", re.UNICODE)
+        self._section_names = set(self.__class__._sections)
+        self._section_entry_names = set(self.__class__._section_entries)
         self._current = None
         self.enzymes = None
         self._line_number = None
@@ -263,6 +309,7 @@ class BRENDAParser(object):
         """
         if not self._file_handle.closed:
             self._file_handle.close()
+        return False
 
     def parse(self):
         """
@@ -273,10 +320,16 @@ class BRENDAParser(object):
             line = line.strip("\n")
             if not line:
                 continue
-            elif line.startswith("*"):
+            if line.startswith("*"):
                 continue
-            elif line.startswith("ID"):
-                self._parse_id(line[2:].strip())
+            content = line.split(None, 1)
+            if content[0] == "ID":
+                self._parse_id(content[1])
+            # TODO: check whether content[0] is in section_names, parse section
+            # and entries, finishers of sections by start of next entry or
+            # section
+# if content[1] should ever be empty, could pass content[1:] which is an empty
+# list
             elif line == "PROTEIN":
                 self._parse_information_field(line, parser=self._parse_protein)
             elif line == "REFERENCE":
