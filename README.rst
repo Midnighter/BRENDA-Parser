@@ -16,6 +16,15 @@ Copyright
 :License:
     Please see the LICENSE.rst file distributed with this module.
 
+Recent Changes
+--------------
+
+* Parser no longer hick-ups on empty lines, continued lines not starting with a
+  tab, and other format breaking content.
+* Parser now prints progress to stdout.
+* Soon, support for the SOAP interface will be added.
+* If desired, a setup script could be added.
+
 Usage
 -----
 
@@ -24,9 +33,9 @@ PYTHONPATH environment variable (unix).
 
 .. code:: python
 
-    >>> import brenda_parser as bp
-    >>> with bp.BRENDAParser("brenda_dl_2011.txt") as p:
-    ...     content = p.parse()
+    >>> from brenda import BRENDAParser
+    >>> with BRENDAParser("brenda_download.txt") as bp:
+    ...     content = bp.parse()
 
 The method parse returns a dictionary with all enzymes that were parsed. Every
 key in the dictionary is a string representing an EC number starting form the 6
@@ -43,10 +52,7 @@ always lists, as an example:
 Warning
 -------
 
-Starting with the BRENDA text file release since 2011-12-08 there is an unexpected
-empty line in the file (line number 3049468) that breaks the expected format for the
-parser. Please delete the line but not the white space at the beginning of the next
-line.
+The API changed slightly.
 
 Notes
 -----

@@ -13,17 +13,20 @@ BRENDA Enzyme Database Parser
 :Copyright:
     Copyright |c| 2011, Jacobs University Bremen gGmbH, all rights reserved.
 :File:
-    brenda_parser.py
+    parser.py
 
 .. |c| unicode:: U+A9
 """
 
 
+__all__ = ["BRENDAParser"]
+
+
+import sys
 import re
 import errno
 import codecs
 
-from StringIO import StringIO
 from collections import defaultdict
 
 
@@ -92,11 +95,14 @@ class Enzyme(object):
     def __str__(self):
         return self.ec_number
 
+    def __unicode__(self):
+        return unicode(self.ec_number)
+
     def __repr__(self):
         return self.ec_number
 
 
-class BRENDAEntryComment(object):
+class EntryComment(object):
     """
     Encapsulates a comment to an entry in a BRENDA information field.
     """
@@ -104,7 +110,7 @@ class BRENDAEntryComment(object):
     def __init__(self, message, organisms=None, references=None, *args,\
             **kw_args):
         """
-        Initialisation of a BRENDAEntryComment instance.
+        Initialisation of a EntryComment instance.
         """
         object.__init__(self)
         self.msg = message
@@ -118,7 +124,7 @@ class BRENDAEntryComment(object):
         return self.msg
 
 
-class BRENDAEntry(BRENDAEntryComment):
+class Entry(EntryComment):
     """
     Encapsulates an entry in a BRENDA information field.
     """
@@ -126,39 +132,26 @@ class BRENDAEntry(BRENDAEntryComment):
     def __init__(self, message, organisms=None, references=None,\
             information=None, comment=None, *args, **kw_args):
         """
-        Initialisation of a BRENDAEntryComment instance.
+        Initialisation of a EntryComment instance.
         """
-        BRENDAEntryComment.__init__(self, message=message, organisms=organisms,
+        EntryComment.__init__(self, message=message, organisms=organisms,
                 references=references, *args, **kw_args)
         self.information = information
         self.comment = comment
 
 
-class BRENDAOrganism(object):
+class Organism(object):
     """
     Encapsulates an entry in a BRENDA information field.
     """
 
     _counter = 1
-    _memory = dict()
-
-    def __new__(cls, name, identifier, references, information, comment, *args,
-            **kw_args):
-        """
-        Ensures the unique instance policy of all organisms.
-        """
-        if cls._memory.has_key((cls, name)):
-            return cls._memory[(cls, name)]
-        else:
-            return object.__new__(cls)
 
     def __init__(self, name, identifier, references, information, comment,
             *args, **kw_args):
         """
-        Initialisation of a BRENDAOrganism instance.
+        Initialisation of an Organism instance.
         """
-        if self.__class__._memory.has_key((self.__class__, name)):
-            return
         object.__init__(self)
         self._index = self.__class__._counter
         self.__class__._counter += 1
@@ -167,13 +160,33 @@ class BRENDAOrganism(object):
         self.references = references
         self.information = information
         self.comment = comment
-        self.__class__._memory[(self.__class__, self.name)] = self
 
     def __str__(self):
         return self.name
 
     def __repr__(self):
-        return "<%s.%s, %d>" % (self.__module__, self.__class__.__name__, self._index)
+        return "<%s.%s, %d>" % (self.__module__, self.__class__.__name__,
+                id(self))
+
+
+class ProgressMeter(object):
+
+    def __init__(self, end=None, **kw_args):
+        super(ProgressMeter, self).__init__(**kw_args)
+        if end:
+            self.end = float(end)
+            self.update = self._progress
+
+    def update(self, current):
+        pass
+
+    def _progress(self, current):
+        sys.stdout.write("\r{0:.1%}".format(current / self.end))
+        sys.stdout.flush()
+
+    def close(self):
+        sys.stdout.write("\r{0:.1%}\n".format(1.0))
+        sys.stdout.flush()
 
 
 class BRENDAParser(object):
@@ -278,7 +291,7 @@ class BRENDAParser(object):
         self._file_handle = None
         self._low_memory = low_memory
         self._encoding = encoding
-        self._white_space = re.compile(r"\s", re.UNICODE)
+        self._progress = None
         self._organisms_tag = re.compile(r"\#(.+?)\#", re.UNICODE)
         self._comment_tag = re.compile(r" \((.*)\)", re.UNICODE)
         self._reference_tag = re.compile(r"\<(.+?)\>", re.UNICODE)
@@ -287,7 +300,8 @@ class BRENDAParser(object):
         self._prot_qualifier = re.compile(r" (\w+) (?=UniProt|Uniprot|"\
                 "SwissProt|Swissprot|GenBank|Genbank)", re.UNICODE)
         self._section_names = set(self.__class__._sections)
-        self._section_entry_names = set(self.__class__._section_entries)
+        self._entry_names = dict(zip(self.__class__._sections,
+            self.__class__._section_entries))
         self._current = None
         self.enzymes = None
         self._line_number = None
@@ -296,9 +310,12 @@ class BRENDAParser(object):
         self._file_handle = codecs.open(self._filename, mode="rb",
                 encoding=self._encoding)
         if not self._low_memory:
-            tmp = StringIO(self._file_handle.read())
+            tmp = self._file_handle.readlines()
             self._file_handle.close()
             self._file_handle = tmp
+            self._progress = ProgressMeter(end=len(tmp))
+        else:
+            self._progress = ProgressMeter()
         self.enzymes = defaultdict(list)
         self._line_number = 0
         return self
@@ -307,7 +324,7 @@ class BRENDAParser(object):
         """
         Close the file handle.
         """
-        if not self._file_handle.closed:
+        if not isinstance(self._file_handle, list):
             self._file_handle.close()
         return False
 
@@ -315,9 +332,16 @@ class BRENDAParser(object):
         """
         Parse multiple Enzyme sections.
         """
+        section_id = ""
+        section = list()
+        entry_id = ""
+        entry = list()
+        parser = self._parse_generic_entry
         for line in self._file_handle:
+            if self._line_number % 1000 == 0:
+                self._progress.update(self._line_number)
             self._line_number += 1
-            line = line.strip("\n")
+            line = line.rstrip()
             if not line:
                 continue
             if line.startswith("*"):
@@ -325,57 +349,48 @@ class BRENDAParser(object):
             content = line.split(None, 1)
             if content[0] == "ID":
                 self._parse_id(content[1])
-            # TODO: check whether content[0] is in section_names, parse section
-            # and entries, finishers of sections by start of next entry or
-            # section
-# if content[1] should ever be empty, could pass content[1:] which is an empty
-# list
-            elif line == "PROTEIN":
-                self._parse_information_field(line, parser=self._parse_protein)
-            elif line == "REFERENCE":
-                self._parse_information_field(line, parser=self._parse_reference)
-            elif line == "///":
+            elif content[0] in self._section_names:
+                # two cases to handle: (1) continued entry not starting with tab
+                # (2) continued entry starting with section name
+                if content[1:]:
+                    entry.append(line.lstrip())
+                    continue
+                # first handle old content, then start new
+                if entry:
+                    section.append(parser(" ".join(entry)))
+                if section:
+                    self._current.entries[section_id] = section
+                section_id = content[0]
+                section = list()
+                entry_id = self._entry_names.get(section_id, False)
+                if not entry_id:
+                    raise ArgumentError("unrecognised entry: '%s' @ #%d", line,\
+                            self._line_number)
+                entry = list()
+                if section_id == "PROTEIN":
+                    parser = self._parse_protein
+                elif section_id == "REFERENCE":
+                    parser = self._parse_reference
+                else:
+                    parser = self._parse_generic_entry
+            elif content[0] == entry_id:
+                if entry:
+                    section.append(parser(" ".join(entry)))
+                entry = content[1:]
+            elif content[0] == "///":
                 # end one enzyme entry
+                if entry:
+                    section.append(parser(" ".join(entry)))
+                if section:
+                    self._current.entries[section_id] = section
                 self._current = None
-            elif line:
-                self._current.entries[line.lower()] =\
-                        self._parse_information_field(line)
+            else:
+                entry.append(line.lstrip())
         # convert to normal dictionary again
         res =  dict(self.enzymes)
         res["file_encoding"] = self._encoding
+        self._progress.close()
         return res
-
-    def _parse_information_field(self, line, parser=None):
-        """
-        Parse an information field of an enzyme.
-        """
-        field_identifier = self.__class__._subsections.get(line, False)
-        if not field_identifier:
-            raise ArgumentError("unrecognised entry: '%s' @ #%d", line,\
-                    self._line_number)
-        if not parser:
-            parser = self._parse_generic_entry
-        entries = list()
-        record = list()
-        for line in self._file_handle:
-            self._line_number += 1
-            line = line.strip("\n")
-            mobj = self._white_space.match(line)
-            if not line:
-                if record:
-                    entries.append(parser(" ".join(record)))
-                break
-            elif line.startswith(field_identifier):
-                if record:
-                    entries.append(parser(" ".join(record)))
-                    record = list()
-                record.append(line[len(field_identifier):].strip())
-            elif mobj:
-                record.append(line.strip())
-            else:
-                raise ArgumentError("unrecognised line: '%s' @ #%d", line,\
-                        self._line_number)
-        return entries
 
     def _parse_generic_entry(self, text):
         """
@@ -407,7 +422,7 @@ class BRENDAParser(object):
             text = text[:mobj.start()] + text[mobj.end():]
         else:
             references = None
-        return BRENDAEntry(text.strip(), organisms, references, information,\
+        return Entry(text.strip(), organisms, references, information,\
                 comment)
 
     def _parse_comment(self, text):
@@ -428,7 +443,7 @@ class BRENDAParser(object):
             text = text[:mobj.start()] + text[mobj.end():]
         else:
             references = None
-        return BRENDAEntryComment(text.strip(), organisms, references)
+        return EntryComment(text.strip(), organisms, references)
 
     def _parse_id(self, text):
         """
@@ -484,7 +499,7 @@ class BRENDAParser(object):
             text = text[:mobj.start()] + text[mobj.end():]
         else:
             references = None
-        self._current.organisms[organism] = BRENDAOrganism(text.strip(),
+        self._current.organisms[organism] = Organism(text.strip(),
                 identifier, references, information, comment)
 
     def _parse_reference(self, text):
