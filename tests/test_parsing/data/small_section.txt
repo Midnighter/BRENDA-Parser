@@ -1,0 +1,157 @@
+ID	6.6.1.2
+********************************************************************************
+*                                                                              *
+* Copyrighted by Dietmar Schomburg, Techn. University Braunschweig, GERMANY    *
+* Distributed under the License as stated at http:/www.brenda-enzymes.org      *
+*                                                                              *
+********************************************************************************
+
+PROTEIN
+PR	#1# Pseudomonas denitrificans (nomen rejiciendum)   <1>
+PR	#2# Salmonella enterica   <4>
+PR	#3# Desulfovibrio vulgaris   <4>
+PR	#4# Brucella melitensis   <3>
+PR	#5# Pseudomonas denitrificans (nomen rejiciendum) P29933 AND P29934 AND
+	Q9HZQ3 AND P29929 
+  <2>
+
+RECOMMENDED_NAME
+RN	cobaltochelatase
+
+
+SYSTEMATIC_NAME
+SN	hydrogenobyrinic-acid-a,c-diamide:cobalt cobalt-ligase (ADP-forming)
+
+
+SYNONYMS
+SY	 CobN–CobST
+SY	#2,3# CbiK <4>
+SY	#4,5# cobaltochelatase <2,3>
+SY	#5# hydrogenobyrinic acid a,c-diamide cobaltochelatase <2>
+SY	#5# CobNST <2>
+SY	#5# cobalt chelatase <2>
+SY	#5# CobN-CobST <2>
+SY	#5# gene cobN/gene cobS cobaltochelatase <2>
+SY	#5# holocobalamin synthase <2>
+
+REACTION
+RE	ATP + hydrogenobyrinic acid a,c-diamide + Co2+ + H2O = ADP + phosphate
+	+ cob(II)yrinic acid a,c-diamide + H+
+
+LOCALIZATION
+LO	#2,3# periplasm <4>
+
+NATURAL_SUBSTRATE_PRODUCT
+NSP	#1,4# ATP + hydrogenobyrinic acid a,c-diamide + Co2+ = ADP + phosphate
+	+ cob(II)yrinic acid a,c-diamide + H+ <1,3>
+NSP	#1,4# ATP + hydrogenobyrinic acid a,c-diamide + Co2+ = ADP + phosphate
+	+ cob(II)yrinic acid a,c-diamide + H+ {ir} <1,3>
+NSP	#5# hydrogenobyrinic acid a,c-diamide + ATP + Co2+ = ADP + phosphate +
+	cob(II)yrinic acid a,c-diamide + H+ <2>
+
+SUBSTRATE_PRODUCT
+SP	#1,4,5# ATP + hydrogenobyrinic acid a,c-diamide + Co2+ = ADP +
+	phosphate + cob(II)yrinic acid a,c-diamide + H+ <1,2,3>
+SP	#1,4,5# ATP + hydrogenobyrinic acid a,c-diamide + Co2+ = ADP +
+	phosphate + cob(II)yrinic acid a,c-diamide + H+ {ir} <1,2,3>
+SP	#3# more = ? (#3# the protein binds cobalt via residues His154, Glu184,
+	and His216 <4>) {} <4>
+SP	#5# dATP + hydrogenobyrinic acid a,c-diamide + Co2+ = dADP + phosphate
+	+ cob(II)yrinic acid a,c-diamide + H+ (#5# 65% of activity with respect
+	to ATP <2>) <2>
+SP	#5# CTP + hydrogenobyrinic acid a,c-diamide + Co2+ = CDP + phosphate +
+	cob(II)yrinic acid a,c-diamide + H+ (#5# 45% of activity with respect
+	to ATP <2>) <2>
+SP	#5# ITP + hydrogenobyrinic acid a,c-diamide + Co2+ = IDP + phosphate +
+	cob(II)yrinic acid a,c-diamide + H+ (#5# 5% of activity with respect to
+	ATP <2>) <2>
+SP	#5# hydrogenobyrinic acid a,c-diamide + ATP + Co2+ = ADP + phosphate +
+	cob(II)yrinic acid a,c-diamide + H+ <2>
+
+KM_VALUE
+KM	#5# 0.22 {ATP}  (#5# pH 8.0, 30°C <2>) <2>
+KM	#5# 0.0042 {Co2+}  (#5# pH 8.0, 30°C <2>) <2>
+KM	#5# 0.000085 {hydrogenobyrinic acid a,c-diamide}  (#5# pH 8.0, 30°C
+	<2>) <2>
+
+SPECIFIC_ACTIVITY
+SA	#5# -999.0 (#5# 0.0057 units for CobST subunit, 1 unit of CobN is
+	defined as the amount of CobST necessary to reconstruct 1 unit of the
+	entire complex. 0.006 for CobN subunit, 1 unit of CobN is defined as
+	the amount of CobN necessary to reconstruct 1 unit of the entire
+	complex <2>) <2>
+
+COFACTOR
+CF	#2,3# heme b <4>
+
+INHIBITORS
+IN	#5# diphosphate (#5# 50% inhibition at 5 mM <2>) <2>
+IN	#5# adenylyl (beta,gamma-methylene)-diphosphonate (#5# 50% inhibition
+	at 5 mM <2>) <2>
+IN	#5# Fe2+ (#5# 50% inhibition at 0.05 mM <2>) <2>
+IN	#5# N-ethylmaleimide (#5# 50% inhibition at 0.005 mM <2>) <2>
+IN	#5# adenylyl-imidodiphosphate (#5# 50% inhibition at 2 mM <2>) <2>
+IN	#5# Ni2+ (#5# 50% inhibition at 0.003 mM <2>) <2>
+IN	#5# Cu2+ (#5# 50% inhibition at 0.002 mM <2>) <2>
+IN	#5# AMP (#5# 15% inhibition at 10 mM <2>) <2>
+IN	#5# ADP (#5# 50% inhibition at 8 mM <2>) <2>
+IN	#5# Zn2+ (#5# 50% inhibition at 0.0005 mM <2>) <2>
+
+METALS_IONS
+ME	#5# Mg2+ (#5# ATP binding cation <2>) <2>
+
+MOLECULAR_WEIGHT
+MW	#5# 80000 (#5# 1 * 140000, CobN + 1 * 38000, namely CobS + 1 * 80000,
+	namely CobT, gel filtration, SDS-PAGE <2>) <2>
+MW	#5# 38000 (#5# 1 * 140000, CobN + 1 * 38000, namely CobS + 1 * 80000,
+	namely CobT, gel filtration, SDS-PAGE <2>) <2>
+MW	#5# 140000 (#5# 1 * 140000, CobN + 1 * 38000, namely CobS + 1 * 80000,
+	namely CobT, gel filtration, SDS-PAGE <2>) <2>
+MW	#5# 258000 (#5# gel filtration <2>) <2>
+
+SUBUNITS
+SU	#2,3# tetramer <4>
+SU	#5# trimer (#5# 1 * 140000, CobN + 1 * 38000, namely CobS + 1 * 80000,
+	namely CobT, gel filtration, SDS-PAGE <2>) <2>
+
+CLONED
+CL	#2# <4>
+CL	#3# <4>
+CL	#4# (subunits separately overexpressed in Escherichia coli BL21star
+	(DE3)pLysS) <3>
+
+CRYSTALLIZATION
+CR	#2# (hanging drop vapor diffusion method, using 100 mM Tris-HCl. pH
+	8.5, containing 2.0 M ammonium sulfate) <4>
+CR	#3# (hanging drop vapor diffusion method, using 100 mM Tris-HCl. pH
+	8.5, containing 2.0 M ammonium sulfate) <4>
+
+PURIFICATION
+PU	#2# <4>
+PU	#3# <4>
+PU	#5# (purification includes: Mono Q HR 10/10, Penyl-Superose and Mono Q
+	HR 5/5 chromatographies for CobN subunit, Mono Q HR 10/10,
+	Phenyl-Superose and AGATP for CobST subunit) <2>
+
+REFERENCE
+RF	<1> Debussche, L.; Thibaut, D.; Cameron, B.; Crouzet, J.; Blanche, F.:
+	Biosynthesis of the corrin macrocycle of coenzyme B12 in Pseudomonas
+	denitrificans. J. Bacteriol. (1993) 175, 7430-7440. {Pubmed:8226690} (c)
+RF	<2> Debussche, L.; Couder, M.; Thibaut, D.; Cameron, B.; Crouzet, J.;
+	Blanche, F.: Assay, purification, and characterization of
+	cobaltochelatase, a unique complex enzyme catalyzing cobalt insertion
+	in hydrogenobyrinic acid a,c-diamide during coenzime B12 biosynthesis
+	in Pseudomonas denitrificans. J. Bacteriol. (1992) 174, 7445-7451.
+	{Pubmed:1429466}
+RF	<3> Lundqvist, J.; Elmlund, D.; Heldt, D.; Deery, E.; Soederberg, C.A.;
+	Hansson, M.; Warren, M.; Al-Karadaghi, S.: The AAA(+) motor complex of
+	subunits CobS and CobT of cobaltochelatase visualized by single
+	particle electron microscopy. J. Struct. Biol. (2009) 167, 227-234.
+	{Pubmed:19545636}
+RF	<4> Romao, C.V.; Ladakis, D.; Lobo, S.A.; Carrondo, M.A.; Brindley,
+	A.A.; Deery, E.; Matias, P.M.; Pickersgill, R.W.; Saraiva, L.M.;
+	Warren, M.J.: Evolution in a family of chelatases facilitated by the
+	introduction of active site asymmetry and protein oligomerization.
+	Proc. Natl. Acad. Sci. USA (2011) 108, 97-102. {Pubmed:21173279}
+
+///
