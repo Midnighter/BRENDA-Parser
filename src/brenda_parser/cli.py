@@ -32,14 +32,24 @@
 from __future__ import absolute_import
 
 import logging
+from multiprocessing import cpu_count
+from warnings import warn
 
 import click
 import click_log
 
+import brenda_parser.api as api
 from brenda_parser import __version__
 
 LOGGER = logging.getLogger(__name__.split(".", 1)[0])
 click_log.basic_config(LOGGER)
+
+try:
+    PROCESSES = cpu_count()
+except NotImplementedError:
+    warn("Could not detect the number of CPUs - assuming 1.",
+         UserWarning)
+    PROCESSES = 1
 
 
 @click.group()
@@ -51,3 +61,23 @@ click_log.basic_config(LOGGER)
 def cli():
     """Parse the BRENDA Enzyme flat file distribution to a local database."""
     pass
+
+
+@cli.command()
+@click.help_option("--help", "-h")
+@click.option("--filename", type=click.Path(exists=False, writable=True),
+              default="brenda.db", show_default=True,
+              help="Path to where the SQLite3 database is stored.")
+@click.option("--connection", default=None, show_default=True, metavar="URL",
+              help="An rfc1738 compatible database URL. Overrides the "
+                   "filename option.")
+@click.option("--processes", type=int, default=PROCESSES, show_default=True,
+              help="The number of parallel processes to use during parsing.")
+@click.argument("flat_file", type=click.Path(exists=True, dir_okay=False),
+                envvar="FILENAME")
+def parse(flat_file, filename, connection, processes):
+    if connection is None:
+        connection = "sqlite:///{}".format(filename)
+    with open(flat_file) as file_handle:
+        lines = file_handle.readlines()
+    api.parse(lines, connection, processes=processes)

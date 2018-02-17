@@ -33,9 +33,8 @@
 from __future__ import absolute_import
 
 import logging
-import re
 
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Table, Column, Integer, ForeignKey
 from sqlalchemy.orm import validates, relationship
 
 from brenda_parser.exceptions import ValidationError
@@ -46,38 +45,42 @@ __all__ = ("Protein",)
 LOGGER = logging.getLogger(__name__)
 
 
+protein_citation_association = Table(
+    "protein_citation_association",
+    Base.metadata,
+    Column('protein_id', Integer, ForeignKey('protein.id')),
+    Column('reference_id', Integer, ForeignKey('reference.id'))
+)
+
+
+protein_comment_association = Table(
+    "protein_comment_association",
+    Base.metadata,
+    Column('protein_id', Integer, ForeignKey('protein.id')),
+    Column('comment_id', Integer, ForeignKey('comment.id'))
+)
+
+
 class Protein(Base):
 
     __tablename__ = "protein"
-
-    # Taken from identifiers.org
-    UNIPROT_PATTERN = re.compile(
-        r"([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9]"
-        r"[A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?")
 
     id = Column(Integer, primary_key=True)
     field_id = Column(Integer, ForeignKey("informationfield.id"))
     field = relationship("InformationField")
     organism_id = Column(Integer, ForeignKey("organism.id"))
     organism = relationship("Organism")
-    accession = Column(String(255), nullable=True, unique=True)
-    database = Column(String(255), nullable=True)
-    # citations = relationship("Reference")
+    accession_id = Column(Integer, ForeignKey("accession.id"))
+    accession = relationship("Accession")
+    citations = relationship("Reference",
+                             secondary=protein_citation_association)
+    comments = relationship("Comment",
+                            secondary=protein_comment_association)
 
     def __init__(self, **kwargs):
         super(Protein, self).__init__(**kwargs)
         self.organism_name = ""
         self.citation_references = list()
-
-    @validates("accession")
-    def validate_accession(self, key, value):
-        if value is None:
-            return value
-        if self.UNIPROT_PATTERN.match(value) is None:
-            raise ValidationError(
-                "'{}' does not match the required pattern '{}'."
-                "".format(value, self.UNIPROT_PATTERN))
-        return value
 
     @validates("field")
     def validate_field(self, key, value):

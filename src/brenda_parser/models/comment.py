@@ -34,7 +34,7 @@ from __future__ import absolute_import
 
 import logging
 
-from sqlalchemy import Column, Text
+from sqlalchemy import Table, Column, String, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 
 from brenda_parser.models import Base
@@ -44,11 +44,30 @@ __all__ = ("Comment",)
 LOGGER = logging.getLogger(__name__)
 
 
+comment_protein_association = Table(
+    "comment_protein_association",
+    Base.metadata,
+    Column('comment_id', Integer, ForeignKey('comment.id')),
+    Column('protein_id', Integer, ForeignKey('protein.id'))
+)
+
+
+comment_citation_association = Table(
+    "comment_citation_association",
+    Base.metadata,
+    Column('comment_id', Integer, ForeignKey('comment.id')),
+    Column('reference_id', Integer, ForeignKey('reference.id'))
+)
+
+
 class Comment(Base):
 
     __tablename__ = "comment"
 
-    proteins = relationship("Protein")
-    commentary = Column(Text())
-    citations = relationship("Reference")
+    id = Column(Integer, primary_key=True)
+    body = Column(String(255))
+    proteins = relationship("Protein",
+                            secondary=comment_protein_association)
+    citations = relationship("Reference",
+                             secondary=comment_citation_association)
 

@@ -33,17 +33,31 @@
 from __future__ import absolute_import
 
 import logging
-import re
 
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import validates, relationship
+from sqlalchemy import Table, Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
 
-from brenda_parser.exceptions import ValidationError
 from brenda_parser.models import Base
 
 __all__ = ("Enzyme",)
 
 LOGGER = logging.getLogger(__name__)
+
+
+enzyme_entry_association = Table(
+    "enzyme_entry_association",
+    Base.metadata,
+    Column('enzyme_id', Integer, ForeignKey('enzyme.id')),
+    Column('fieldentry_id', Integer, ForeignKey('fieldentry.id'))
+)
+
+
+enzyme_comment_association = Table(
+    "enzyme_comment_association",
+    Base.metadata,
+    Column('enzyme_id', Integer, ForeignKey('enzyme.id')),
+    Column('comment_id', Integer, ForeignKey('comment.id'))
+)
 
 
 class Enzyme(Base):
@@ -52,11 +66,17 @@ class Enzyme(Base):
     __tablename__ = "enzyme"
 
     id = Column(Integer, primary_key=True)
-    ec_number = Column(String(19))
+    ec_number = Column(String(19), nullable=False)
+    entries = relationship("FieldEntry", secondary=enzyme_entry_association)
+    comments = relationship("Comment", secondary=enzyme_comment_association)
+    # proteins = relationship("PR")
     # # TODO: The following relationships should be established by joins on
     # # 'field' selecting specific acronyms.
-    # proteins = relationship("PR")
-    # recommended_names = relationship("RN")
+    # recommended_names = relationship(
+    #     "FieldEntry",
+    #     secondary=enzyme_entry_association,
+    #     secondaryjoin="FieldEntry.field.acronym == 'RN'"
+    # )
     # systematic_names = relationship("SN")
     # synonyms = relationship("SY")
     # reactions = relationship("RE")
@@ -98,7 +118,5 @@ class Enzyme(Base):
 
     def __init__(self, **kwargs):
         super(Enzyme, self).__init__(**kwargs)
-        self.entries = list()
-        self.proteins = list()
-        self.references = list()
-        self.comments = list()
+        self.protein_references = list()
+        self.citation_references = list()

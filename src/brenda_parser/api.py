@@ -29,22 +29,129 @@
 
 """Provide an API to the BRENDA parser."""
 
-from __future__ import absolute_import
+from __future__ import absolute_import, division
 
 import logging
+import multiprocessing
+import re
+from warnings import warn
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from tqdm import tqdm
 
 import brenda_parser.models as models
+from brenda_parser.parsing import BRENDAParser, BRENDALexer
+
+__all__ = ("initialize", "parse")
 
 LOGGER = logging.getLogger(__name__)
+EC_PATTERN = re.compile(r"ID\t((\d+)\.(\d+)\.(\d+)\.(\d+))")
+
 Session = sessionmaker()
 
 
-def initialize_db(connection="sqlite:///:memory:"):
+def init_worker(engine):
+    global lexer
+    global parser
+    global session
+    lexer = BRENDALexer(optimize=1)
+    parser = BRENDAParser(lexer=lexer, optimize=1)
+    session = Session(bind=engine)
+
+
+def worker(section):
+    global parser
+    global session
+    enzyme = parser.parse(section, session)
+    if enzyme is None:
+        match = EC_PATTERN.match(section)
+        return False, match.group(1)
+    else:
+        return True, enzyme
+
+
+def initialize(connection="sqlite:///:memory:"):
     engine = create_engine(connection)
     session = Session(bind=engine)
     models.Base.metadata.create_all(engine, checkfirst=True)
     models.InformationField.preload(session)
     return engine, session
+
+
+def parse(lines, connection="sqlite:///:memory:", processes=1):
+    """
+    Parse each section of the BRENDA flat file into an enzyme model.
+
+    Parameters
+    ----------
+    lines : list
+        The BRENDA flat file download as a list of strings.
+    connection : str, optional
+        An rfc1738 compatible database connection string.
+    processes : int, optional
+        The number of processes to use.
+
+    Returns
+    -------
+    Session
+        A database session that can be queried using the various data models.
+
+    """
+    engine, session = initialize(connection)
+    start = 1
+    sections = list()
+    for i in range(len(lines)):
+        if lines[i].startswith("ID"):
+            start = i
+            continue
+        if lines[i].startswith("///"):
+            sections.append("".join(lines[start:i + 1]))
+    processes = min(processes, len(sections))
+    if processes > 1:
+        multi_parse(sections, engine, processes=processes)
+    else:
+        init_worker(engine)
+        single_parse(sections)
+    return session
+
+
+def single_parse(sections):
+    """
+
+    Parameters
+    ----------
+    sections
+
+    Returns
+    -------
+
+    """
+    global parser
+    global session
+    for section in tqdm(sections):
+        enzyme = parser.parse(section, session)
+        if enzyme is None:
+            match = EC_PATTERN.match(section)
+            LOGGER.error("Problem with enzyme '%s'.", match.group(1))
+            LOGGER.debug("%s", section)
+        else:
+            session.add(enzyme)
+            session.commit()
+
+
+def multi_parse(sections, engine, processes=2):
+    pool = multiprocessing.Pool(
+        processes=processes, initializer=init_worker, initargs=(engine,))
+    result_iter = pool.imap_unordered(
+        worker, sections, chunksize=len(sections) // processes)
+    with tqdm(total=len(sections)) as pbar:
+        for success, enzyme in result_iter:
+            if success:
+                session.add(enzyme)
+                session.commit()
+            else:
+                LOGGER.error("Problem with enzyme '%s'.", enzyme)
+            pbar.update()
+    pool.close()
+    pool.join()

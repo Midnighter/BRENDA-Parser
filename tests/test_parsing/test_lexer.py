@@ -107,7 +107,7 @@ def test_special_tokens(tokenizer, expected):
     ("( 12,423,23)", ["LPARENS", "COMMENT", "RPARENS"]),
     ("(12) 13 (", ["LPARENS", "COMMENT", "RPARENS", "CONTENT", "LPARENS"]),
 ], indirect=["tokenizer"])
-def test_special_tokens(tokenizer, expected):
+def test_comment_tokens(tokenizer, expected):
     tokens = [t.type for t in tokenizer]
     assert tokens == expected
 

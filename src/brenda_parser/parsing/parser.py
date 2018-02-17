@@ -87,13 +87,13 @@ class BRENDAParser(object):
     """
 
     precedence = (
-        ("left", "ENZYME"),
+        # ("left", "ENZYME"),
         ("left", "ASSEMBLE"),
         ("left", "REDUCE"),
         ("left", "COMBINE")
     )
 
-    def __init__(self, lexer=None, **kw_args):
+    def __init__(self, lexer=None, **kwargs):
         """
         Instantiate a BRENDA parser.
 
@@ -102,19 +102,19 @@ class BRENDAParser(object):
         lexer : ply.lex (optional)
             Any ply.lex lexer instance that generates the tokens listed in the
             rules. The default uses a BRENDALexer instance.
-        kw_args :
+        kwargs :
             Keyword arguments are passed to the ply.yacc.yacc call.
         """
         super(BRENDAParser, self).__init__()
         self._lexer = BRENDALexer() if lexer is None else lexer
         self.tokens = self._lexer.tokens
-        self.parser = yacc(module=self, errorlog=LOGGER, **kw_args)
+        self.parser = yacc(module=self, errorlog=LOGGER, **kwargs)
         self._session = None
         self.proteins = dict()
         self.citations = dict()
         self._current_entry = None
 
-    def parse(self, section, session, **kw_args):
+    def parse(self, section, session, **kwargs):
         """
         Parse an entire enzyme section according to the rules.
 
@@ -127,7 +127,7 @@ class BRENDAParser(object):
             A BRENDA enzyme section starting from 'ID   x.x.x.x' until '///'.
         session : sqlalchemy.Session
             A running session for querying database connections.
-        kw_args :
+        kwargs :
             Keyword arguments are passed on to the ply.yacc.yacc.parse call.
 
         """
@@ -135,60 +135,52 @@ class BRENDAParser(object):
         self.proteins.clear()
         self.citations.clear()
         self._current_entry = None
-        return self.parser.parse(section, lexer=self._lexer, **kw_args)
+        return self.parser.parse(section, lexer=self._lexer, **kwargs)
 
     def p_enzyme(self, p):
-        """enzyme : ENTRY EC_NUMBER new_enzyme"""
-        LOGGER.debug("%s: %s", self.p_enzyme.__doc__, p[3].ec_number)
+        """enzyme : ENZYME_ENTRY EC_NUMBER new_enzyme"""
         p[0] = p[3]
 
     def p_new_enzyme(self, p):
         """new_enzyme :"""
-        LOGGER.debug("%s: %s", self.p_new_enzyme.__doc__, p[-1])
+        LOGGER.debug("%s %s", self.p_new_enzyme.__doc__, p[-1])
         assert p[-2] == "ID"
         p[0] = models.Enzyme(ec_number=p[-1])
 
     def p_enzyme_comment(self, p):
-        """enzyme : enzyme comment %prec ENZYME"""
-        LOGGER.debug("%s: %s", self.p_enzyme_comment.__doc__, p[1].ec_number)
+        """enzyme : enzyme comment"""
         if p[2] is not None:
             p[1].comments.append(p[2])
         p[0] = p[1]
 
     def p_enzyme_protein(self, p):
-        """enzyme : enzyme protein_entry %prec ENZYME"""
-        LOGGER.debug("%s: %s", self.p_enzyme_protein.__doc__, p[1].ec_number)
-        p[1].proteins.append(p[2])
+        """enzyme : enzyme protein_entry"""
+        p[1].protein_references.append(p[2])
         p[0] = p[1]
 
     def p_enzyme_reference(self, p):
-        """enzyme : enzyme reference_entry %prec ENZYME"""
-        LOGGER.debug("%s: %s", self.p_enzyme_reference.__doc__, p[1].ec_number)
-        p[1].references.append(p[2])
+        """enzyme : enzyme reference_entry"""
+        p[1].citation_references.append(p[2])
         p[0] = p[1]
 
     def p_enzyme_entry(self, p):
-        """enzyme : enzyme entry %prec ENZYME"""
-        LOGGER.debug("%s: %s", self.p_enzyme_entry.__doc__, p[1].ec_number)
+        """enzyme : enzyme entry"""
         # TODO: In future, add to specific children based on acronym.
         p[1].entries.append(p[2])
         p[0] = p[1]
 
     def p_enzyme_end(self, p):
         """enzyme : enzyme END"""
-        LOGGER.debug("%s: %s", self.p_enzyme_end.__doc__, p[1].ec_number)
         # TODO: Finalize protein and citation references.
         p[0] = p[1]
 
     def p_entry(self, p):
-        """entry : ENTRY new_entry"""
-        LOGGER.debug("%s: %s", self.p_entry.__doc__, p[1])
+        """entry : ENTRY new_entry %prec REDUCE"""
         assert p[1] == p[2].field.acronym
         p[0] = p[2]
 
     def p_new_entry(self, p):
-        """new_entry :"""
-        LOGGER.debug("%s: %s", self.p_new_entry.__doc__, p[-1])
+        """new_entry : %prec REDUCE"""
         field = self._session.query(models.InformationField) \
             .filter_by(acronym=p[-1]) \
             .one()
@@ -196,29 +188,42 @@ class BRENDAParser(object):
 
     def p_entry_content(self, p):
         """entry : entry CONTENT"""
-        LOGGER.debug("%s: %s", self.p_entry_content.__doc__, p[1].field.acronym)
         assert len(p[2]) > 0
         p[1].body += " {}".format(p[2])
         p[0] = p[1]
 
+    def p_entry_proteins(self, p):
+        """entry : entry proteins %prec ASSEMBLE"""
+        if p[2] is not None:
+            p[1].protein_references.extend(p[2])
+        p[0] = p[1]
+
     def p_entry_comment(self, p):
         """entry : entry comment %prec ASSEMBLE"""
-        LOGGER.debug("%s: %s", self.p_entry_comment.__doc__, p[1].field.acronym)
         if p[2] is not None:
-            p[1].comment_references.append(p[2])
+            p[1].comments.append(p[2])
+        p[0] = p[1]
+
+    def p_entry_special(self, p):
+        """entry : entry special %prec ASSEMBLE"""
+        if p[2] is not None:
+            p[1].special = p[2]
+        p[0] = p[1]
+
+    def p_entry_citations(self, p):
+        """entry : entry citations %prec ASSEMBLE"""
+        if p[2] is not None:
+            p[1].citation_references.extend(p[2])
         p[0] = p[1]
 
     def p_reference_entry(self, p):
         """reference_entry : REFERENCE_ENTRY new_reference citations"""
-        LOGGER.debug("%s: %s", self.p_reference_entry.__doc__,
-                     p[2].field.acronym)
         assert len(p[3]) == 1  # Reference entry only has its own number.
         self.citations[p[3][0]] = p[2]
         p[0] = p[2]
 
     def p_new_reference(self, p):
         """new_reference :"""
-        LOGGER.debug("%s: %s", self.p_new_reference.__doc__, p[-1])
         assert p[-1] == "RF"
         field = self._session.query(models.InformationField) \
             .filter_by(acronym=p[-1]) \
@@ -227,24 +232,18 @@ class BRENDAParser(object):
 
     def p_reference_content(self, p):
         """reference_entry : reference_entry CONTENT"""
-        LOGGER.debug("%s: %s", self.p_reference_content.__doc__,
-                     p[1].field.acronym)
         assert len(p[2]) > 0
         p[1].body += " {}".format(p[2])
         p[0] = p[1]
 
     def p_reference_year(self, p):
         """reference_entry : reference_entry comment %prec ASSEMBLE"""
-        LOGGER.debug("%s: %s", self.p_reference_year.__doc__,
-                     p[1].field.acronym)
         if p[2] is not None:
-            p[1].body += " ({})".format(p[2])
+            p[1].body += " ({})".format(p[2].body)
         p[0] = p[1]
 
     def p_reference_pubmed(self, p):
         """reference_entry : reference_entry special %prec ASSEMBLE"""
-        LOGGER.debug("%s: %s", self.p_reference_pubmed.__doc__,
-                     p[1].field.acronym)
         try:
             p[1].pubmed = p[2]
         except ValidationError:
@@ -252,15 +251,13 @@ class BRENDAParser(object):
         p[0] = p[1]
 
     def p_protein_entry(self, p):
-        """protein_entry : PROTEIN_ENTRY new_protein proteins"""
-        LOGGER.debug("%s: %s", self.p_protein_entry.__doc__, p[1])
+        """protein_entry : PROTEIN_ENTRY new_protein proteins %prec COMBINE"""
         assert len(p[3]) == 1  # Protein entry only has its own number.
         self.proteins[p[3][0]] = p[2]
         p[0] = p[2]
 
     def p_new_protein(self, p):
         """new_protein :"""
-        LOGGER.debug("%s: %s", self.p_new_protein.__doc__, p[-1])
         assert p[-1] == "PR"
         field = self._session.query(models.InformationField) \
             .filter_by(acronym=p[-1]) \
@@ -268,116 +265,112 @@ class BRENDAParser(object):
         p[0] = models.Protein(field=field)
 
     def p_protein_organism(self, p):
-        """protein_entry : protein_entry CONTENT"""
-        LOGGER.debug("%s: %s", self.p_protein_organism.__doc__,
-                     p[1].field.acronym)
+        """protein_entry : protein_entry CONTENT %prec ASSEMBLE"""
         assert len(p[2]) > 0
         # TODO: Find or create the organism.
         p[1].organism_name += p[2]
         p[0] = p[1]
 
     def p_protein_accession(self, p):
-        """protein_entry : protein_entry ACCESSION CONTENT"""
-        LOGGER.debug("%s: %s", self.p_protein_accession.__doc__,
-                     p[1].field.acronym)
-        # Might have to be split into its own rule if ACCESSION occurs without
-        # database (CONTENT).
+        """protein_entry : protein_entry accession %prec ASSEMBLE"""
         p[1].accession = p[2]
-        p[1].database = p[3]
+        p[0] = p[1]
+
+    def p_protein_comment(self, p):
+        """protein_entry : protein_entry comment %prec ASSEMBLE"""
+        if p[2] is not None:
+            p[1].comments.append(p[2])
         p[0] = p[1]
 
     def p_protein_citations(self, p):
         """protein_entry : protein_entry citations %prec ASSEMBLE"""
-        LOGGER.debug("%s: %s", self.p_protein_citations.__doc__,
-                     p[1].field.acronym)
         if p[2] is not None:
             p[1].citation_references.extend(p[2])
         p[0] = p[1]
 
+    def p_accession_combine(self, p):
+        """accession : accession AND ACCESSION %prec COMBINE"""
+        p[1].accession = "{} & {}".format(p[1].accession, p[3])
+        p[0] = p[1]
+
+    def p_accession_database(self, p):
+        """accession : accession CONTENT %prec COMBINE"""
+        p[1].database = p[2]
+        p[0] = p[1]
+
+    def p_accession(self, p):
+        """accession : ACCESSION %prec REDUCE"""
+        p[0] = models.Accession(accession=p[1])
+
     def p_special(self, p):
         """special : LCURLY special RCURLY"""
-        LOGGER.debug("%s", self.p_special.__doc__)
         p[0] = p[2]
 
     def p_special_empty(self, p):
         """special : LCURLY RCURLY"""
-        LOGGER.debug("%s", self.p_special_empty.__doc__)
         pass
 
     def p_special_combine(self, p):
         """special : special SPECIAL %prec COMBINE"""
-        LOGGER.debug("%s", self.p_special_combine.__doc__)
         p[0] = "{0} {1}".format(p[1], p[2])
 
     def p_special_end(self, p):
         """special : SPECIAL %prec REDUCE"""
-        LOGGER.debug("%s", self.p_special_end.__doc__)
         p[0] = p[1].strip()
 
     def p_proteins(self, p):
-        """proteins : POUND proteins POUND"""
-        LOGGER.debug("%s", self.p_proteins.__doc__)
+        """proteins : POUND proteins POUND %prec ASSEMBLE"""
         p[0] = p[2]
 
     def p_proteins_empty(self, p):
-        """proteins : POUND POUND """
-        LOGGER.debug("%s", self.p_proteins_empty.__doc__)
+        """proteins : POUND POUND %prec ASSEMBLE"""
         pass
 
     def p_proteins_combine(self, p):
         """proteins : proteins PROTEIN %prec COMBINE"""
-        LOGGER.debug("%s", self.p_proteins_combine.__doc__)
         p[1].append(p[2])
         p[0] = p[1]
 
     def p_proteins_end(self, p):
         """proteins : PROTEIN %prec REDUCE"""
-        LOGGER.debug("%s", self.p_proteins_end.__doc__)
         p[0] = [p[1]]
 
     def p_citations(self, p):
-        """citations : LANGLE citations RANGLE"""
-        LOGGER.debug("%s", self.p_citations.__doc__)
+        """citations : LANGLE citations RANGLE %prec ASSEMBLE"""
         p[0] = p[2]
 
     def p_citations_empty(self, p):
-        """citations : LANGLE RANGLE """
-        LOGGER.debug("%s", self.p_citations_empty.__doc__)
+        """citations : LANGLE RANGLE %prec ASSEMBLE"""
         pass
 
     def p_citations_combine(self, p):
         """citations : citations CITATION %prec COMBINE"""
-        LOGGER.debug("%s", self.p_citations_combine.__doc__)
         p[1].append(p[2])
         p[0] = p[1]
 
     def p_citations_end(self, p):
         """citations : CITATION %prec REDUCE"""
-        LOGGER.debug("%s", self.p_citations_end.__doc__)
         p[0] = [p[1]]
 
     def p_comment(self, p):
-        """comment : LPARENS comment RPARENS"""
-        LOGGER.debug("%s", self.p_comment.__doc__)
+        """comment : LPARENS comment RPARENS %prec ASSEMBLE"""
         p[0] = p[2]
 
     def p_comment_empty(self, p):
-        """comment : LPARENS RPARENS"""
-        LOGGER.debug("%s", self.p_comment_empty.__doc__)
+        """comment : LPARENS RPARENS %prec ASSEMBLE"""
         pass
 
     def p_comment_combine(self, p):
         """comment : comment COMMENT %prec COMBINE"""
-        LOGGER.debug("%s", self.p_comment_combine.__doc__)
-        p[0] = "{0} {1}".format(p[1], p[2])
+        p[1].body = "{0} {1}".format(p[1].body, p[2])
+        p[0] = p[1]
 
     def p_comment_end(self, p):
         """comment : COMMENT %prec REDUCE"""
-        LOGGER.debug("%s", self.p_comment_end.__doc__)
-        p[0] = p[1]
+        p[0] = models.Comment(body=p[1])
 
     def p_error(self, p):
-        LOGGER.debug("error: %s", str(p))
+        LOGGER.debug("Error: %s", str(p))
         # TODO: If `p` is None (we allow some empty rules) it's only an error
         # if any parentheses or similar are unbalanced.
         if False:

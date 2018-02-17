@@ -38,3 +38,8 @@ __email__ = 'moritz.beber@gmail.com'
 from ._version import get_versions
 __version__ = get_versions()['version']
 del get_versions
+
+
+from brenda_parser.exceptions import *
+from brenda_parser.models import *
+from brenda_parser.api import *

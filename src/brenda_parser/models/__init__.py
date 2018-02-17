@@ -37,8 +37,10 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 from brenda_parser.models.information_field import *
+from brenda_parser.models.accession import *
 from brenda_parser.models.organism import *
 from brenda_parser.models.reference import *
 from brenda_parser.models.protein import *
+from brenda_parser.models.comment import *
 from brenda_parser.models.field_entry import *
 from brenda_parser.models.enzyme import *

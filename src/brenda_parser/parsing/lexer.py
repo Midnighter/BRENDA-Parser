@@ -52,10 +52,12 @@ class BRENDALexer(object):
         ("protein", "exclusive"),
         ("special", "exclusive"),
         ("comment", "exclusive"),
+        ("enzyme", "exclusive"),
         ("protentry", "inclusive"),
     )
     # List of token names. This is always required.
     tokens = (
+        "ENZYME_ENTRY",
         "PROTEIN",
         "CITATION",
         "ENTRY",
@@ -73,18 +75,19 @@ class BRENDALexer(object):
         "CONTENT",
         "SPECIAL",
         "COMMENT",
+        "AND",
         "ACCESSION"
     )
 
     # A string containing ignored characters interpreted literally not as regex.
-    t_ignore = " \t\r\f\v"  # all whitespace
-    t_citation_protein_ignore = " ,"
-    t_special_comment_ignore = " \t\r\f\v"
+    t_ignore = " \t\r\f\v"  # all whitespace minus newlines
+    t_citation_protein_ignore = " ,\t"
+    t_special_comment_enzyme_ignore = " \t\r\f\v"
     # Regular expression rules for simple tokens are parsed after all patterns
     # defined in methods.
-    t_CONTENT = "[^\{\}\(\)\<\>\#\n]+"
+    t_CONTENT = "[^\{\}\(\)\<\>\# \t\r\f\v\n]+"
 
-    def __init__(self, **kw_args):
+    def __init__(self, **kwargs):
         """
         Instantiate a BRENDA flat file specific lexer.
 
@@ -100,7 +103,7 @@ class BRENDALexer(object):
             Keyword arguments are passed to the ply.lex.lex call.
         """
         super(BRENDALexer, self).__init__()
-        self.lexer = lex(module=self, errorlog=LOGGER, **kw_args)
+        self.lexer = lex(module=self, errorlog=LOGGER, **kwargs)
         self.parens_level = 0
         self.last_lparens = 0
         self.last_rparens = 0
@@ -112,8 +115,11 @@ class BRENDALexer(object):
         return (tok for tok in iter(self.lexer.token, None))
 
     def input(self, data):
-        """Add a new string to the lexer.
+        """
+        Add a new string to the lexer.
+
         This is the setup step necessary before you can iterate over the tokens.
+
         Parameters
         ----------
         data : str
@@ -129,12 +135,13 @@ class BRENDALexer(object):
 
     def t_ANY_newline(self, t):
         r'\n+'
+        LOGGER.debug("lineno %d +%d", t.lineno, len(t.value))
         t.lexer.lineno += len(t.value)
 
     def t_brenda_comment(self, t):
         r"\*.+\n"
+        LOGGER.debug("lineno %d: Skipping comment line.", t.lineno)
         t.lexer.lineno += 1
-        pass
 
     def t_POUND(self, t):
         r"[#]"
@@ -207,12 +214,26 @@ class BRENDALexer(object):
             t.type = "COMMENT"
         return t
 
-    def t_EC_NUMBER(self, t):
-        r"(\d+)\.(\d+)\.(\d+)\.(\d+)"
-        return t
-
     def t_END(self, t):
         r"[/]{3}\s"
+        t.lexer.push_state("INITIAL")
+        t.value = t.value.strip()
+        return t
+
+    def t_ENZYME_ENTRY(self, t):
+        r"ID\t"
+        t.lexer.push_state("enzyme")
+        t.value = t.value.strip()
+        return t
+
+    def t_enzyme_EC_NUMBER(self, t):
+        r"(\d+)\.(\d+)\.(\d+)\.(\d+)"
+        t.lexer.pop_state()
+        return t
+
+    def t_protentry_PROTEIN_ENTRY(self, t):
+        r"PR\t"
+        t.value = t.value.strip()
         return t
 
     def t_protentry_ENTRY(self, t):
@@ -240,9 +261,14 @@ class BRENDALexer(object):
         return t
 
     def t_brenda_header(self, t):
-        r"[A-Z0-9]{4,}\n"
+        r"[A-Z0-9_]{4,}\n"
+        LOGGER.debug("lineno %d: Section header '%s'.", t.lineno,
+                     t.value.strip())
         t.lexer.lineno += 1
-        pass
+
+    def t_protentry_AND(self, t):
+        r"AND"
+        return t
 
     def t_protentry_ACCESSION(self, t):
         r"([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?"

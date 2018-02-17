@@ -5,9 +5,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftENZYMEleftASSEMBLEleftREDUCEleftCOMBINEPROTEIN CITATION ENTRY PROTEIN_ENTRY REFERENCE_ENTRY POUND LPARENS RPARENS LANGLE RANGLE LCURLY RCURLY EC_NUMBER END CONTENT SPECIAL COMMENT ACCESSIONenzyme : ENTRY EC_NUMBER new_enzymenew_enzyme :enzyme : enzyme comment %prec ENZYMEenzyme : enzyme protein_entry %prec ENZYMEenzyme : enzyme reference_entry %prec ENZYMEenzyme : enzyme entry %prec ENZYMEenzyme : enzyme ENDentry : ENTRY new_entrynew_entry :entry : entry CONTENTentry : entry comment %prec ASSEMBLEreference_entry : REFERENCE_ENTRY new_reference citationsnew_reference :reference_entry : reference_entry CONTENTreference_entry : reference_entry comment %prec ASSEMBLEreference_entry : reference_entry special %prec ASSEMBLEprotein_entry : PROTEIN_ENTRY new_protein proteinsnew_protein :protein_entry : protein_entry CONTENTprotein_entry : protein_entry ACCESSION CONTENTprotein_entry : protein_entry citations %prec ASSEMBLEspecial : LCURLY special RCURLYspecial : LCURLY RCURLYspecial : special SPECIAL %prec COMBINEspecial : SPECIAL %prec REDUCEproteins : POUND proteins POUNDproteins : POUND POUND proteins : proteins PROTEIN %prec COMBINEproteins : PROTEIN %prec REDUCEcitations : LANGLE citations RANGLEcitations : LANGLE RANGLE citations : citations CITATION %prec COMBINEcitations : CITATION %prec REDUCEcomment : LPARENS comment RPARENS %prec REDUCEcomment : LPARENS RPARENS %prec REDUCEcomment : comment COMMENT %prec COMBINEcomment : COMMENT %prec REDUCE'
+_lr_signature = 'leftASSEMBLEleftREDUCEleftCOMBINEENZYME_ENTRY PROTEIN CITATION ENTRY PROTEIN_ENTRY REFERENCE_ENTRY POUND LPARENS RPARENS LANGLE RANGLE LCURLY RCURLY EC_NUMBER END CONTENT SPECIAL COMMENT AND ACCESSIONenzyme : ENZYME_ENTRY EC_NUMBER new_enzymenew_enzyme :enzyme : enzyme commentenzyme : enzyme protein_entryenzyme : enzyme reference_entryenzyme : enzyme entryenzyme : enzyme ENDentry : ENTRY new_entry %prec REDUCEnew_entry : %prec REDUCEentry : entry CONTENTentry : entry proteins %prec ASSEMBLEentry : entry comment %prec ASSEMBLEentry : entry special %prec ASSEMBLEentry : entry citations %prec ASSEMBLEreference_entry : REFERENCE_ENTRY new_reference citationsnew_reference :reference_entry : reference_entry CONTENTreference_entry : reference_entry comment %prec ASSEMBLEreference_entry : reference_entry special %prec ASSEMBLEprotein_entry : PROTEIN_ENTRY new_protein proteins %prec COMBINEnew_protein :protein_entry : protein_entry CONTENT %prec ASSEMBLEprotein_entry : protein_entry accession %prec ASSEMBLEprotein_entry : protein_entry comment %prec ASSEMBLEprotein_entry : protein_entry citations %prec ASSEMBLEaccession : accession AND ACCESSION %prec COMBINEaccession : accession CONTENT %prec COMBINEaccession : ACCESSION %prec REDUCEspecial : LCURLY special RCURLYspecial : LCURLY RCURLYspecial : special SPECIAL %prec COMBINEspecial : SPECIAL %prec REDUCEproteins : POUND proteins POUND %prec ASSEMBLEproteins : POUND POUND %prec ASSEMBLEproteins : proteins PROTEIN %prec COMBINEproteins : PROTEIN %prec REDUCEcitations : LANGLE citations RANGLE %prec ASSEMBLEcitations : LANGLE RANGLE %prec ASSEMBLEcitations : citations CITATION %prec COMBINEcitations : CITATION %prec REDUCEcomment : LPARENS comment RPARENS %prec ASSEMBLEcomment : LPARENS RPARENS %prec ASSEMBLEcomment : comment COMMENT %prec COMBINEcomment : COMMENT %prec REDUCE'
     
-_lr_action_items = {'ENTRY':([0,1,3,4,5,6,7,9,12,13,14,15,17,19,20,21,22,24,25,26,28,31,32,33,34,36,37,39,40,41,43,44,45,46,47,48,50,],[2,12,-3,-4,-5,-6,-7,-37,-9,-2,-36,-19,-21,-33,-14,-15,-16,-25,-10,-11,-35,-8,-1,-20,-32,-31,-24,-23,-34,-17,-29,-12,-30,-22,-28,-27,-26,]),'$end':([1,3,4,5,6,7,9,12,13,14,15,17,19,20,21,22,24,25,26,28,31,32,33,34,36,37,39,40,41,43,44,45,46,47,48,50,],[0,-3,-4,-5,-6,-7,-37,-9,-2,-36,-19,-21,-33,-14,-15,-16,-25,-10,-11,-35,-8,-1,-20,-32,-31,-24,-23,-34,-17,-29,-12,-30,-22,-28,-27,-26,]),'END':([1,3,4,5,6,7,9,12,13,14,15,17,19,20,21,22,24,25,26,28,31,32,33,34,36,37,39,40,41,43,44,45,46,47,48,50,],[7,-3,-4,-5,-6,-7,-37,-9,-2,-36,-19,-21,-33,-14,-15,-16,-25,-10,-11,-35,-8,-1,-20,-32,-31,-24,-23,-34,-17,-29,-12,-30,-22,-28,-27,-26,]),'LPARENS':([1,3,4,5,6,7,8,9,12,13,14,15,17,19,20,21,22,24,25,26,28,31,32,33,34,36,37,39,40,41,43,44,45,46,47,48,50,],[8,-3,-4,-5,-6,-7,8,-37,-9,-2,-36,-19,-21,-33,-14,-15,-16,-25,-10,-11,-35,-8,-1,-20,-32,-31,-24,-23,-34,-17,-29,-12,-30,-22,-28,-27,-26,]),'COMMENT':([1,3,4,5,6,7,8,9,12,13,14,15,17,19,20,21,22,24,25,26,27,28,31,32,33,34,36,37,39,40,41,43,44,45,46,47,48,50,],[9,-3,-4,-5,-6,-7,9,-37,-9,-2,-36,-19,-21,-33,-14,-15,-16,-25,-10,-11,14,-35,-8,-1,-20,-32,-31,-24,-23,-34,-17,-29,-12,-30,-22,-28,-27,-26,]),'PROTEIN_ENTRY':([1,3,4,5,6,7,9,12,13,14,15,17,19,20,21,22,24,25,26,28,31,32,33,34,36,37,39,40,41,43,44,45,46,47,48,50,],[10,-3,-4,-5,-6,-7,-37,-9,-2,-36,-19,-21,-33,-14,-15,-16,-25,-10,-11,-35,-8,-1,-20,-32,-31,-24,-23,-34,-17,-29,-12,-30,-22,-28,-27,-26,]),'REFERENCE_ENTRY':([1,3,4,5,6,7,9,12,13,14,15,17,19,20,21,22,24,25,26,28,31,32,33,34,36,37,39,40,41,43,44,45,46,47,48,50,],[11,-3,-4,-5,-6,-7,-37,-9,-2,-36,-19,-21,-33,-14,-15,-16,-25,-10,-11,-35,-8,-1,-20,-32,-31,-24,-23,-34,-17,-29,-12,-30,-22,-28,-27,-26,]),'EC_NUMBER':([2,],[13,]),'CONTENT':([4,5,6,9,12,14,15,16,17,19,20,21,22,24,25,26,28,31,33,34,36,37,39,40,41,43,44,45,46,47,48,50,],[15,20,25,-37,-9,-36,-19,33,-21,-33,-14,-15,-16,-25,-10,-11,-35,-8,-20,-32,-31,-24,-23,-34,-17,-29,-12,-30,-22,-28,-27,-26,]),'ACCESSION':([4,15,17,19,33,34,36,41,43,45,47,48,50,],[16,-19,-21,-33,-20,-32,-31,-17,-29,-30,-28,-27,-26,]),'LANGLE':([4,11,15,17,18,19,30,33,34,36,41,43,45,47,48,50,],[18,-13,-19,-21,18,-33,18,-20,-32,-31,-17,-29,-30,-28,-27,-26,]),'CITATION':([4,11,15,17,18,19,30,33,34,35,36,41,43,44,45,47,48,50,],[19,-13,-19,-21,19,-33,19,-20,-32,34,-31,-17,-29,34,-30,-28,-27,-26,]),'LCURLY':([5,9,14,19,20,21,22,23,24,28,34,36,37,39,40,44,45,46,],[23,-37,-36,-33,-14,-15,-16,23,-25,-35,-32,-31,-24,-23,-34,-12,-30,-22,]),'SPECIAL':([5,9,14,19,20,21,22,23,24,28,34,36,37,38,39,40,44,45,46,],[24,-37,-36,-33,-14,-15,-16,24,-25,-35,-32,-31,-24,37,-23,-34,-12,-30,-22,]),'RPARENS':([8,9,14,27,28,40,],[28,-37,-36,40,-35,-34,]),'POUND':([10,29,42,43,47,48,49,50,],[-18,42,48,-29,-28,48,50,-26,]),'PROTEIN':([10,29,41,42,43,47,48,49,50,],[-18,43,47,43,-29,-28,43,47,-26,]),'RANGLE':([18,19,34,35,36,45,],[36,-33,-32,45,-31,-30,]),'RCURLY':([23,24,37,38,39,46,],[39,-25,-24,46,-23,-22,]),}
+_lr_action_items = {'ENZYME_ENTRY':([0,],[2,]),'$end':([1,3,4,5,6,7,9,12,13,14,15,16,17,18,19,21,22,23,24,26,27,28,29,30,31,33,35,38,39,41,42,44,45,47,48,49,51,52,53,54,55,56,57,],[0,-3,-4,-5,-6,-7,-44,-9,-2,-43,-22,-23,-24,-25,-28,-40,-17,-18,-19,-32,-10,-11,-12,-13,-14,-36,-42,-8,-1,-27,-39,-38,-31,-30,-35,-34,-41,-20,-15,-26,-37,-29,-33,]),'END':([1,3,4,5,6,7,9,12,13,14,15,16,17,18,19,21,22,23,24,26,27,28,29,30,31,33,35,38,39,41,42,44,45,47,48,49,51,52,53,54,55,56,57,],[7,-3,-4,-5,-6,-7,-44,-9,-2,-43,-22,-23,-24,-25,-28,-40,-17,-18,-19,-32,-10,-11,-12,-13,-14,-36,-42,-8,-1,-27,-39,-38,-31,-30,-35,-34,-41,-20,-15,-26,-37,-29,-33,]),'LPARENS':([1,3,4,5,6,7,8,9,12,13,14,15,16,17,18,19,21,22,23,24,26,27,28,29,30,31,33,35,38,39,41,42,44,45,47,48,49,51,52,53,54,55,56,57,],[8,-3,8,8,8,-7,8,-44,-9,-2,-43,-22,-23,-24,-25,-28,-40,-17,-18,-19,-32,-10,-11,-12,-13,-14,-36,-42,-8,-1,-27,-39,-38,-31,-30,-35,-34,-41,-20,-15,-26,-37,-29,-33,]),'COMMENT':([1,3,4,5,6,7,8,9,12,13,14,15,16,17,18,19,21,22,23,24,26,27,28,29,30,31,33,34,35,38,39,41,42,44,45,47,48,49,51,52,53,54,55,56,57,],[9,14,9,9,9,-7,9,-44,-9,-2,-43,-22,-23,-24,-25,-28,-40,-17,-18,-19,-32,-10,-11,-12,-13,-14,-36,14,-42,-8,-1,-27,-39,-38,-31,-30,-35,-34,-41,-20,-15,-26,-37,-29,-33,]),'PROTEIN_ENTRY':([1,3,4,5,6,7,9,12,13,14,15,16,17,18,19,21,22,23,24,26,27,28,29,30,31,33,35,38,39,41,42,44,45,47,48,49,51,52,53,54,55,56,57,],[10,-3,-4,-5,-6,-7,-44,-9,-2,-43,-22,-23,-24,-25,-28,-40,-17,-18,-19,-32,-10,-11,-12,-13,-14,-36,-42,-8,-1,-27,-39,-38,-31,-30,-35,-34,-41,-20,-15,-26,-37,-29,-33,]),'REFERENCE_ENTRY':([1,3,4,5,6,7,9,12,13,14,15,16,17,18,19,21,22,23,24,26,27,28,29,30,31,33,35,38,39,41,42,44,45,47,48,49,51,52,53,54,55,56,57,],[11,-3,-4,-5,-6,-7,-44,-9,-2,-43,-22,-23,-24,-25,-28,-40,-17,-18,-19,-32,-10,-11,-12,-13,-14,-36,-42,-8,-1,-27,-39,-38,-31,-30,-35,-34,-41,-20,-15,-26,-37,-29,-33,]),'ENTRY':([1,3,4,5,6,7,9,12,13,14,15,16,17,18,19,21,22,23,24,26,27,28,29,30,31,33,35,38,39,41,42,44,45,47,48,49,51,52,53,54,55,56,57,],[12,-3,-4,-5,-6,-7,-44,-9,-2,-43,-22,-23,-24,-25,-28,-40,-17,-18,-19,-32,-10,-11,-12,-13,-14,-36,-42,-8,-1,-27,-39,-38,-31,-30,-35,-34,-41,-20,-15,-26,-37,-29,-33,]),'EC_NUMBER':([2,],[13,]),'CONTENT':([4,5,6,9,12,14,15,16,17,18,19,21,22,23,24,26,27,28,29,30,31,33,35,38,41,42,44,45,47,48,49,51,52,53,54,55,56,57,],[15,22,27,-44,-9,-43,-22,-23,-24,-25,-28,-40,-17,-18,-19,-32,-10,-11,-12,-13,-14,-36,-42,-8,-27,-39,-38,-31,-30,-35,-34,-41,-20,-15,-26,-37,-29,-33,]),'ACCESSION':([4,9,14,15,16,17,18,19,21,33,35,40,41,42,44,48,49,51,52,54,55,57,],[19,-44,-43,-22,-23,-24,-25,-28,-40,-36,-42,54,-27,-39,-38,-35,-34,-41,-20,-26,-37,-33,]),'LANGLE':([4,6,9,11,12,14,15,16,17,18,19,20,21,26,27,28,29,30,31,33,35,37,38,41,42,44,45,47,48,49,51,52,54,55,56,57,],[20,20,-44,-16,-9,-43,-22,-23,-24,-25,-28,20,-40,-32,-10,-11,-12,-13,-14,-36,-42,20,-8,-27,-39,-38,-31,-30,-35,-34,-41,-20,-26,-37,-29,-33,]),'CITATION':([4,6,9,11,12,14,15,16,17,18,19,20,21,26,27,28,29,30,31,33,35,37,38,41,42,43,44,45,47,48,49,51,52,53,54,55,56,57,],[21,21,-44,-16,-9,-43,-22,-23,-24,-25,-28,21,-40,-32,-10,-11,-12,-13,-14,-36,-42,21,-8,-27,-39,42,-38,-31,-30,-35,-34,-41,-20,42,-26,-37,-29,-33,]),'LCURLY':([5,6,9,12,14,21,22,23,24,25,26,27,28,29,30,31,33,35,38,42,44,45,47,48,49,51,53,55,56,57,],[25,25,-44,-9,-43,-40,-17,-18,-19,25,-32,-10,-11,-12,-13,-14,-36,-42,-8,-39,-38,-31,-30,-35,-34,-41,-15,-37,-29,-33,]),'SPECIAL':([5,6,9,12,14,21,22,23,24,25,26,27,28,29,30,31,33,35,38,42,44,45,46,47,48,49,51,53,55,56,57,],[26,26,-44,-9,-43,-40,-17,-18,-19,26,-32,-10,-11,-12,-13,-14,-36,-42,-8,-39,-38,-31,45,-30,-35,-34,-41,-15,-37,-29,-33,]),'POUND':([6,9,10,12,14,21,26,27,28,29,30,31,32,33,35,36,38,42,44,45,47,48,49,50,51,55,56,57,],[32,-44,-21,-9,-43,-40,-32,-10,-11,-12,-13,-14,49,-36,-42,32,-8,-39,-38,-31,-30,-35,-34,57,-41,-37,-29,-33,]),'PROTEIN':([6,9,10,12,14,21,26,27,28,29,30,31,32,33,35,36,38,42,44,45,47,48,49,50,51,52,55,56,57,],[33,-44,-21,-9,-43,-40,-32,-10,-11,-12,-13,-14,33,-36,-42,33,-8,-39,-38,-31,-30,-35,-34,48,-41,48,-37,-29,-33,]),'RPARENS':([8,9,14,34,35,51,],[35,-44,-43,51,-42,-41,]),'AND':([16,19,41,54,],[40,-28,-27,-26,]),'RANGLE':([20,21,42,43,44,55,],[44,-40,-39,55,-38,-37,]),'RCURLY':([25,26,45,46,47,56,],[47,-32,-31,56,-30,-29,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'enzyme':([0,],[1,]),'comment':([1,5,6,8,],[3,21,26,27,]),'protein_entry':([1,],[4,]),'reference_entry':([1,],[5,]),'entry':([1,],[6,]),'citations':([4,18,30,],[17,35,44,]),'special':([5,23,],[22,38,]),'new_protein':([10,],[29,]),'new_reference':([11,],[30,]),'new_entry':([12,],[31,]),'new_enzyme':([13,],[32,]),'proteins':([29,42,48,],[41,49,49,]),}
+_lr_goto_items = {'enzyme':([0,],[1,]),'comment':([1,4,5,6,8,],[3,17,23,29,34,]),'protein_entry':([1,],[4,]),'reference_entry':([1,],[5,]),'entry':([1,],[6,]),'accession':([4,],[16,]),'citations':([4,6,20,37,],[18,31,43,53,]),'special':([5,6,25,],[24,30,46,]),'proteins':([6,32,36,49,],[28,50,52,50,]),'new_protein':([10,],[36,]),'new_reference':([11,],[37,]),'new_entry':([12,],[38,]),'new_enzyme':([13,],[39,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,41 +26,48 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> enzyme","S'",1,None,None,None),
-  ('enzyme -> ENTRY EC_NUMBER new_enzyme','enzyme',3,'p_enzyme','parser.py',141),
-  ('new_enzyme -> <empty>','new_enzyme',0,'p_new_enzyme','parser.py',146),
-  ('enzyme -> enzyme comment','enzyme',2,'p_enzyme_comment','parser.py',152),
-  ('enzyme -> enzyme protein_entry','enzyme',2,'p_enzyme_protein','parser.py',159),
-  ('enzyme -> enzyme reference_entry','enzyme',2,'p_enzyme_reference','parser.py',165),
-  ('enzyme -> enzyme entry','enzyme',2,'p_enzyme_entry','parser.py',171),
-  ('enzyme -> enzyme END','enzyme',2,'p_enzyme_end','parser.py',178),
-  ('entry -> ENTRY new_entry','entry',2,'p_entry','parser.py',184),
-  ('new_entry -> <empty>','new_entry',0,'p_new_entry','parser.py',190),
-  ('entry -> entry CONTENT','entry',2,'p_entry_content','parser.py',198),
-  ('entry -> entry comment','entry',2,'p_entry_comment','parser.py',205),
-  ('reference_entry -> REFERENCE_ENTRY new_reference citations','reference_entry',3,'p_reference_entry','parser.py',212),
-  ('new_reference -> <empty>','new_reference',0,'p_new_reference','parser.py',220),
-  ('reference_entry -> reference_entry CONTENT','reference_entry',2,'p_reference_content','parser.py',229),
-  ('reference_entry -> reference_entry comment','reference_entry',2,'p_reference_year','parser.py',237),
-  ('reference_entry -> reference_entry special','reference_entry',2,'p_reference_pubmed','parser.py',245),
-  ('protein_entry -> PROTEIN_ENTRY new_protein proteins','protein_entry',3,'p_protein_entry','parser.py',255),
-  ('new_protein -> <empty>','new_protein',0,'p_new_protein','parser.py',262),
-  ('protein_entry -> protein_entry CONTENT','protein_entry',2,'p_protein_organism','parser.py',271),
-  ('protein_entry -> protein_entry ACCESSION CONTENT','protein_entry',3,'p_protein_accession','parser.py',280),
-  ('protein_entry -> protein_entry citations','protein_entry',2,'p_protein_citations','parser.py',290),
-  ('special -> LCURLY special RCURLY','special',3,'p_special','parser.py',298),
-  ('special -> LCURLY RCURLY','special',2,'p_special_empty','parser.py',303),
-  ('special -> special SPECIAL','special',2,'p_special_combine','parser.py',308),
-  ('special -> SPECIAL','special',1,'p_special_end','parser.py',313),
-  ('proteins -> POUND proteins POUND','proteins',3,'p_proteins','parser.py',318),
-  ('proteins -> POUND POUND','proteins',2,'p_proteins_empty','parser.py',323),
-  ('proteins -> proteins PROTEIN','proteins',2,'p_proteins_combine','parser.py',328),
-  ('proteins -> PROTEIN','proteins',1,'p_proteins_end','parser.py',334),
+  ('enzyme -> ENZYME_ENTRY EC_NUMBER new_enzyme','enzyme',3,'p_enzyme','parser.py',141),
+  ('new_enzyme -> <empty>','new_enzyme',0,'p_new_enzyme','parser.py',145),
+  ('enzyme -> enzyme comment','enzyme',2,'p_enzyme_comment','parser.py',151),
+  ('enzyme -> enzyme protein_entry','enzyme',2,'p_enzyme_protein','parser.py',157),
+  ('enzyme -> enzyme reference_entry','enzyme',2,'p_enzyme_reference','parser.py',162),
+  ('enzyme -> enzyme entry','enzyme',2,'p_enzyme_entry','parser.py',167),
+  ('enzyme -> enzyme END','enzyme',2,'p_enzyme_end','parser.py',173),
+  ('entry -> ENTRY new_entry','entry',2,'p_entry','parser.py',178),
+  ('new_entry -> <empty>','new_entry',0,'p_new_entry','parser.py',183),
+  ('entry -> entry CONTENT','entry',2,'p_entry_content','parser.py',190),
+  ('entry -> entry proteins','entry',2,'p_entry_proteins','parser.py',196),
+  ('entry -> entry comment','entry',2,'p_entry_comment','parser.py',202),
+  ('entry -> entry special','entry',2,'p_entry_special','parser.py',208),
+  ('entry -> entry citations','entry',2,'p_entry_citations','parser.py',214),
+  ('reference_entry -> REFERENCE_ENTRY new_reference citations','reference_entry',3,'p_reference_entry','parser.py',220),
+  ('new_reference -> <empty>','new_reference',0,'p_new_reference','parser.py',226),
+  ('reference_entry -> reference_entry CONTENT','reference_entry',2,'p_reference_content','parser.py',234),
+  ('reference_entry -> reference_entry comment','reference_entry',2,'p_reference_year','parser.py',240),
+  ('reference_entry -> reference_entry special','reference_entry',2,'p_reference_pubmed','parser.py',246),
+  ('protein_entry -> PROTEIN_ENTRY new_protein proteins','protein_entry',3,'p_protein_entry','parser.py',254),
+  ('new_protein -> <empty>','new_protein',0,'p_new_protein','parser.py',260),
+  ('protein_entry -> protein_entry CONTENT','protein_entry',2,'p_protein_organism','parser.py',268),
+  ('protein_entry -> protein_entry accession','protein_entry',2,'p_protein_accession','parser.py',275),
+  ('protein_entry -> protein_entry comment','protein_entry',2,'p_protein_comment','parser.py',280),
+  ('protein_entry -> protein_entry citations','protein_entry',2,'p_protein_citations','parser.py',286),
+  ('accession -> accession AND ACCESSION','accession',3,'p_accession_combine','parser.py',292),
+  ('accession -> accession CONTENT','accession',2,'p_accession_database','parser.py',297),
+  ('accession -> ACCESSION','accession',1,'p_accession','parser.py',302),
+  ('special -> LCURLY special RCURLY','special',3,'p_special','parser.py',306),
+  ('special -> LCURLY RCURLY','special',2,'p_special_empty','parser.py',310),
+  ('special -> special SPECIAL','special',2,'p_special_combine','parser.py',314),
+  ('special -> SPECIAL','special',1,'p_special_end','parser.py',318),
+  ('proteins -> POUND proteins POUND','proteins',3,'p_proteins','parser.py',322),
+  ('proteins -> POUND POUND','proteins',2,'p_proteins_empty','parser.py',326),
+  ('proteins -> proteins PROTEIN','proteins',2,'p_proteins_combine','parser.py',330),
+  ('proteins -> PROTEIN','proteins',1,'p_proteins_end','parser.py',335),
   ('citations -> LANGLE citations RANGLE','citations',3,'p_citations','parser.py',339),
-  ('citations -> LANGLE RANGLE','citations',2,'p_citations_empty','parser.py',344),
-  ('citations -> citations CITATION','citations',2,'p_citations_combine','parser.py',349),
-  ('citations -> CITATION','citations',1,'p_citations_end','parser.py',355),
-  ('comment -> LPARENS comment RPARENS','comment',3,'p_comment','parser.py',360),
-  ('comment -> LPARENS RPARENS','comment',2,'p_comment_empty','parser.py',365),
-  ('comment -> comment COMMENT','comment',2,'p_comment_combine','parser.py',370),
-  ('comment -> COMMENT','comment',1,'p_comment_end','parser.py',375),
+  ('citations -> LANGLE RANGLE','citations',2,'p_citations_empty','parser.py',343),
+  ('citations -> citations CITATION','citations',2,'p_citations_combine','parser.py',347),
+  ('citations -> CITATION','citations',1,'p_citations_end','parser.py',352),
+  ('comment -> LPARENS comment RPARENS','comment',3,'p_comment','parser.py',356),
+  ('comment -> LPARENS RPARENS','comment',2,'p_comment_empty','parser.py',360),
+  ('comment -> comment COMMENT','comment',2,'p_comment_combine','parser.py',364),
+  ('comment -> COMMENT','comment',1,'p_comment_end','parser.py',369),
 ]

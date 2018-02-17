@@ -3,7 +3,7 @@ Created by PLY version 3.10 (http://www.dabeaz.com/ply)
 Grammar
 
 Rule 0     S' -> enzyme
-Rule 1     enzyme -> ENTRY EC_NUMBER new_enzyme
+Rule 1     enzyme -> ENZYME_ENTRY EC_NUMBER new_enzyme
 Rule 2     new_enzyme -> <empty>
 Rule 3     enzyme -> enzyme comment
 Rule 4     enzyme -> enzyme protein_entry
@@ -13,84 +13,94 @@ Rule 7     enzyme -> enzyme END
 Rule 8     entry -> ENTRY new_entry
 Rule 9     new_entry -> <empty>
 Rule 10    entry -> entry CONTENT
-Rule 11    entry -> entry comment
-Rule 12    reference_entry -> REFERENCE_ENTRY new_reference citations
-Rule 13    new_reference -> <empty>
-Rule 14    reference_entry -> reference_entry CONTENT
-Rule 15    reference_entry -> reference_entry comment
-Rule 16    reference_entry -> reference_entry special
-Rule 17    protein_entry -> PROTEIN_ENTRY new_protein proteins
-Rule 18    new_protein -> <empty>
-Rule 19    protein_entry -> protein_entry CONTENT
-Rule 20    protein_entry -> protein_entry ACCESSION CONTENT
-Rule 21    protein_entry -> protein_entry citations
-Rule 22    special -> LCURLY special RCURLY
-Rule 23    special -> LCURLY RCURLY
-Rule 24    special -> special SPECIAL
-Rule 25    special -> SPECIAL
-Rule 26    proteins -> POUND proteins POUND
-Rule 27    proteins -> POUND POUND
-Rule 28    proteins -> proteins PROTEIN
-Rule 29    proteins -> PROTEIN
-Rule 30    citations -> LANGLE citations RANGLE
-Rule 31    citations -> LANGLE RANGLE
-Rule 32    citations -> citations CITATION
-Rule 33    citations -> CITATION
-Rule 34    comment -> LPARENS comment RPARENS
-Rule 35    comment -> LPARENS RPARENS
-Rule 36    comment -> comment COMMENT
-Rule 37    comment -> COMMENT
+Rule 11    entry -> entry proteins
+Rule 12    entry -> entry comment
+Rule 13    entry -> entry special
+Rule 14    entry -> entry citations
+Rule 15    reference_entry -> REFERENCE_ENTRY new_reference citations
+Rule 16    new_reference -> <empty>
+Rule 17    reference_entry -> reference_entry CONTENT
+Rule 18    reference_entry -> reference_entry comment
+Rule 19    reference_entry -> reference_entry special
+Rule 20    protein_entry -> PROTEIN_ENTRY new_protein proteins
+Rule 21    new_protein -> <empty>
+Rule 22    protein_entry -> protein_entry CONTENT
+Rule 23    protein_entry -> protein_entry accession
+Rule 24    protein_entry -> protein_entry comment
+Rule 25    protein_entry -> protein_entry citations
+Rule 26    accession -> accession AND ACCESSION
+Rule 27    accession -> accession CONTENT
+Rule 28    accession -> ACCESSION
+Rule 29    special -> LCURLY special RCURLY
+Rule 30    special -> LCURLY RCURLY
+Rule 31    special -> special SPECIAL
+Rule 32    special -> SPECIAL
+Rule 33    proteins -> POUND proteins POUND
+Rule 34    proteins -> POUND POUND
+Rule 35    proteins -> proteins PROTEIN
+Rule 36    proteins -> PROTEIN
+Rule 37    citations -> LANGLE citations RANGLE
+Rule 38    citations -> LANGLE RANGLE
+Rule 39    citations -> citations CITATION
+Rule 40    citations -> CITATION
+Rule 41    comment -> LPARENS comment RPARENS
+Rule 42    comment -> LPARENS RPARENS
+Rule 43    comment -> comment COMMENT
+Rule 44    comment -> COMMENT
 
 Terminals, with rules where they appear
 
-ACCESSION            : 20
-CITATION             : 32 33
-COMMENT              : 36 37
-CONTENT              : 10 14 19 20
+ACCESSION            : 26 28
+AND                  : 26
+CITATION             : 39 40
+COMMENT              : 43 44
+CONTENT              : 10 17 22 27
 EC_NUMBER            : 1
 END                  : 7
-ENTRY                : 1 8
-LANGLE               : 30 31
-LCURLY               : 22 23
-LPARENS              : 34 35
-POUND                : 26 26 27 27
-PROTEIN              : 28 29
-PROTEIN_ENTRY        : 17
-RANGLE               : 30 31
-RCURLY               : 22 23
-REFERENCE_ENTRY      : 12
-RPARENS              : 34 35
-SPECIAL              : 24 25
+ENTRY                : 8
+ENZYME_ENTRY         : 1
+LANGLE               : 37 38
+LCURLY               : 29 30
+LPARENS              : 41 42
+POUND                : 33 33 34 34
+PROTEIN              : 35 36
+PROTEIN_ENTRY        : 20
+RANGLE               : 37 38
+RCURLY               : 29 30
+REFERENCE_ENTRY      : 15
+RPARENS              : 41 42
+SPECIAL              : 31 32
 error                : 
 
 Nonterminals, with rules where they appear
 
-citations            : 12 21 30 32
-comment              : 3 11 15 34 36
-entry                : 6 10 11
+accession            : 23 26 27
+citations            : 14 15 25 37 39
+comment              : 3 12 18 24 41 43
+entry                : 6 10 11 12 13 14
 enzyme               : 3 4 5 6 7 0
 new_entry            : 8
 new_enzyme           : 1
-new_protein          : 17
-new_reference        : 12
-protein_entry        : 4 19 20 21
-proteins             : 17 26 28
-reference_entry      : 5 14 15 16
-special              : 16 22 24
+new_protein          : 20
+new_reference        : 15
+protein_entry        : 4 22 23 24 25
+proteins             : 11 20 33 35
+reference_entry      : 5 17 18 19
+special              : 13 19 29 31
 
 Parsing method: LALR
 
 state 0
 
     (0) S' -> . enzyme
-    (1) enzyme -> . ENTRY EC_NUMBER new_enzyme
+    (1) enzyme -> . ENZYME_ENTRY EC_NUMBER new_enzyme
     (3) enzyme -> . enzyme comment
     (4) enzyme -> . enzyme protein_entry
     (5) enzyme -> . enzyme reference_entry
     (6) enzyme -> . enzyme entry
     (7) enzyme -> . enzyme END
 
-    ENTRY           shift and go to state 2
+    ENZYME_ENTRY    shift and go to state 2
 
     enzyme                         shift and go to state 1
 
@@ -102,21 +112,25 @@ state 1
     (5) enzyme -> enzyme . reference_entry
     (6) enzyme -> enzyme . entry
     (7) enzyme -> enzyme . END
-    (34) comment -> . LPARENS comment RPARENS
-    (35) comment -> . LPARENS RPARENS
-    (36) comment -> . comment COMMENT
-    (37) comment -> . COMMENT
-    (17) protein_entry -> . PROTEIN_ENTRY new_protein proteins
-    (19) protein_entry -> . protein_entry CONTENT
-    (20) protein_entry -> . protein_entry ACCESSION CONTENT
-    (21) protein_entry -> . protein_entry citations
-    (12) reference_entry -> . REFERENCE_ENTRY new_reference citations
-    (14) reference_entry -> . reference_entry CONTENT
-    (15) reference_entry -> . reference_entry comment
-    (16) reference_entry -> . reference_entry special
+    (41) comment -> . LPARENS comment RPARENS
+    (42) comment -> . LPARENS RPARENS
+    (43) comment -> . comment COMMENT
+    (44) comment -> . COMMENT
+    (20) protein_entry -> . PROTEIN_ENTRY new_protein proteins
+    (22) protein_entry -> . protein_entry CONTENT
+    (23) protein_entry -> . protein_entry accession
+    (24) protein_entry -> . protein_entry comment
+    (25) protein_entry -> . protein_entry citations
+    (15) reference_entry -> . REFERENCE_ENTRY new_reference citations
+    (17) reference_entry -> . reference_entry CONTENT
+    (18) reference_entry -> . reference_entry comment
+    (19) reference_entry -> . reference_entry special
     (8) entry -> . ENTRY new_entry
     (10) entry -> . entry CONTENT
-    (11) entry -> . entry comment
+    (11) entry -> . entry proteins
+    (12) entry -> . entry comment
+    (13) entry -> . entry special
+    (14) entry -> . entry citations
 
     END             shift and go to state 7
     LPARENS         shift and go to state 8
@@ -132,7 +146,7 @@ state 1
 
 state 2
 
-    (1) enzyme -> ENTRY . EC_NUMBER new_enzyme
+    (1) enzyme -> ENZYME_ENTRY . EC_NUMBER new_enzyme
 
     EC_NUMBER       shift and go to state 13
 
@@ -140,99 +154,143 @@ state 2
 state 3
 
     (3) enzyme -> enzyme comment .
-    (36) comment -> comment . COMMENT
+    (43) comment -> comment . COMMENT
 
+  ! shift/reduce conflict for COMMENT resolved as shift
     END             reduce using rule 3 (enzyme -> enzyme comment .)
     LPARENS         reduce using rule 3 (enzyme -> enzyme comment .)
-    COMMENT         reduce using rule 3 (enzyme -> enzyme comment .)
     PROTEIN_ENTRY   reduce using rule 3 (enzyme -> enzyme comment .)
     REFERENCE_ENTRY reduce using rule 3 (enzyme -> enzyme comment .)
     ENTRY           reduce using rule 3 (enzyme -> enzyme comment .)
     $end            reduce using rule 3 (enzyme -> enzyme comment .)
+    COMMENT         shift and go to state 14
 
-  ! COMMENT         [ shift and go to state 14 ]
+  ! COMMENT         [ reduce using rule 3 (enzyme -> enzyme comment .) ]
 
 
 state 4
 
     (4) enzyme -> enzyme protein_entry .
-    (19) protein_entry -> protein_entry . CONTENT
-    (20) protein_entry -> protein_entry . ACCESSION CONTENT
-    (21) protein_entry -> protein_entry . citations
-    (30) citations -> . LANGLE citations RANGLE
-    (31) citations -> . LANGLE RANGLE
-    (32) citations -> . citations CITATION
-    (33) citations -> . CITATION
+    (22) protein_entry -> protein_entry . CONTENT
+    (23) protein_entry -> protein_entry . accession
+    (24) protein_entry -> protein_entry . comment
+    (25) protein_entry -> protein_entry . citations
+    (26) accession -> . accession AND ACCESSION
+    (27) accession -> . accession CONTENT
+    (28) accession -> . ACCESSION
+    (41) comment -> . LPARENS comment RPARENS
+    (42) comment -> . LPARENS RPARENS
+    (43) comment -> . comment COMMENT
+    (44) comment -> . COMMENT
+    (37) citations -> . LANGLE citations RANGLE
+    (38) citations -> . LANGLE RANGLE
+    (39) citations -> . citations CITATION
+    (40) citations -> . CITATION
 
+  ! shift/reduce conflict for LPARENS resolved as shift
+  ! shift/reduce conflict for COMMENT resolved as shift
     END             reduce using rule 4 (enzyme -> enzyme protein_entry .)
-    LPARENS         reduce using rule 4 (enzyme -> enzyme protein_entry .)
-    COMMENT         reduce using rule 4 (enzyme -> enzyme protein_entry .)
     PROTEIN_ENTRY   reduce using rule 4 (enzyme -> enzyme protein_entry .)
     REFERENCE_ENTRY reduce using rule 4 (enzyme -> enzyme protein_entry .)
     ENTRY           reduce using rule 4 (enzyme -> enzyme protein_entry .)
     $end            reduce using rule 4 (enzyme -> enzyme protein_entry .)
     CONTENT         shift and go to state 15
-    ACCESSION       shift and go to state 16
-    LANGLE          shift and go to state 18
-    CITATION        shift and go to state 19
+    ACCESSION       shift and go to state 19
+    LPARENS         shift and go to state 8
+    COMMENT         shift and go to state 9
+    LANGLE          shift and go to state 20
+    CITATION        shift and go to state 21
 
-    citations                      shift and go to state 17
+  ! LPARENS         [ reduce using rule 4 (enzyme -> enzyme protein_entry .) ]
+  ! COMMENT         [ reduce using rule 4 (enzyme -> enzyme protein_entry .) ]
+
+    accession                      shift and go to state 16
+    comment                        shift and go to state 17
+    citations                      shift and go to state 18
 
 state 5
 
     (5) enzyme -> enzyme reference_entry .
-    (14) reference_entry -> reference_entry . CONTENT
-    (15) reference_entry -> reference_entry . comment
-    (16) reference_entry -> reference_entry . special
-    (34) comment -> . LPARENS comment RPARENS
-    (35) comment -> . LPARENS RPARENS
-    (36) comment -> . comment COMMENT
-    (37) comment -> . COMMENT
-    (22) special -> . LCURLY special RCURLY
-    (23) special -> . LCURLY RCURLY
-    (24) special -> . special SPECIAL
-    (25) special -> . SPECIAL
+    (17) reference_entry -> reference_entry . CONTENT
+    (18) reference_entry -> reference_entry . comment
+    (19) reference_entry -> reference_entry . special
+    (41) comment -> . LPARENS comment RPARENS
+    (42) comment -> . LPARENS RPARENS
+    (43) comment -> . comment COMMENT
+    (44) comment -> . COMMENT
+    (29) special -> . LCURLY special RCURLY
+    (30) special -> . LCURLY RCURLY
+    (31) special -> . special SPECIAL
+    (32) special -> . SPECIAL
 
+  ! shift/reduce conflict for LPARENS resolved as shift
+  ! shift/reduce conflict for COMMENT resolved as shift
     END             reduce using rule 5 (enzyme -> enzyme reference_entry .)
-    LPARENS         reduce using rule 5 (enzyme -> enzyme reference_entry .)
-    COMMENT         reduce using rule 5 (enzyme -> enzyme reference_entry .)
     PROTEIN_ENTRY   reduce using rule 5 (enzyme -> enzyme reference_entry .)
     REFERENCE_ENTRY reduce using rule 5 (enzyme -> enzyme reference_entry .)
     ENTRY           reduce using rule 5 (enzyme -> enzyme reference_entry .)
     $end            reduce using rule 5 (enzyme -> enzyme reference_entry .)
-    CONTENT         shift and go to state 20
-    LCURLY          shift and go to state 23
-    SPECIAL         shift and go to state 24
+    CONTENT         shift and go to state 22
+    LPARENS         shift and go to state 8
+    COMMENT         shift and go to state 9
+    LCURLY          shift and go to state 25
+    SPECIAL         shift and go to state 26
 
-  ! LPARENS         [ shift and go to state 8 ]
-  ! COMMENT         [ shift and go to state 9 ]
+  ! LPARENS         [ reduce using rule 5 (enzyme -> enzyme reference_entry .) ]
+  ! COMMENT         [ reduce using rule 5 (enzyme -> enzyme reference_entry .) ]
 
-    comment                        shift and go to state 21
-    special                        shift and go to state 22
+    comment                        shift and go to state 23
+    special                        shift and go to state 24
 
 state 6
 
     (6) enzyme -> enzyme entry .
     (10) entry -> entry . CONTENT
-    (11) entry -> entry . comment
-    (34) comment -> . LPARENS comment RPARENS
-    (35) comment -> . LPARENS RPARENS
-    (36) comment -> . comment COMMENT
-    (37) comment -> . COMMENT
+    (11) entry -> entry . proteins
+    (12) entry -> entry . comment
+    (13) entry -> entry . special
+    (14) entry -> entry . citations
+    (33) proteins -> . POUND proteins POUND
+    (34) proteins -> . POUND POUND
+    (35) proteins -> . proteins PROTEIN
+    (36) proteins -> . PROTEIN
+    (41) comment -> . LPARENS comment RPARENS
+    (42) comment -> . LPARENS RPARENS
+    (43) comment -> . comment COMMENT
+    (44) comment -> . COMMENT
+    (29) special -> . LCURLY special RCURLY
+    (30) special -> . LCURLY RCURLY
+    (31) special -> . special SPECIAL
+    (32) special -> . SPECIAL
+    (37) citations -> . LANGLE citations RANGLE
+    (38) citations -> . LANGLE RANGLE
+    (39) citations -> . citations CITATION
+    (40) citations -> . CITATION
 
+  ! shift/reduce conflict for LPARENS resolved as shift
+  ! shift/reduce conflict for COMMENT resolved as shift
     END             reduce using rule 6 (enzyme -> enzyme entry .)
-    LPARENS         reduce using rule 6 (enzyme -> enzyme entry .)
-    COMMENT         reduce using rule 6 (enzyme -> enzyme entry .)
     PROTEIN_ENTRY   reduce using rule 6 (enzyme -> enzyme entry .)
     REFERENCE_ENTRY reduce using rule 6 (enzyme -> enzyme entry .)
     ENTRY           reduce using rule 6 (enzyme -> enzyme entry .)
     $end            reduce using rule 6 (enzyme -> enzyme entry .)
-    CONTENT         shift and go to state 25
+    CONTENT         shift and go to state 27
+    POUND           shift and go to state 32
+    PROTEIN         shift and go to state 33
+    LPARENS         shift and go to state 8
+    COMMENT         shift and go to state 9
+    LCURLY          shift and go to state 25
+    SPECIAL         shift and go to state 26
+    LANGLE          shift and go to state 20
+    CITATION        shift and go to state 21
 
-  ! LPARENS         [ shift and go to state 8 ]
-  ! COMMENT         [ shift and go to state 9 ]
+  ! LPARENS         [ reduce using rule 6 (enzyme -> enzyme entry .) ]
+  ! COMMENT         [ reduce using rule 6 (enzyme -> enzyme entry .) ]
 
-    comment                        shift and go to state 26
+    proteins                       shift and go to state 28
+    comment                        shift and go to state 29
+    special                        shift and go to state 30
+    citations                      shift and go to state 31
 
 state 7
 
@@ -249,55 +307,60 @@ state 7
 
 state 8
 
-    (34) comment -> LPARENS . comment RPARENS
-    (35) comment -> LPARENS . RPARENS
-    (34) comment -> . LPARENS comment RPARENS
-    (35) comment -> . LPARENS RPARENS
-    (36) comment -> . comment COMMENT
-    (37) comment -> . COMMENT
+    (41) comment -> LPARENS . comment RPARENS
+    (42) comment -> LPARENS . RPARENS
+    (41) comment -> . LPARENS comment RPARENS
+    (42) comment -> . LPARENS RPARENS
+    (43) comment -> . comment COMMENT
+    (44) comment -> . COMMENT
 
-    RPARENS         shift and go to state 28
+    RPARENS         shift and go to state 35
     LPARENS         shift and go to state 8
     COMMENT         shift and go to state 9
 
-    comment                        shift and go to state 27
+    comment                        shift and go to state 34
 
 state 9
 
-    (37) comment -> COMMENT .
+    (44) comment -> COMMENT .
 
-    COMMENT         reduce using rule 37 (comment -> COMMENT .)
-    END             reduce using rule 37 (comment -> COMMENT .)
-    LPARENS         reduce using rule 37 (comment -> COMMENT .)
-    PROTEIN_ENTRY   reduce using rule 37 (comment -> COMMENT .)
-    REFERENCE_ENTRY reduce using rule 37 (comment -> COMMENT .)
-    ENTRY           reduce using rule 37 (comment -> COMMENT .)
-    $end            reduce using rule 37 (comment -> COMMENT .)
-    CONTENT         reduce using rule 37 (comment -> COMMENT .)
-    LCURLY          reduce using rule 37 (comment -> COMMENT .)
-    SPECIAL         reduce using rule 37 (comment -> COMMENT .)
-    RPARENS         reduce using rule 37 (comment -> COMMENT .)
+    COMMENT         reduce using rule 44 (comment -> COMMENT .)
+    END             reduce using rule 44 (comment -> COMMENT .)
+    LPARENS         reduce using rule 44 (comment -> COMMENT .)
+    PROTEIN_ENTRY   reduce using rule 44 (comment -> COMMENT .)
+    REFERENCE_ENTRY reduce using rule 44 (comment -> COMMENT .)
+    ENTRY           reduce using rule 44 (comment -> COMMENT .)
+    $end            reduce using rule 44 (comment -> COMMENT .)
+    CONTENT         reduce using rule 44 (comment -> COMMENT .)
+    ACCESSION       reduce using rule 44 (comment -> COMMENT .)
+    LANGLE          reduce using rule 44 (comment -> COMMENT .)
+    CITATION        reduce using rule 44 (comment -> COMMENT .)
+    LCURLY          reduce using rule 44 (comment -> COMMENT .)
+    SPECIAL         reduce using rule 44 (comment -> COMMENT .)
+    POUND           reduce using rule 44 (comment -> COMMENT .)
+    PROTEIN         reduce using rule 44 (comment -> COMMENT .)
+    RPARENS         reduce using rule 44 (comment -> COMMENT .)
 
 
 state 10
 
-    (17) protein_entry -> PROTEIN_ENTRY . new_protein proteins
-    (18) new_protein -> .
+    (20) protein_entry -> PROTEIN_ENTRY . new_protein proteins
+    (21) new_protein -> .
 
-    POUND           reduce using rule 18 (new_protein -> .)
-    PROTEIN         reduce using rule 18 (new_protein -> .)
+    POUND           reduce using rule 21 (new_protein -> .)
+    PROTEIN         reduce using rule 21 (new_protein -> .)
 
-    new_protein                    shift and go to state 29
+    new_protein                    shift and go to state 36
 
 state 11
 
-    (12) reference_entry -> REFERENCE_ENTRY . new_reference citations
-    (13) new_reference -> .
+    (15) reference_entry -> REFERENCE_ENTRY . new_reference citations
+    (16) new_reference -> .
 
-    LANGLE          reduce using rule 13 (new_reference -> .)
-    CITATION        reduce using rule 13 (new_reference -> .)
+    LANGLE          reduce using rule 16 (new_reference -> .)
+    CITATION        reduce using rule 16 (new_reference -> .)
 
-    new_reference                  shift and go to state 30
+    new_reference                  shift and go to state 37
 
 state 12
 
@@ -305,19 +368,25 @@ state 12
     (9) new_entry -> .
 
     CONTENT         reduce using rule 9 (new_entry -> .)
+    POUND           reduce using rule 9 (new_entry -> .)
+    PROTEIN         reduce using rule 9 (new_entry -> .)
     LPARENS         reduce using rule 9 (new_entry -> .)
     COMMENT         reduce using rule 9 (new_entry -> .)
+    LCURLY          reduce using rule 9 (new_entry -> .)
+    SPECIAL         reduce using rule 9 (new_entry -> .)
+    LANGLE          reduce using rule 9 (new_entry -> .)
+    CITATION        reduce using rule 9 (new_entry -> .)
     END             reduce using rule 9 (new_entry -> .)
     PROTEIN_ENTRY   reduce using rule 9 (new_entry -> .)
     REFERENCE_ENTRY reduce using rule 9 (new_entry -> .)
     ENTRY           reduce using rule 9 (new_entry -> .)
     $end            reduce using rule 9 (new_entry -> .)
 
-    new_entry                      shift and go to state 31
+    new_entry                      shift and go to state 38
 
 state 13
 
-    (1) enzyme -> ENTRY EC_NUMBER . new_enzyme
+    (1) enzyme -> ENZYME_ENTRY EC_NUMBER . new_enzyme
     (2) new_enzyme -> .
 
     END             reduce using rule 2 (new_enzyme -> .)
@@ -328,197 +397,267 @@ state 13
     ENTRY           reduce using rule 2 (new_enzyme -> .)
     $end            reduce using rule 2 (new_enzyme -> .)
 
-    new_enzyme                     shift and go to state 32
+    new_enzyme                     shift and go to state 39
 
 state 14
 
-    (36) comment -> comment COMMENT .
+    (43) comment -> comment COMMENT .
 
-    COMMENT         reduce using rule 36 (comment -> comment COMMENT .)
-    END             reduce using rule 36 (comment -> comment COMMENT .)
-    LPARENS         reduce using rule 36 (comment -> comment COMMENT .)
-    PROTEIN_ENTRY   reduce using rule 36 (comment -> comment COMMENT .)
-    REFERENCE_ENTRY reduce using rule 36 (comment -> comment COMMENT .)
-    ENTRY           reduce using rule 36 (comment -> comment COMMENT .)
-    $end            reduce using rule 36 (comment -> comment COMMENT .)
-    CONTENT         reduce using rule 36 (comment -> comment COMMENT .)
-    LCURLY          reduce using rule 36 (comment -> comment COMMENT .)
-    SPECIAL         reduce using rule 36 (comment -> comment COMMENT .)
-    RPARENS         reduce using rule 36 (comment -> comment COMMENT .)
+    COMMENT         reduce using rule 43 (comment -> comment COMMENT .)
+    END             reduce using rule 43 (comment -> comment COMMENT .)
+    LPARENS         reduce using rule 43 (comment -> comment COMMENT .)
+    PROTEIN_ENTRY   reduce using rule 43 (comment -> comment COMMENT .)
+    REFERENCE_ENTRY reduce using rule 43 (comment -> comment COMMENT .)
+    ENTRY           reduce using rule 43 (comment -> comment COMMENT .)
+    $end            reduce using rule 43 (comment -> comment COMMENT .)
+    CONTENT         reduce using rule 43 (comment -> comment COMMENT .)
+    ACCESSION       reduce using rule 43 (comment -> comment COMMENT .)
+    LANGLE          reduce using rule 43 (comment -> comment COMMENT .)
+    CITATION        reduce using rule 43 (comment -> comment COMMENT .)
+    LCURLY          reduce using rule 43 (comment -> comment COMMENT .)
+    SPECIAL         reduce using rule 43 (comment -> comment COMMENT .)
+    POUND           reduce using rule 43 (comment -> comment COMMENT .)
+    PROTEIN         reduce using rule 43 (comment -> comment COMMENT .)
+    RPARENS         reduce using rule 43 (comment -> comment COMMENT .)
 
 
 state 15
 
-    (19) protein_entry -> protein_entry CONTENT .
+    (22) protein_entry -> protein_entry CONTENT .
 
-    CONTENT         reduce using rule 19 (protein_entry -> protein_entry CONTENT .)
-    ACCESSION       reduce using rule 19 (protein_entry -> protein_entry CONTENT .)
-    LANGLE          reduce using rule 19 (protein_entry -> protein_entry CONTENT .)
-    CITATION        reduce using rule 19 (protein_entry -> protein_entry CONTENT .)
-    END             reduce using rule 19 (protein_entry -> protein_entry CONTENT .)
-    LPARENS         reduce using rule 19 (protein_entry -> protein_entry CONTENT .)
-    COMMENT         reduce using rule 19 (protein_entry -> protein_entry CONTENT .)
-    PROTEIN_ENTRY   reduce using rule 19 (protein_entry -> protein_entry CONTENT .)
-    REFERENCE_ENTRY reduce using rule 19 (protein_entry -> protein_entry CONTENT .)
-    ENTRY           reduce using rule 19 (protein_entry -> protein_entry CONTENT .)
-    $end            reduce using rule 19 (protein_entry -> protein_entry CONTENT .)
+    CONTENT         reduce using rule 22 (protein_entry -> protein_entry CONTENT .)
+    ACCESSION       reduce using rule 22 (protein_entry -> protein_entry CONTENT .)
+    LPARENS         reduce using rule 22 (protein_entry -> protein_entry CONTENT .)
+    COMMENT         reduce using rule 22 (protein_entry -> protein_entry CONTENT .)
+    LANGLE          reduce using rule 22 (protein_entry -> protein_entry CONTENT .)
+    CITATION        reduce using rule 22 (protein_entry -> protein_entry CONTENT .)
+    END             reduce using rule 22 (protein_entry -> protein_entry CONTENT .)
+    PROTEIN_ENTRY   reduce using rule 22 (protein_entry -> protein_entry CONTENT .)
+    REFERENCE_ENTRY reduce using rule 22 (protein_entry -> protein_entry CONTENT .)
+    ENTRY           reduce using rule 22 (protein_entry -> protein_entry CONTENT .)
+    $end            reduce using rule 22 (protein_entry -> protein_entry CONTENT .)
 
 
 state 16
 
-    (20) protein_entry -> protein_entry ACCESSION . CONTENT
+    (23) protein_entry -> protein_entry accession .
+    (26) accession -> accession . AND ACCESSION
+    (27) accession -> accession . CONTENT
 
-    CONTENT         shift and go to state 33
+    CONTENT         reduce using rule 23 (protein_entry -> protein_entry accession .)
+    ACCESSION       reduce using rule 23 (protein_entry -> protein_entry accession .)
+    LPARENS         reduce using rule 23 (protein_entry -> protein_entry accession .)
+    COMMENT         reduce using rule 23 (protein_entry -> protein_entry accession .)
+    LANGLE          reduce using rule 23 (protein_entry -> protein_entry accession .)
+    CITATION        reduce using rule 23 (protein_entry -> protein_entry accession .)
+    END             reduce using rule 23 (protein_entry -> protein_entry accession .)
+    PROTEIN_ENTRY   reduce using rule 23 (protein_entry -> protein_entry accession .)
+    REFERENCE_ENTRY reduce using rule 23 (protein_entry -> protein_entry accession .)
+    ENTRY           reduce using rule 23 (protein_entry -> protein_entry accession .)
+    $end            reduce using rule 23 (protein_entry -> protein_entry accession .)
+    AND             shift and go to state 40
+
+  ! CONTENT         [ shift and go to state 41 ]
 
 
 state 17
 
-    (21) protein_entry -> protein_entry citations .
-    (32) citations -> citations . CITATION
+    (24) protein_entry -> protein_entry comment .
+    (43) comment -> comment . COMMENT
 
-    CONTENT         reduce using rule 21 (protein_entry -> protein_entry citations .)
-    ACCESSION       reduce using rule 21 (protein_entry -> protein_entry citations .)
-    LANGLE          reduce using rule 21 (protein_entry -> protein_entry citations .)
-    CITATION        reduce using rule 21 (protein_entry -> protein_entry citations .)
-    END             reduce using rule 21 (protein_entry -> protein_entry citations .)
-    LPARENS         reduce using rule 21 (protein_entry -> protein_entry citations .)
-    COMMENT         reduce using rule 21 (protein_entry -> protein_entry citations .)
-    PROTEIN_ENTRY   reduce using rule 21 (protein_entry -> protein_entry citations .)
-    REFERENCE_ENTRY reduce using rule 21 (protein_entry -> protein_entry citations .)
-    ENTRY           reduce using rule 21 (protein_entry -> protein_entry citations .)
-    $end            reduce using rule 21 (protein_entry -> protein_entry citations .)
-
-  ! CITATION        [ shift and go to state 34 ]
-
-
-state 18
-
-    (30) citations -> LANGLE . citations RANGLE
-    (31) citations -> LANGLE . RANGLE
-    (30) citations -> . LANGLE citations RANGLE
-    (31) citations -> . LANGLE RANGLE
-    (32) citations -> . citations CITATION
-    (33) citations -> . CITATION
-
-    RANGLE          shift and go to state 36
-    LANGLE          shift and go to state 18
-    CITATION        shift and go to state 19
-
-    citations                      shift and go to state 35
-
-state 19
-
-    (33) citations -> CITATION .
-
-    CITATION        reduce using rule 33 (citations -> CITATION .)
-    CONTENT         reduce using rule 33 (citations -> CITATION .)
-    ACCESSION       reduce using rule 33 (citations -> CITATION .)
-    LANGLE          reduce using rule 33 (citations -> CITATION .)
-    END             reduce using rule 33 (citations -> CITATION .)
-    LPARENS         reduce using rule 33 (citations -> CITATION .)
-    COMMENT         reduce using rule 33 (citations -> CITATION .)
-    PROTEIN_ENTRY   reduce using rule 33 (citations -> CITATION .)
-    REFERENCE_ENTRY reduce using rule 33 (citations -> CITATION .)
-    ENTRY           reduce using rule 33 (citations -> CITATION .)
-    $end            reduce using rule 33 (citations -> CITATION .)
-    RANGLE          reduce using rule 33 (citations -> CITATION .)
-    LCURLY          reduce using rule 33 (citations -> CITATION .)
-    SPECIAL         reduce using rule 33 (citations -> CITATION .)
-
-
-state 20
-
-    (14) reference_entry -> reference_entry CONTENT .
-
-    CONTENT         reduce using rule 14 (reference_entry -> reference_entry CONTENT .)
-    LPARENS         reduce using rule 14 (reference_entry -> reference_entry CONTENT .)
-    COMMENT         reduce using rule 14 (reference_entry -> reference_entry CONTENT .)
-    LCURLY          reduce using rule 14 (reference_entry -> reference_entry CONTENT .)
-    SPECIAL         reduce using rule 14 (reference_entry -> reference_entry CONTENT .)
-    END             reduce using rule 14 (reference_entry -> reference_entry CONTENT .)
-    PROTEIN_ENTRY   reduce using rule 14 (reference_entry -> reference_entry CONTENT .)
-    REFERENCE_ENTRY reduce using rule 14 (reference_entry -> reference_entry CONTENT .)
-    ENTRY           reduce using rule 14 (reference_entry -> reference_entry CONTENT .)
-    $end            reduce using rule 14 (reference_entry -> reference_entry CONTENT .)
-
-
-state 21
-
-    (15) reference_entry -> reference_entry comment .
-    (36) comment -> comment . COMMENT
-
-    CONTENT         reduce using rule 15 (reference_entry -> reference_entry comment .)
-    LPARENS         reduce using rule 15 (reference_entry -> reference_entry comment .)
-    COMMENT         reduce using rule 15 (reference_entry -> reference_entry comment .)
-    LCURLY          reduce using rule 15 (reference_entry -> reference_entry comment .)
-    SPECIAL         reduce using rule 15 (reference_entry -> reference_entry comment .)
-    END             reduce using rule 15 (reference_entry -> reference_entry comment .)
-    PROTEIN_ENTRY   reduce using rule 15 (reference_entry -> reference_entry comment .)
-    REFERENCE_ENTRY reduce using rule 15 (reference_entry -> reference_entry comment .)
-    ENTRY           reduce using rule 15 (reference_entry -> reference_entry comment .)
-    $end            reduce using rule 15 (reference_entry -> reference_entry comment .)
+    CONTENT         reduce using rule 24 (protein_entry -> protein_entry comment .)
+    ACCESSION       reduce using rule 24 (protein_entry -> protein_entry comment .)
+    LPARENS         reduce using rule 24 (protein_entry -> protein_entry comment .)
+    COMMENT         reduce using rule 24 (protein_entry -> protein_entry comment .)
+    LANGLE          reduce using rule 24 (protein_entry -> protein_entry comment .)
+    CITATION        reduce using rule 24 (protein_entry -> protein_entry comment .)
+    END             reduce using rule 24 (protein_entry -> protein_entry comment .)
+    PROTEIN_ENTRY   reduce using rule 24 (protein_entry -> protein_entry comment .)
+    REFERENCE_ENTRY reduce using rule 24 (protein_entry -> protein_entry comment .)
+    ENTRY           reduce using rule 24 (protein_entry -> protein_entry comment .)
+    $end            reduce using rule 24 (protein_entry -> protein_entry comment .)
 
   ! COMMENT         [ shift and go to state 14 ]
 
 
+state 18
+
+    (25) protein_entry -> protein_entry citations .
+    (39) citations -> citations . CITATION
+
+    CONTENT         reduce using rule 25 (protein_entry -> protein_entry citations .)
+    ACCESSION       reduce using rule 25 (protein_entry -> protein_entry citations .)
+    LPARENS         reduce using rule 25 (protein_entry -> protein_entry citations .)
+    COMMENT         reduce using rule 25 (protein_entry -> protein_entry citations .)
+    LANGLE          reduce using rule 25 (protein_entry -> protein_entry citations .)
+    CITATION        reduce using rule 25 (protein_entry -> protein_entry citations .)
+    END             reduce using rule 25 (protein_entry -> protein_entry citations .)
+    PROTEIN_ENTRY   reduce using rule 25 (protein_entry -> protein_entry citations .)
+    REFERENCE_ENTRY reduce using rule 25 (protein_entry -> protein_entry citations .)
+    ENTRY           reduce using rule 25 (protein_entry -> protein_entry citations .)
+    $end            reduce using rule 25 (protein_entry -> protein_entry citations .)
+
+  ! CITATION        [ shift and go to state 42 ]
+
+
+state 19
+
+    (28) accession -> ACCESSION .
+
+    AND             reduce using rule 28 (accession -> ACCESSION .)
+    CONTENT         reduce using rule 28 (accession -> ACCESSION .)
+    ACCESSION       reduce using rule 28 (accession -> ACCESSION .)
+    LPARENS         reduce using rule 28 (accession -> ACCESSION .)
+    COMMENT         reduce using rule 28 (accession -> ACCESSION .)
+    LANGLE          reduce using rule 28 (accession -> ACCESSION .)
+    CITATION        reduce using rule 28 (accession -> ACCESSION .)
+    END             reduce using rule 28 (accession -> ACCESSION .)
+    PROTEIN_ENTRY   reduce using rule 28 (accession -> ACCESSION .)
+    REFERENCE_ENTRY reduce using rule 28 (accession -> ACCESSION .)
+    ENTRY           reduce using rule 28 (accession -> ACCESSION .)
+    $end            reduce using rule 28 (accession -> ACCESSION .)
+
+
+state 20
+
+    (37) citations -> LANGLE . citations RANGLE
+    (38) citations -> LANGLE . RANGLE
+    (37) citations -> . LANGLE citations RANGLE
+    (38) citations -> . LANGLE RANGLE
+    (39) citations -> . citations CITATION
+    (40) citations -> . CITATION
+
+    RANGLE          shift and go to state 44
+    LANGLE          shift and go to state 20
+    CITATION        shift and go to state 21
+
+    citations                      shift and go to state 43
+
+state 21
+
+    (40) citations -> CITATION .
+
+    CITATION        reduce using rule 40 (citations -> CITATION .)
+    CONTENT         reduce using rule 40 (citations -> CITATION .)
+    ACCESSION       reduce using rule 40 (citations -> CITATION .)
+    LPARENS         reduce using rule 40 (citations -> CITATION .)
+    COMMENT         reduce using rule 40 (citations -> CITATION .)
+    LANGLE          reduce using rule 40 (citations -> CITATION .)
+    END             reduce using rule 40 (citations -> CITATION .)
+    PROTEIN_ENTRY   reduce using rule 40 (citations -> CITATION .)
+    REFERENCE_ENTRY reduce using rule 40 (citations -> CITATION .)
+    ENTRY           reduce using rule 40 (citations -> CITATION .)
+    $end            reduce using rule 40 (citations -> CITATION .)
+    POUND           reduce using rule 40 (citations -> CITATION .)
+    PROTEIN         reduce using rule 40 (citations -> CITATION .)
+    LCURLY          reduce using rule 40 (citations -> CITATION .)
+    SPECIAL         reduce using rule 40 (citations -> CITATION .)
+    RANGLE          reduce using rule 40 (citations -> CITATION .)
+
+
 state 22
 
-    (16) reference_entry -> reference_entry special .
-    (24) special -> special . SPECIAL
+    (17) reference_entry -> reference_entry CONTENT .
 
-    CONTENT         reduce using rule 16 (reference_entry -> reference_entry special .)
-    LPARENS         reduce using rule 16 (reference_entry -> reference_entry special .)
-    COMMENT         reduce using rule 16 (reference_entry -> reference_entry special .)
-    LCURLY          reduce using rule 16 (reference_entry -> reference_entry special .)
-    SPECIAL         reduce using rule 16 (reference_entry -> reference_entry special .)
-    END             reduce using rule 16 (reference_entry -> reference_entry special .)
-    PROTEIN_ENTRY   reduce using rule 16 (reference_entry -> reference_entry special .)
-    REFERENCE_ENTRY reduce using rule 16 (reference_entry -> reference_entry special .)
-    ENTRY           reduce using rule 16 (reference_entry -> reference_entry special .)
-    $end            reduce using rule 16 (reference_entry -> reference_entry special .)
-
-  ! SPECIAL         [ shift and go to state 37 ]
+    CONTENT         reduce using rule 17 (reference_entry -> reference_entry CONTENT .)
+    LPARENS         reduce using rule 17 (reference_entry -> reference_entry CONTENT .)
+    COMMENT         reduce using rule 17 (reference_entry -> reference_entry CONTENT .)
+    LCURLY          reduce using rule 17 (reference_entry -> reference_entry CONTENT .)
+    SPECIAL         reduce using rule 17 (reference_entry -> reference_entry CONTENT .)
+    END             reduce using rule 17 (reference_entry -> reference_entry CONTENT .)
+    PROTEIN_ENTRY   reduce using rule 17 (reference_entry -> reference_entry CONTENT .)
+    REFERENCE_ENTRY reduce using rule 17 (reference_entry -> reference_entry CONTENT .)
+    ENTRY           reduce using rule 17 (reference_entry -> reference_entry CONTENT .)
+    $end            reduce using rule 17 (reference_entry -> reference_entry CONTENT .)
 
 
 state 23
 
-    (22) special -> LCURLY . special RCURLY
-    (23) special -> LCURLY . RCURLY
-    (22) special -> . LCURLY special RCURLY
-    (23) special -> . LCURLY RCURLY
-    (24) special -> . special SPECIAL
-    (25) special -> . SPECIAL
+    (18) reference_entry -> reference_entry comment .
+    (43) comment -> comment . COMMENT
 
-    RCURLY          shift and go to state 39
-    LCURLY          shift and go to state 23
-    SPECIAL         shift and go to state 24
+    CONTENT         reduce using rule 18 (reference_entry -> reference_entry comment .)
+    LPARENS         reduce using rule 18 (reference_entry -> reference_entry comment .)
+    COMMENT         reduce using rule 18 (reference_entry -> reference_entry comment .)
+    LCURLY          reduce using rule 18 (reference_entry -> reference_entry comment .)
+    SPECIAL         reduce using rule 18 (reference_entry -> reference_entry comment .)
+    END             reduce using rule 18 (reference_entry -> reference_entry comment .)
+    PROTEIN_ENTRY   reduce using rule 18 (reference_entry -> reference_entry comment .)
+    REFERENCE_ENTRY reduce using rule 18 (reference_entry -> reference_entry comment .)
+    ENTRY           reduce using rule 18 (reference_entry -> reference_entry comment .)
+    $end            reduce using rule 18 (reference_entry -> reference_entry comment .)
 
-    special                        shift and go to state 38
+  ! COMMENT         [ shift and go to state 14 ]
+
 
 state 24
 
-    (25) special -> SPECIAL .
+    (19) reference_entry -> reference_entry special .
+    (31) special -> special . SPECIAL
 
-    SPECIAL         reduce using rule 25 (special -> SPECIAL .)
-    CONTENT         reduce using rule 25 (special -> SPECIAL .)
-    LPARENS         reduce using rule 25 (special -> SPECIAL .)
-    COMMENT         reduce using rule 25 (special -> SPECIAL .)
-    LCURLY          reduce using rule 25 (special -> SPECIAL .)
-    END             reduce using rule 25 (special -> SPECIAL .)
-    PROTEIN_ENTRY   reduce using rule 25 (special -> SPECIAL .)
-    REFERENCE_ENTRY reduce using rule 25 (special -> SPECIAL .)
-    ENTRY           reduce using rule 25 (special -> SPECIAL .)
-    $end            reduce using rule 25 (special -> SPECIAL .)
-    RCURLY          reduce using rule 25 (special -> SPECIAL .)
+    CONTENT         reduce using rule 19 (reference_entry -> reference_entry special .)
+    LPARENS         reduce using rule 19 (reference_entry -> reference_entry special .)
+    COMMENT         reduce using rule 19 (reference_entry -> reference_entry special .)
+    LCURLY          reduce using rule 19 (reference_entry -> reference_entry special .)
+    SPECIAL         reduce using rule 19 (reference_entry -> reference_entry special .)
+    END             reduce using rule 19 (reference_entry -> reference_entry special .)
+    PROTEIN_ENTRY   reduce using rule 19 (reference_entry -> reference_entry special .)
+    REFERENCE_ENTRY reduce using rule 19 (reference_entry -> reference_entry special .)
+    ENTRY           reduce using rule 19 (reference_entry -> reference_entry special .)
+    $end            reduce using rule 19 (reference_entry -> reference_entry special .)
+
+  ! SPECIAL         [ shift and go to state 45 ]
 
 
 state 25
 
+    (29) special -> LCURLY . special RCURLY
+    (30) special -> LCURLY . RCURLY
+    (29) special -> . LCURLY special RCURLY
+    (30) special -> . LCURLY RCURLY
+    (31) special -> . special SPECIAL
+    (32) special -> . SPECIAL
+
+    RCURLY          shift and go to state 47
+    LCURLY          shift and go to state 25
+    SPECIAL         shift and go to state 26
+
+    special                        shift and go to state 46
+
+state 26
+
+    (32) special -> SPECIAL .
+
+    SPECIAL         reduce using rule 32 (special -> SPECIAL .)
+    CONTENT         reduce using rule 32 (special -> SPECIAL .)
+    LPARENS         reduce using rule 32 (special -> SPECIAL .)
+    COMMENT         reduce using rule 32 (special -> SPECIAL .)
+    LCURLY          reduce using rule 32 (special -> SPECIAL .)
+    END             reduce using rule 32 (special -> SPECIAL .)
+    PROTEIN_ENTRY   reduce using rule 32 (special -> SPECIAL .)
+    REFERENCE_ENTRY reduce using rule 32 (special -> SPECIAL .)
+    ENTRY           reduce using rule 32 (special -> SPECIAL .)
+    $end            reduce using rule 32 (special -> SPECIAL .)
+    POUND           reduce using rule 32 (special -> SPECIAL .)
+    PROTEIN         reduce using rule 32 (special -> SPECIAL .)
+    LANGLE          reduce using rule 32 (special -> SPECIAL .)
+    CITATION        reduce using rule 32 (special -> SPECIAL .)
+    RCURLY          reduce using rule 32 (special -> SPECIAL .)
+
+
+state 27
+
     (10) entry -> entry CONTENT .
 
     CONTENT         reduce using rule 10 (entry -> entry CONTENT .)
+    POUND           reduce using rule 10 (entry -> entry CONTENT .)
+    PROTEIN         reduce using rule 10 (entry -> entry CONTENT .)
     LPARENS         reduce using rule 10 (entry -> entry CONTENT .)
     COMMENT         reduce using rule 10 (entry -> entry CONTENT .)
+    LCURLY          reduce using rule 10 (entry -> entry CONTENT .)
+    SPECIAL         reduce using rule 10 (entry -> entry CONTENT .)
+    LANGLE          reduce using rule 10 (entry -> entry CONTENT .)
+    CITATION        reduce using rule 10 (entry -> entry CONTENT .)
     END             reduce using rule 10 (entry -> entry CONTENT .)
     PROTEIN_ENTRY   reduce using rule 10 (entry -> entry CONTENT .)
     REFERENCE_ENTRY reduce using rule 10 (entry -> entry CONTENT .)
@@ -526,82 +665,203 @@ state 25
     $end            reduce using rule 10 (entry -> entry CONTENT .)
 
 
-state 26
-
-    (11) entry -> entry comment .
-    (36) comment -> comment . COMMENT
-
-    CONTENT         reduce using rule 11 (entry -> entry comment .)
-    LPARENS         reduce using rule 11 (entry -> entry comment .)
-    COMMENT         reduce using rule 11 (entry -> entry comment .)
-    END             reduce using rule 11 (entry -> entry comment .)
-    PROTEIN_ENTRY   reduce using rule 11 (entry -> entry comment .)
-    REFERENCE_ENTRY reduce using rule 11 (entry -> entry comment .)
-    ENTRY           reduce using rule 11 (entry -> entry comment .)
-    $end            reduce using rule 11 (entry -> entry comment .)
-
-  ! COMMENT         [ shift and go to state 14 ]
-
-
-state 27
-
-    (34) comment -> LPARENS comment . RPARENS
-    (36) comment -> comment . COMMENT
-
-    RPARENS         shift and go to state 40
-    COMMENT         shift and go to state 14
-
-
 state 28
 
-    (35) comment -> LPARENS RPARENS .
+    (11) entry -> entry proteins .
+    (35) proteins -> proteins . PROTEIN
 
-    COMMENT         reduce using rule 35 (comment -> LPARENS RPARENS .)
-    END             reduce using rule 35 (comment -> LPARENS RPARENS .)
-    LPARENS         reduce using rule 35 (comment -> LPARENS RPARENS .)
-    PROTEIN_ENTRY   reduce using rule 35 (comment -> LPARENS RPARENS .)
-    REFERENCE_ENTRY reduce using rule 35 (comment -> LPARENS RPARENS .)
-    ENTRY           reduce using rule 35 (comment -> LPARENS RPARENS .)
-    $end            reduce using rule 35 (comment -> LPARENS RPARENS .)
-    CONTENT         reduce using rule 35 (comment -> LPARENS RPARENS .)
-    LCURLY          reduce using rule 35 (comment -> LPARENS RPARENS .)
-    SPECIAL         reduce using rule 35 (comment -> LPARENS RPARENS .)
-    RPARENS         reduce using rule 35 (comment -> LPARENS RPARENS .)
+    CONTENT         reduce using rule 11 (entry -> entry proteins .)
+    POUND           reduce using rule 11 (entry -> entry proteins .)
+    PROTEIN         reduce using rule 11 (entry -> entry proteins .)
+    LPARENS         reduce using rule 11 (entry -> entry proteins .)
+    COMMENT         reduce using rule 11 (entry -> entry proteins .)
+    LCURLY          reduce using rule 11 (entry -> entry proteins .)
+    SPECIAL         reduce using rule 11 (entry -> entry proteins .)
+    LANGLE          reduce using rule 11 (entry -> entry proteins .)
+    CITATION        reduce using rule 11 (entry -> entry proteins .)
+    END             reduce using rule 11 (entry -> entry proteins .)
+    PROTEIN_ENTRY   reduce using rule 11 (entry -> entry proteins .)
+    REFERENCE_ENTRY reduce using rule 11 (entry -> entry proteins .)
+    ENTRY           reduce using rule 11 (entry -> entry proteins .)
+    $end            reduce using rule 11 (entry -> entry proteins .)
+
+  ! PROTEIN         [ shift and go to state 48 ]
 
 
 state 29
 
-    (17) protein_entry -> PROTEIN_ENTRY new_protein . proteins
-    (26) proteins -> . POUND proteins POUND
-    (27) proteins -> . POUND POUND
-    (28) proteins -> . proteins PROTEIN
-    (29) proteins -> . PROTEIN
+    (12) entry -> entry comment .
+    (43) comment -> comment . COMMENT
 
-    POUND           shift and go to state 42
-    PROTEIN         shift and go to state 43
+    CONTENT         reduce using rule 12 (entry -> entry comment .)
+    POUND           reduce using rule 12 (entry -> entry comment .)
+    PROTEIN         reduce using rule 12 (entry -> entry comment .)
+    LPARENS         reduce using rule 12 (entry -> entry comment .)
+    COMMENT         reduce using rule 12 (entry -> entry comment .)
+    LCURLY          reduce using rule 12 (entry -> entry comment .)
+    SPECIAL         reduce using rule 12 (entry -> entry comment .)
+    LANGLE          reduce using rule 12 (entry -> entry comment .)
+    CITATION        reduce using rule 12 (entry -> entry comment .)
+    END             reduce using rule 12 (entry -> entry comment .)
+    PROTEIN_ENTRY   reduce using rule 12 (entry -> entry comment .)
+    REFERENCE_ENTRY reduce using rule 12 (entry -> entry comment .)
+    ENTRY           reduce using rule 12 (entry -> entry comment .)
+    $end            reduce using rule 12 (entry -> entry comment .)
 
-    proteins                       shift and go to state 41
+  ! COMMENT         [ shift and go to state 14 ]
+
 
 state 30
 
-    (12) reference_entry -> REFERENCE_ENTRY new_reference . citations
-    (30) citations -> . LANGLE citations RANGLE
-    (31) citations -> . LANGLE RANGLE
-    (32) citations -> . citations CITATION
-    (33) citations -> . CITATION
+    (13) entry -> entry special .
+    (31) special -> special . SPECIAL
 
-    LANGLE          shift and go to state 18
-    CITATION        shift and go to state 19
+    CONTENT         reduce using rule 13 (entry -> entry special .)
+    POUND           reduce using rule 13 (entry -> entry special .)
+    PROTEIN         reduce using rule 13 (entry -> entry special .)
+    LPARENS         reduce using rule 13 (entry -> entry special .)
+    COMMENT         reduce using rule 13 (entry -> entry special .)
+    LCURLY          reduce using rule 13 (entry -> entry special .)
+    SPECIAL         reduce using rule 13 (entry -> entry special .)
+    LANGLE          reduce using rule 13 (entry -> entry special .)
+    CITATION        reduce using rule 13 (entry -> entry special .)
+    END             reduce using rule 13 (entry -> entry special .)
+    PROTEIN_ENTRY   reduce using rule 13 (entry -> entry special .)
+    REFERENCE_ENTRY reduce using rule 13 (entry -> entry special .)
+    ENTRY           reduce using rule 13 (entry -> entry special .)
+    $end            reduce using rule 13 (entry -> entry special .)
 
-    citations                      shift and go to state 44
+  ! SPECIAL         [ shift and go to state 45 ]
+
 
 state 31
+
+    (14) entry -> entry citations .
+    (39) citations -> citations . CITATION
+
+    CONTENT         reduce using rule 14 (entry -> entry citations .)
+    POUND           reduce using rule 14 (entry -> entry citations .)
+    PROTEIN         reduce using rule 14 (entry -> entry citations .)
+    LPARENS         reduce using rule 14 (entry -> entry citations .)
+    COMMENT         reduce using rule 14 (entry -> entry citations .)
+    LCURLY          reduce using rule 14 (entry -> entry citations .)
+    SPECIAL         reduce using rule 14 (entry -> entry citations .)
+    LANGLE          reduce using rule 14 (entry -> entry citations .)
+    CITATION        reduce using rule 14 (entry -> entry citations .)
+    END             reduce using rule 14 (entry -> entry citations .)
+    PROTEIN_ENTRY   reduce using rule 14 (entry -> entry citations .)
+    REFERENCE_ENTRY reduce using rule 14 (entry -> entry citations .)
+    ENTRY           reduce using rule 14 (entry -> entry citations .)
+    $end            reduce using rule 14 (entry -> entry citations .)
+
+  ! CITATION        [ shift and go to state 42 ]
+
+
+state 32
+
+    (33) proteins -> POUND . proteins POUND
+    (34) proteins -> POUND . POUND
+    (33) proteins -> . POUND proteins POUND
+    (34) proteins -> . POUND POUND
+    (35) proteins -> . proteins PROTEIN
+    (36) proteins -> . PROTEIN
+
+    POUND           shift and go to state 49
+    PROTEIN         shift and go to state 33
+
+    proteins                       shift and go to state 50
+
+state 33
+
+    (36) proteins -> PROTEIN .
+
+    PROTEIN         reduce using rule 36 (proteins -> PROTEIN .)
+    CONTENT         reduce using rule 36 (proteins -> PROTEIN .)
+    POUND           reduce using rule 36 (proteins -> PROTEIN .)
+    LPARENS         reduce using rule 36 (proteins -> PROTEIN .)
+    COMMENT         reduce using rule 36 (proteins -> PROTEIN .)
+    LCURLY          reduce using rule 36 (proteins -> PROTEIN .)
+    SPECIAL         reduce using rule 36 (proteins -> PROTEIN .)
+    LANGLE          reduce using rule 36 (proteins -> PROTEIN .)
+    CITATION        reduce using rule 36 (proteins -> PROTEIN .)
+    END             reduce using rule 36 (proteins -> PROTEIN .)
+    PROTEIN_ENTRY   reduce using rule 36 (proteins -> PROTEIN .)
+    REFERENCE_ENTRY reduce using rule 36 (proteins -> PROTEIN .)
+    ENTRY           reduce using rule 36 (proteins -> PROTEIN .)
+    $end            reduce using rule 36 (proteins -> PROTEIN .)
+    ACCESSION       reduce using rule 36 (proteins -> PROTEIN .)
+
+
+state 34
+
+    (41) comment -> LPARENS comment . RPARENS
+    (43) comment -> comment . COMMENT
+
+    RPARENS         shift and go to state 51
+    COMMENT         shift and go to state 14
+
+
+state 35
+
+    (42) comment -> LPARENS RPARENS .
+
+    COMMENT         reduce using rule 42 (comment -> LPARENS RPARENS .)
+    END             reduce using rule 42 (comment -> LPARENS RPARENS .)
+    LPARENS         reduce using rule 42 (comment -> LPARENS RPARENS .)
+    PROTEIN_ENTRY   reduce using rule 42 (comment -> LPARENS RPARENS .)
+    REFERENCE_ENTRY reduce using rule 42 (comment -> LPARENS RPARENS .)
+    ENTRY           reduce using rule 42 (comment -> LPARENS RPARENS .)
+    $end            reduce using rule 42 (comment -> LPARENS RPARENS .)
+    CONTENT         reduce using rule 42 (comment -> LPARENS RPARENS .)
+    ACCESSION       reduce using rule 42 (comment -> LPARENS RPARENS .)
+    LANGLE          reduce using rule 42 (comment -> LPARENS RPARENS .)
+    CITATION        reduce using rule 42 (comment -> LPARENS RPARENS .)
+    LCURLY          reduce using rule 42 (comment -> LPARENS RPARENS .)
+    SPECIAL         reduce using rule 42 (comment -> LPARENS RPARENS .)
+    POUND           reduce using rule 42 (comment -> LPARENS RPARENS .)
+    PROTEIN         reduce using rule 42 (comment -> LPARENS RPARENS .)
+    RPARENS         reduce using rule 42 (comment -> LPARENS RPARENS .)
+
+
+state 36
+
+    (20) protein_entry -> PROTEIN_ENTRY new_protein . proteins
+    (33) proteins -> . POUND proteins POUND
+    (34) proteins -> . POUND POUND
+    (35) proteins -> . proteins PROTEIN
+    (36) proteins -> . PROTEIN
+
+    POUND           shift and go to state 32
+    PROTEIN         shift and go to state 33
+
+    proteins                       shift and go to state 52
+
+state 37
+
+    (15) reference_entry -> REFERENCE_ENTRY new_reference . citations
+    (37) citations -> . LANGLE citations RANGLE
+    (38) citations -> . LANGLE RANGLE
+    (39) citations -> . citations CITATION
+    (40) citations -> . CITATION
+
+    LANGLE          shift and go to state 20
+    CITATION        shift and go to state 21
+
+    citations                      shift and go to state 53
+
+state 38
 
     (8) entry -> ENTRY new_entry .
 
     CONTENT         reduce using rule 8 (entry -> ENTRY new_entry .)
+    POUND           reduce using rule 8 (entry -> ENTRY new_entry .)
+    PROTEIN         reduce using rule 8 (entry -> ENTRY new_entry .)
     LPARENS         reduce using rule 8 (entry -> ENTRY new_entry .)
     COMMENT         reduce using rule 8 (entry -> ENTRY new_entry .)
+    LCURLY          reduce using rule 8 (entry -> ENTRY new_entry .)
+    SPECIAL         reduce using rule 8 (entry -> ENTRY new_entry .)
+    LANGLE          reduce using rule 8 (entry -> ENTRY new_entry .)
+    CITATION        reduce using rule 8 (entry -> ENTRY new_entry .)
     END             reduce using rule 8 (entry -> ENTRY new_entry .)
     PROTEIN_ENTRY   reduce using rule 8 (entry -> ENTRY new_entry .)
     REFERENCE_ENTRY reduce using rule 8 (entry -> ENTRY new_entry .)
@@ -609,331 +869,356 @@ state 31
     $end            reduce using rule 8 (entry -> ENTRY new_entry .)
 
 
-state 32
-
-    (1) enzyme -> ENTRY EC_NUMBER new_enzyme .
-
-    END             reduce using rule 1 (enzyme -> ENTRY EC_NUMBER new_enzyme .)
-    LPARENS         reduce using rule 1 (enzyme -> ENTRY EC_NUMBER new_enzyme .)
-    COMMENT         reduce using rule 1 (enzyme -> ENTRY EC_NUMBER new_enzyme .)
-    PROTEIN_ENTRY   reduce using rule 1 (enzyme -> ENTRY EC_NUMBER new_enzyme .)
-    REFERENCE_ENTRY reduce using rule 1 (enzyme -> ENTRY EC_NUMBER new_enzyme .)
-    ENTRY           reduce using rule 1 (enzyme -> ENTRY EC_NUMBER new_enzyme .)
-    $end            reduce using rule 1 (enzyme -> ENTRY EC_NUMBER new_enzyme .)
-
-
-state 33
-
-    (20) protein_entry -> protein_entry ACCESSION CONTENT .
-
-    CONTENT         reduce using rule 20 (protein_entry -> protein_entry ACCESSION CONTENT .)
-    ACCESSION       reduce using rule 20 (protein_entry -> protein_entry ACCESSION CONTENT .)
-    LANGLE          reduce using rule 20 (protein_entry -> protein_entry ACCESSION CONTENT .)
-    CITATION        reduce using rule 20 (protein_entry -> protein_entry ACCESSION CONTENT .)
-    END             reduce using rule 20 (protein_entry -> protein_entry ACCESSION CONTENT .)
-    LPARENS         reduce using rule 20 (protein_entry -> protein_entry ACCESSION CONTENT .)
-    COMMENT         reduce using rule 20 (protein_entry -> protein_entry ACCESSION CONTENT .)
-    PROTEIN_ENTRY   reduce using rule 20 (protein_entry -> protein_entry ACCESSION CONTENT .)
-    REFERENCE_ENTRY reduce using rule 20 (protein_entry -> protein_entry ACCESSION CONTENT .)
-    ENTRY           reduce using rule 20 (protein_entry -> protein_entry ACCESSION CONTENT .)
-    $end            reduce using rule 20 (protein_entry -> protein_entry ACCESSION CONTENT .)
-
-
-state 34
-
-    (32) citations -> citations CITATION .
-
-    CITATION        reduce using rule 32 (citations -> citations CITATION .)
-    CONTENT         reduce using rule 32 (citations -> citations CITATION .)
-    ACCESSION       reduce using rule 32 (citations -> citations CITATION .)
-    LANGLE          reduce using rule 32 (citations -> citations CITATION .)
-    END             reduce using rule 32 (citations -> citations CITATION .)
-    LPARENS         reduce using rule 32 (citations -> citations CITATION .)
-    COMMENT         reduce using rule 32 (citations -> citations CITATION .)
-    PROTEIN_ENTRY   reduce using rule 32 (citations -> citations CITATION .)
-    REFERENCE_ENTRY reduce using rule 32 (citations -> citations CITATION .)
-    ENTRY           reduce using rule 32 (citations -> citations CITATION .)
-    $end            reduce using rule 32 (citations -> citations CITATION .)
-    RANGLE          reduce using rule 32 (citations -> citations CITATION .)
-    LCURLY          reduce using rule 32 (citations -> citations CITATION .)
-    SPECIAL         reduce using rule 32 (citations -> citations CITATION .)
-
-
-state 35
-
-    (30) citations -> LANGLE citations . RANGLE
-    (32) citations -> citations . CITATION
-
-    RANGLE          shift and go to state 45
-    CITATION        shift and go to state 34
-
-
-state 36
-
-    (31) citations -> LANGLE RANGLE .
-
-    CITATION        reduce using rule 31 (citations -> LANGLE RANGLE .)
-    CONTENT         reduce using rule 31 (citations -> LANGLE RANGLE .)
-    ACCESSION       reduce using rule 31 (citations -> LANGLE RANGLE .)
-    LANGLE          reduce using rule 31 (citations -> LANGLE RANGLE .)
-    END             reduce using rule 31 (citations -> LANGLE RANGLE .)
-    LPARENS         reduce using rule 31 (citations -> LANGLE RANGLE .)
-    COMMENT         reduce using rule 31 (citations -> LANGLE RANGLE .)
-    PROTEIN_ENTRY   reduce using rule 31 (citations -> LANGLE RANGLE .)
-    REFERENCE_ENTRY reduce using rule 31 (citations -> LANGLE RANGLE .)
-    ENTRY           reduce using rule 31 (citations -> LANGLE RANGLE .)
-    $end            reduce using rule 31 (citations -> LANGLE RANGLE .)
-    RANGLE          reduce using rule 31 (citations -> LANGLE RANGLE .)
-    LCURLY          reduce using rule 31 (citations -> LANGLE RANGLE .)
-    SPECIAL         reduce using rule 31 (citations -> LANGLE RANGLE .)
-
-
-state 37
-
-    (24) special -> special SPECIAL .
-
-    SPECIAL         reduce using rule 24 (special -> special SPECIAL .)
-    CONTENT         reduce using rule 24 (special -> special SPECIAL .)
-    LPARENS         reduce using rule 24 (special -> special SPECIAL .)
-    COMMENT         reduce using rule 24 (special -> special SPECIAL .)
-    LCURLY          reduce using rule 24 (special -> special SPECIAL .)
-    END             reduce using rule 24 (special -> special SPECIAL .)
-    PROTEIN_ENTRY   reduce using rule 24 (special -> special SPECIAL .)
-    REFERENCE_ENTRY reduce using rule 24 (special -> special SPECIAL .)
-    ENTRY           reduce using rule 24 (special -> special SPECIAL .)
-    $end            reduce using rule 24 (special -> special SPECIAL .)
-    RCURLY          reduce using rule 24 (special -> special SPECIAL .)
-
-
-state 38
-
-    (22) special -> LCURLY special . RCURLY
-    (24) special -> special . SPECIAL
-
-    RCURLY          shift and go to state 46
-    SPECIAL         shift and go to state 37
-
-
 state 39
 
-    (23) special -> LCURLY RCURLY .
+    (1) enzyme -> ENZYME_ENTRY EC_NUMBER new_enzyme .
 
-    SPECIAL         reduce using rule 23 (special -> LCURLY RCURLY .)
-    CONTENT         reduce using rule 23 (special -> LCURLY RCURLY .)
-    LPARENS         reduce using rule 23 (special -> LCURLY RCURLY .)
-    COMMENT         reduce using rule 23 (special -> LCURLY RCURLY .)
-    LCURLY          reduce using rule 23 (special -> LCURLY RCURLY .)
-    END             reduce using rule 23 (special -> LCURLY RCURLY .)
-    PROTEIN_ENTRY   reduce using rule 23 (special -> LCURLY RCURLY .)
-    REFERENCE_ENTRY reduce using rule 23 (special -> LCURLY RCURLY .)
-    ENTRY           reduce using rule 23 (special -> LCURLY RCURLY .)
-    $end            reduce using rule 23 (special -> LCURLY RCURLY .)
-    RCURLY          reduce using rule 23 (special -> LCURLY RCURLY .)
+    END             reduce using rule 1 (enzyme -> ENZYME_ENTRY EC_NUMBER new_enzyme .)
+    LPARENS         reduce using rule 1 (enzyme -> ENZYME_ENTRY EC_NUMBER new_enzyme .)
+    COMMENT         reduce using rule 1 (enzyme -> ENZYME_ENTRY EC_NUMBER new_enzyme .)
+    PROTEIN_ENTRY   reduce using rule 1 (enzyme -> ENZYME_ENTRY EC_NUMBER new_enzyme .)
+    REFERENCE_ENTRY reduce using rule 1 (enzyme -> ENZYME_ENTRY EC_NUMBER new_enzyme .)
+    ENTRY           reduce using rule 1 (enzyme -> ENZYME_ENTRY EC_NUMBER new_enzyme .)
+    $end            reduce using rule 1 (enzyme -> ENZYME_ENTRY EC_NUMBER new_enzyme .)
 
 
 state 40
 
-    (34) comment -> LPARENS comment RPARENS .
+    (26) accession -> accession AND . ACCESSION
 
-    COMMENT         reduce using rule 34 (comment -> LPARENS comment RPARENS .)
-    END             reduce using rule 34 (comment -> LPARENS comment RPARENS .)
-    LPARENS         reduce using rule 34 (comment -> LPARENS comment RPARENS .)
-    PROTEIN_ENTRY   reduce using rule 34 (comment -> LPARENS comment RPARENS .)
-    REFERENCE_ENTRY reduce using rule 34 (comment -> LPARENS comment RPARENS .)
-    ENTRY           reduce using rule 34 (comment -> LPARENS comment RPARENS .)
-    $end            reduce using rule 34 (comment -> LPARENS comment RPARENS .)
-    CONTENT         reduce using rule 34 (comment -> LPARENS comment RPARENS .)
-    LCURLY          reduce using rule 34 (comment -> LPARENS comment RPARENS .)
-    SPECIAL         reduce using rule 34 (comment -> LPARENS comment RPARENS .)
-    RPARENS         reduce using rule 34 (comment -> LPARENS comment RPARENS .)
+    ACCESSION       shift and go to state 54
 
 
 state 41
 
-    (17) protein_entry -> PROTEIN_ENTRY new_protein proteins .
-    (28) proteins -> proteins . PROTEIN
+    (27) accession -> accession CONTENT .
 
-    CONTENT         reduce using rule 17 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
-    ACCESSION       reduce using rule 17 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
-    LANGLE          reduce using rule 17 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
-    CITATION        reduce using rule 17 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
-    END             reduce using rule 17 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
-    LPARENS         reduce using rule 17 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
-    COMMENT         reduce using rule 17 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
-    PROTEIN_ENTRY   reduce using rule 17 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
-    REFERENCE_ENTRY reduce using rule 17 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
-    ENTRY           reduce using rule 17 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
-    $end            reduce using rule 17 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
-    PROTEIN         shift and go to state 47
+    AND             reduce using rule 27 (accession -> accession CONTENT .)
+    CONTENT         reduce using rule 27 (accession -> accession CONTENT .)
+    ACCESSION       reduce using rule 27 (accession -> accession CONTENT .)
+    LPARENS         reduce using rule 27 (accession -> accession CONTENT .)
+    COMMENT         reduce using rule 27 (accession -> accession CONTENT .)
+    LANGLE          reduce using rule 27 (accession -> accession CONTENT .)
+    CITATION        reduce using rule 27 (accession -> accession CONTENT .)
+    END             reduce using rule 27 (accession -> accession CONTENT .)
+    PROTEIN_ENTRY   reduce using rule 27 (accession -> accession CONTENT .)
+    REFERENCE_ENTRY reduce using rule 27 (accession -> accession CONTENT .)
+    ENTRY           reduce using rule 27 (accession -> accession CONTENT .)
+    $end            reduce using rule 27 (accession -> accession CONTENT .)
 
 
 state 42
 
-    (26) proteins -> POUND . proteins POUND
-    (27) proteins -> POUND . POUND
-    (26) proteins -> . POUND proteins POUND
-    (27) proteins -> . POUND POUND
-    (28) proteins -> . proteins PROTEIN
-    (29) proteins -> . PROTEIN
+    (39) citations -> citations CITATION .
 
-    POUND           shift and go to state 48
-    PROTEIN         shift and go to state 43
+    CITATION        reduce using rule 39 (citations -> citations CITATION .)
+    CONTENT         reduce using rule 39 (citations -> citations CITATION .)
+    ACCESSION       reduce using rule 39 (citations -> citations CITATION .)
+    LPARENS         reduce using rule 39 (citations -> citations CITATION .)
+    COMMENT         reduce using rule 39 (citations -> citations CITATION .)
+    LANGLE          reduce using rule 39 (citations -> citations CITATION .)
+    END             reduce using rule 39 (citations -> citations CITATION .)
+    PROTEIN_ENTRY   reduce using rule 39 (citations -> citations CITATION .)
+    REFERENCE_ENTRY reduce using rule 39 (citations -> citations CITATION .)
+    ENTRY           reduce using rule 39 (citations -> citations CITATION .)
+    $end            reduce using rule 39 (citations -> citations CITATION .)
+    POUND           reduce using rule 39 (citations -> citations CITATION .)
+    PROTEIN         reduce using rule 39 (citations -> citations CITATION .)
+    LCURLY          reduce using rule 39 (citations -> citations CITATION .)
+    SPECIAL         reduce using rule 39 (citations -> citations CITATION .)
+    RANGLE          reduce using rule 39 (citations -> citations CITATION .)
 
-    proteins                       shift and go to state 49
 
 state 43
 
-    (29) proteins -> PROTEIN .
+    (37) citations -> LANGLE citations . RANGLE
+    (39) citations -> citations . CITATION
 
-    PROTEIN         reduce using rule 29 (proteins -> PROTEIN .)
-    CONTENT         reduce using rule 29 (proteins -> PROTEIN .)
-    ACCESSION       reduce using rule 29 (proteins -> PROTEIN .)
-    LANGLE          reduce using rule 29 (proteins -> PROTEIN .)
-    CITATION        reduce using rule 29 (proteins -> PROTEIN .)
-    END             reduce using rule 29 (proteins -> PROTEIN .)
-    LPARENS         reduce using rule 29 (proteins -> PROTEIN .)
-    COMMENT         reduce using rule 29 (proteins -> PROTEIN .)
-    PROTEIN_ENTRY   reduce using rule 29 (proteins -> PROTEIN .)
-    REFERENCE_ENTRY reduce using rule 29 (proteins -> PROTEIN .)
-    ENTRY           reduce using rule 29 (proteins -> PROTEIN .)
-    $end            reduce using rule 29 (proteins -> PROTEIN .)
-    POUND           reduce using rule 29 (proteins -> PROTEIN .)
+    RANGLE          shift and go to state 55
+    CITATION        shift and go to state 42
 
 
 state 44
 
-    (12) reference_entry -> REFERENCE_ENTRY new_reference citations .
-    (32) citations -> citations . CITATION
+    (38) citations -> LANGLE RANGLE .
 
-    CONTENT         reduce using rule 12 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
-    LPARENS         reduce using rule 12 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
-    COMMENT         reduce using rule 12 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
-    LCURLY          reduce using rule 12 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
-    SPECIAL         reduce using rule 12 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
-    END             reduce using rule 12 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
-    PROTEIN_ENTRY   reduce using rule 12 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
-    REFERENCE_ENTRY reduce using rule 12 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
-    ENTRY           reduce using rule 12 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
-    $end            reduce using rule 12 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
-    CITATION        shift and go to state 34
+    CITATION        reduce using rule 38 (citations -> LANGLE RANGLE .)
+    CONTENT         reduce using rule 38 (citations -> LANGLE RANGLE .)
+    ACCESSION       reduce using rule 38 (citations -> LANGLE RANGLE .)
+    LPARENS         reduce using rule 38 (citations -> LANGLE RANGLE .)
+    COMMENT         reduce using rule 38 (citations -> LANGLE RANGLE .)
+    LANGLE          reduce using rule 38 (citations -> LANGLE RANGLE .)
+    END             reduce using rule 38 (citations -> LANGLE RANGLE .)
+    PROTEIN_ENTRY   reduce using rule 38 (citations -> LANGLE RANGLE .)
+    REFERENCE_ENTRY reduce using rule 38 (citations -> LANGLE RANGLE .)
+    ENTRY           reduce using rule 38 (citations -> LANGLE RANGLE .)
+    $end            reduce using rule 38 (citations -> LANGLE RANGLE .)
+    POUND           reduce using rule 38 (citations -> LANGLE RANGLE .)
+    PROTEIN         reduce using rule 38 (citations -> LANGLE RANGLE .)
+    LCURLY          reduce using rule 38 (citations -> LANGLE RANGLE .)
+    SPECIAL         reduce using rule 38 (citations -> LANGLE RANGLE .)
+    RANGLE          reduce using rule 38 (citations -> LANGLE RANGLE .)
 
 
 state 45
 
-    (30) citations -> LANGLE citations RANGLE .
+    (31) special -> special SPECIAL .
 
-    CITATION        reduce using rule 30 (citations -> LANGLE citations RANGLE .)
-    CONTENT         reduce using rule 30 (citations -> LANGLE citations RANGLE .)
-    ACCESSION       reduce using rule 30 (citations -> LANGLE citations RANGLE .)
-    LANGLE          reduce using rule 30 (citations -> LANGLE citations RANGLE .)
-    END             reduce using rule 30 (citations -> LANGLE citations RANGLE .)
-    LPARENS         reduce using rule 30 (citations -> LANGLE citations RANGLE .)
-    COMMENT         reduce using rule 30 (citations -> LANGLE citations RANGLE .)
-    PROTEIN_ENTRY   reduce using rule 30 (citations -> LANGLE citations RANGLE .)
-    REFERENCE_ENTRY reduce using rule 30 (citations -> LANGLE citations RANGLE .)
-    ENTRY           reduce using rule 30 (citations -> LANGLE citations RANGLE .)
-    $end            reduce using rule 30 (citations -> LANGLE citations RANGLE .)
-    RANGLE          reduce using rule 30 (citations -> LANGLE citations RANGLE .)
-    LCURLY          reduce using rule 30 (citations -> LANGLE citations RANGLE .)
-    SPECIAL         reduce using rule 30 (citations -> LANGLE citations RANGLE .)
+    SPECIAL         reduce using rule 31 (special -> special SPECIAL .)
+    CONTENT         reduce using rule 31 (special -> special SPECIAL .)
+    LPARENS         reduce using rule 31 (special -> special SPECIAL .)
+    COMMENT         reduce using rule 31 (special -> special SPECIAL .)
+    LCURLY          reduce using rule 31 (special -> special SPECIAL .)
+    END             reduce using rule 31 (special -> special SPECIAL .)
+    PROTEIN_ENTRY   reduce using rule 31 (special -> special SPECIAL .)
+    REFERENCE_ENTRY reduce using rule 31 (special -> special SPECIAL .)
+    ENTRY           reduce using rule 31 (special -> special SPECIAL .)
+    $end            reduce using rule 31 (special -> special SPECIAL .)
+    POUND           reduce using rule 31 (special -> special SPECIAL .)
+    PROTEIN         reduce using rule 31 (special -> special SPECIAL .)
+    LANGLE          reduce using rule 31 (special -> special SPECIAL .)
+    CITATION        reduce using rule 31 (special -> special SPECIAL .)
+    RCURLY          reduce using rule 31 (special -> special SPECIAL .)
 
 
 state 46
 
-    (22) special -> LCURLY special RCURLY .
+    (29) special -> LCURLY special . RCURLY
+    (31) special -> special . SPECIAL
 
-    SPECIAL         reduce using rule 22 (special -> LCURLY special RCURLY .)
-    CONTENT         reduce using rule 22 (special -> LCURLY special RCURLY .)
-    LPARENS         reduce using rule 22 (special -> LCURLY special RCURLY .)
-    COMMENT         reduce using rule 22 (special -> LCURLY special RCURLY .)
-    LCURLY          reduce using rule 22 (special -> LCURLY special RCURLY .)
-    END             reduce using rule 22 (special -> LCURLY special RCURLY .)
-    PROTEIN_ENTRY   reduce using rule 22 (special -> LCURLY special RCURLY .)
-    REFERENCE_ENTRY reduce using rule 22 (special -> LCURLY special RCURLY .)
-    ENTRY           reduce using rule 22 (special -> LCURLY special RCURLY .)
-    $end            reduce using rule 22 (special -> LCURLY special RCURLY .)
-    RCURLY          reduce using rule 22 (special -> LCURLY special RCURLY .)
+    RCURLY          shift and go to state 56
+    SPECIAL         shift and go to state 45
 
 
 state 47
 
-    (28) proteins -> proteins PROTEIN .
+    (30) special -> LCURLY RCURLY .
 
-    PROTEIN         reduce using rule 28 (proteins -> proteins PROTEIN .)
-    CONTENT         reduce using rule 28 (proteins -> proteins PROTEIN .)
-    ACCESSION       reduce using rule 28 (proteins -> proteins PROTEIN .)
-    LANGLE          reduce using rule 28 (proteins -> proteins PROTEIN .)
-    CITATION        reduce using rule 28 (proteins -> proteins PROTEIN .)
-    END             reduce using rule 28 (proteins -> proteins PROTEIN .)
-    LPARENS         reduce using rule 28 (proteins -> proteins PROTEIN .)
-    COMMENT         reduce using rule 28 (proteins -> proteins PROTEIN .)
-    PROTEIN_ENTRY   reduce using rule 28 (proteins -> proteins PROTEIN .)
-    REFERENCE_ENTRY reduce using rule 28 (proteins -> proteins PROTEIN .)
-    ENTRY           reduce using rule 28 (proteins -> proteins PROTEIN .)
-    $end            reduce using rule 28 (proteins -> proteins PROTEIN .)
-    POUND           reduce using rule 28 (proteins -> proteins PROTEIN .)
+    SPECIAL         reduce using rule 30 (special -> LCURLY RCURLY .)
+    CONTENT         reduce using rule 30 (special -> LCURLY RCURLY .)
+    LPARENS         reduce using rule 30 (special -> LCURLY RCURLY .)
+    COMMENT         reduce using rule 30 (special -> LCURLY RCURLY .)
+    LCURLY          reduce using rule 30 (special -> LCURLY RCURLY .)
+    END             reduce using rule 30 (special -> LCURLY RCURLY .)
+    PROTEIN_ENTRY   reduce using rule 30 (special -> LCURLY RCURLY .)
+    REFERENCE_ENTRY reduce using rule 30 (special -> LCURLY RCURLY .)
+    ENTRY           reduce using rule 30 (special -> LCURLY RCURLY .)
+    $end            reduce using rule 30 (special -> LCURLY RCURLY .)
+    POUND           reduce using rule 30 (special -> LCURLY RCURLY .)
+    PROTEIN         reduce using rule 30 (special -> LCURLY RCURLY .)
+    LANGLE          reduce using rule 30 (special -> LCURLY RCURLY .)
+    CITATION        reduce using rule 30 (special -> LCURLY RCURLY .)
+    RCURLY          reduce using rule 30 (special -> LCURLY RCURLY .)
 
 
 state 48
 
-    (27) proteins -> POUND POUND .
-    (26) proteins -> POUND . proteins POUND
-    (27) proteins -> POUND . POUND
-    (26) proteins -> . POUND proteins POUND
-    (27) proteins -> . POUND POUND
-    (28) proteins -> . proteins PROTEIN
-    (29) proteins -> . PROTEIN
+    (35) proteins -> proteins PROTEIN .
 
-  ! shift/reduce conflict for POUND resolved as shift
-  ! shift/reduce conflict for PROTEIN resolved as shift
-    CONTENT         reduce using rule 27 (proteins -> POUND POUND .)
-    ACCESSION       reduce using rule 27 (proteins -> POUND POUND .)
-    LANGLE          reduce using rule 27 (proteins -> POUND POUND .)
-    CITATION        reduce using rule 27 (proteins -> POUND POUND .)
-    END             reduce using rule 27 (proteins -> POUND POUND .)
-    LPARENS         reduce using rule 27 (proteins -> POUND POUND .)
-    COMMENT         reduce using rule 27 (proteins -> POUND POUND .)
-    PROTEIN_ENTRY   reduce using rule 27 (proteins -> POUND POUND .)
-    REFERENCE_ENTRY reduce using rule 27 (proteins -> POUND POUND .)
-    ENTRY           reduce using rule 27 (proteins -> POUND POUND .)
-    $end            reduce using rule 27 (proteins -> POUND POUND .)
-    POUND           shift and go to state 48
-    PROTEIN         shift and go to state 43
+    PROTEIN         reduce using rule 35 (proteins -> proteins PROTEIN .)
+    CONTENT         reduce using rule 35 (proteins -> proteins PROTEIN .)
+    POUND           reduce using rule 35 (proteins -> proteins PROTEIN .)
+    LPARENS         reduce using rule 35 (proteins -> proteins PROTEIN .)
+    COMMENT         reduce using rule 35 (proteins -> proteins PROTEIN .)
+    LCURLY          reduce using rule 35 (proteins -> proteins PROTEIN .)
+    SPECIAL         reduce using rule 35 (proteins -> proteins PROTEIN .)
+    LANGLE          reduce using rule 35 (proteins -> proteins PROTEIN .)
+    CITATION        reduce using rule 35 (proteins -> proteins PROTEIN .)
+    END             reduce using rule 35 (proteins -> proteins PROTEIN .)
+    PROTEIN_ENTRY   reduce using rule 35 (proteins -> proteins PROTEIN .)
+    REFERENCE_ENTRY reduce using rule 35 (proteins -> proteins PROTEIN .)
+    ENTRY           reduce using rule 35 (proteins -> proteins PROTEIN .)
+    $end            reduce using rule 35 (proteins -> proteins PROTEIN .)
+    ACCESSION       reduce using rule 35 (proteins -> proteins PROTEIN .)
 
-  ! PROTEIN         [ reduce using rule 27 (proteins -> POUND POUND .) ]
-  ! POUND           [ reduce using rule 27 (proteins -> POUND POUND .) ]
-
-    proteins                       shift and go to state 49
 
 state 49
 
-    (26) proteins -> POUND proteins . POUND
-    (28) proteins -> proteins . PROTEIN
+    (34) proteins -> POUND POUND .
+    (33) proteins -> POUND . proteins POUND
+    (34) proteins -> POUND . POUND
+    (33) proteins -> . POUND proteins POUND
+    (34) proteins -> . POUND POUND
+    (35) proteins -> . proteins PROTEIN
+    (36) proteins -> . PROTEIN
 
-    POUND           shift and go to state 50
-    PROTEIN         shift and go to state 47
+    PROTEIN         reduce using rule 34 (proteins -> POUND POUND .)
+    CONTENT         reduce using rule 34 (proteins -> POUND POUND .)
+    POUND           reduce using rule 34 (proteins -> POUND POUND .)
+    LPARENS         reduce using rule 34 (proteins -> POUND POUND .)
+    COMMENT         reduce using rule 34 (proteins -> POUND POUND .)
+    LCURLY          reduce using rule 34 (proteins -> POUND POUND .)
+    SPECIAL         reduce using rule 34 (proteins -> POUND POUND .)
+    LANGLE          reduce using rule 34 (proteins -> POUND POUND .)
+    CITATION        reduce using rule 34 (proteins -> POUND POUND .)
+    END             reduce using rule 34 (proteins -> POUND POUND .)
+    PROTEIN_ENTRY   reduce using rule 34 (proteins -> POUND POUND .)
+    REFERENCE_ENTRY reduce using rule 34 (proteins -> POUND POUND .)
+    ENTRY           reduce using rule 34 (proteins -> POUND POUND .)
+    $end            reduce using rule 34 (proteins -> POUND POUND .)
+    ACCESSION       reduce using rule 34 (proteins -> POUND POUND .)
 
+  ! POUND           [ shift and go to state 49 ]
+  ! PROTEIN         [ shift and go to state 33 ]
+
+    proteins                       shift and go to state 50
 
 state 50
 
-    (26) proteins -> POUND proteins POUND .
+    (33) proteins -> POUND proteins . POUND
+    (35) proteins -> proteins . PROTEIN
 
-    PROTEIN         reduce using rule 26 (proteins -> POUND proteins POUND .)
-    CONTENT         reduce using rule 26 (proteins -> POUND proteins POUND .)
-    ACCESSION       reduce using rule 26 (proteins -> POUND proteins POUND .)
-    LANGLE          reduce using rule 26 (proteins -> POUND proteins POUND .)
-    CITATION        reduce using rule 26 (proteins -> POUND proteins POUND .)
-    END             reduce using rule 26 (proteins -> POUND proteins POUND .)
-    LPARENS         reduce using rule 26 (proteins -> POUND proteins POUND .)
-    COMMENT         reduce using rule 26 (proteins -> POUND proteins POUND .)
-    PROTEIN_ENTRY   reduce using rule 26 (proteins -> POUND proteins POUND .)
-    REFERENCE_ENTRY reduce using rule 26 (proteins -> POUND proteins POUND .)
-    ENTRY           reduce using rule 26 (proteins -> POUND proteins POUND .)
-    $end            reduce using rule 26 (proteins -> POUND proteins POUND .)
-    POUND           reduce using rule 26 (proteins -> POUND proteins POUND .)
+    POUND           shift and go to state 57
+    PROTEIN         shift and go to state 48
+
+
+state 51
+
+    (41) comment -> LPARENS comment RPARENS .
+
+    COMMENT         reduce using rule 41 (comment -> LPARENS comment RPARENS .)
+    END             reduce using rule 41 (comment -> LPARENS comment RPARENS .)
+    LPARENS         reduce using rule 41 (comment -> LPARENS comment RPARENS .)
+    PROTEIN_ENTRY   reduce using rule 41 (comment -> LPARENS comment RPARENS .)
+    REFERENCE_ENTRY reduce using rule 41 (comment -> LPARENS comment RPARENS .)
+    ENTRY           reduce using rule 41 (comment -> LPARENS comment RPARENS .)
+    $end            reduce using rule 41 (comment -> LPARENS comment RPARENS .)
+    CONTENT         reduce using rule 41 (comment -> LPARENS comment RPARENS .)
+    ACCESSION       reduce using rule 41 (comment -> LPARENS comment RPARENS .)
+    LANGLE          reduce using rule 41 (comment -> LPARENS comment RPARENS .)
+    CITATION        reduce using rule 41 (comment -> LPARENS comment RPARENS .)
+    LCURLY          reduce using rule 41 (comment -> LPARENS comment RPARENS .)
+    SPECIAL         reduce using rule 41 (comment -> LPARENS comment RPARENS .)
+    POUND           reduce using rule 41 (comment -> LPARENS comment RPARENS .)
+    PROTEIN         reduce using rule 41 (comment -> LPARENS comment RPARENS .)
+    RPARENS         reduce using rule 41 (comment -> LPARENS comment RPARENS .)
+
+
+state 52
+
+    (20) protein_entry -> PROTEIN_ENTRY new_protein proteins .
+    (35) proteins -> proteins . PROTEIN
+
+    CONTENT         reduce using rule 20 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
+    ACCESSION       reduce using rule 20 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
+    LPARENS         reduce using rule 20 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
+    COMMENT         reduce using rule 20 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
+    LANGLE          reduce using rule 20 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
+    CITATION        reduce using rule 20 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
+    END             reduce using rule 20 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
+    PROTEIN_ENTRY   reduce using rule 20 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
+    REFERENCE_ENTRY reduce using rule 20 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
+    ENTRY           reduce using rule 20 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
+    $end            reduce using rule 20 (protein_entry -> PROTEIN_ENTRY new_protein proteins .)
+    PROTEIN         shift and go to state 48
+
+
+state 53
+
+    (15) reference_entry -> REFERENCE_ENTRY new_reference citations .
+    (39) citations -> citations . CITATION
+
+    CONTENT         reduce using rule 15 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
+    LPARENS         reduce using rule 15 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
+    COMMENT         reduce using rule 15 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
+    LCURLY          reduce using rule 15 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
+    SPECIAL         reduce using rule 15 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
+    END             reduce using rule 15 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
+    PROTEIN_ENTRY   reduce using rule 15 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
+    REFERENCE_ENTRY reduce using rule 15 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
+    ENTRY           reduce using rule 15 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
+    $end            reduce using rule 15 (reference_entry -> REFERENCE_ENTRY new_reference citations .)
+    CITATION        shift and go to state 42
+
+
+state 54
+
+    (26) accession -> accession AND ACCESSION .
+
+    AND             reduce using rule 26 (accession -> accession AND ACCESSION .)
+    CONTENT         reduce using rule 26 (accession -> accession AND ACCESSION .)
+    ACCESSION       reduce using rule 26 (accession -> accession AND ACCESSION .)
+    LPARENS         reduce using rule 26 (accession -> accession AND ACCESSION .)
+    COMMENT         reduce using rule 26 (accession -> accession AND ACCESSION .)
+    LANGLE          reduce using rule 26 (accession -> accession AND ACCESSION .)
+    CITATION        reduce using rule 26 (accession -> accession AND ACCESSION .)
+    END             reduce using rule 26 (accession -> accession AND ACCESSION .)
+    PROTEIN_ENTRY   reduce using rule 26 (accession -> accession AND ACCESSION .)
+    REFERENCE_ENTRY reduce using rule 26 (accession -> accession AND ACCESSION .)
+    ENTRY           reduce using rule 26 (accession -> accession AND ACCESSION .)
+    $end            reduce using rule 26 (accession -> accession AND ACCESSION .)
+
+
+state 55
+
+    (37) citations -> LANGLE citations RANGLE .
+
+    CITATION        reduce using rule 37 (citations -> LANGLE citations RANGLE .)
+    CONTENT         reduce using rule 37 (citations -> LANGLE citations RANGLE .)
+    ACCESSION       reduce using rule 37 (citations -> LANGLE citations RANGLE .)
+    LPARENS         reduce using rule 37 (citations -> LANGLE citations RANGLE .)
+    COMMENT         reduce using rule 37 (citations -> LANGLE citations RANGLE .)
+    LANGLE          reduce using rule 37 (citations -> LANGLE citations RANGLE .)
+    END             reduce using rule 37 (citations -> LANGLE citations RANGLE .)
+    PROTEIN_ENTRY   reduce using rule 37 (citations -> LANGLE citations RANGLE .)
+    REFERENCE_ENTRY reduce using rule 37 (citations -> LANGLE citations RANGLE .)
+    ENTRY           reduce using rule 37 (citations -> LANGLE citations RANGLE .)
+    $end            reduce using rule 37 (citations -> LANGLE citations RANGLE .)
+    POUND           reduce using rule 37 (citations -> LANGLE citations RANGLE .)
+    PROTEIN         reduce using rule 37 (citations -> LANGLE citations RANGLE .)
+    LCURLY          reduce using rule 37 (citations -> LANGLE citations RANGLE .)
+    SPECIAL         reduce using rule 37 (citations -> LANGLE citations RANGLE .)
+    RANGLE          reduce using rule 37 (citations -> LANGLE citations RANGLE .)
+
+
+state 56
+
+    (29) special -> LCURLY special RCURLY .
+
+    SPECIAL         reduce using rule 29 (special -> LCURLY special RCURLY .)
+    CONTENT         reduce using rule 29 (special -> LCURLY special RCURLY .)
+    LPARENS         reduce using rule 29 (special -> LCURLY special RCURLY .)
+    COMMENT         reduce using rule 29 (special -> LCURLY special RCURLY .)
+    LCURLY          reduce using rule 29 (special -> LCURLY special RCURLY .)
+    END             reduce using rule 29 (special -> LCURLY special RCURLY .)
+    PROTEIN_ENTRY   reduce using rule 29 (special -> LCURLY special RCURLY .)
+    REFERENCE_ENTRY reduce using rule 29 (special -> LCURLY special RCURLY .)
+    ENTRY           reduce using rule 29 (special -> LCURLY special RCURLY .)
+    $end            reduce using rule 29 (special -> LCURLY special RCURLY .)
+    POUND           reduce using rule 29 (special -> LCURLY special RCURLY .)
+    PROTEIN         reduce using rule 29 (special -> LCURLY special RCURLY .)
+    LANGLE          reduce using rule 29 (special -> LCURLY special RCURLY .)
+    CITATION        reduce using rule 29 (special -> LCURLY special RCURLY .)
+    RCURLY          reduce using rule 29 (special -> LCURLY special RCURLY .)
+
+
+state 57
+
+    (33) proteins -> POUND proteins POUND .
+
+    PROTEIN         reduce using rule 33 (proteins -> POUND proteins POUND .)
+    CONTENT         reduce using rule 33 (proteins -> POUND proteins POUND .)
+    POUND           reduce using rule 33 (proteins -> POUND proteins POUND .)
+    LPARENS         reduce using rule 33 (proteins -> POUND proteins POUND .)
+    COMMENT         reduce using rule 33 (proteins -> POUND proteins POUND .)
+    LCURLY          reduce using rule 33 (proteins -> POUND proteins POUND .)
+    SPECIAL         reduce using rule 33 (proteins -> POUND proteins POUND .)
+    LANGLE          reduce using rule 33 (proteins -> POUND proteins POUND .)
+    CITATION        reduce using rule 33 (proteins -> POUND proteins POUND .)
+    END             reduce using rule 33 (proteins -> POUND proteins POUND .)
+    PROTEIN_ENTRY   reduce using rule 33 (proteins -> POUND proteins POUND .)
+    REFERENCE_ENTRY reduce using rule 33 (proteins -> POUND proteins POUND .)
+    ENTRY           reduce using rule 33 (proteins -> POUND proteins POUND .)
+    $end            reduce using rule 33 (proteins -> POUND proteins POUND .)
+    ACCESSION       reduce using rule 33 (proteins -> POUND proteins POUND .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for POUND in state 48 resolved as shift
-WARNING: shift/reduce conflict for PROTEIN in state 48 resolved as shift
+WARNING: shift/reduce conflict for COMMENT in state 3 resolved as shift
+WARNING: shift/reduce conflict for LPARENS in state 4 resolved as shift
+WARNING: shift/reduce conflict for COMMENT in state 4 resolved as shift
+WARNING: shift/reduce conflict for LPARENS in state 5 resolved as shift
+WARNING: shift/reduce conflict for COMMENT in state 5 resolved as shift
+WARNING: shift/reduce conflict for LPARENS in state 6 resolved as shift
+WARNING: shift/reduce conflict for COMMENT in state 6 resolved as shift

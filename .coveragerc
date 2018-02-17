@@ -1,14 +1,17 @@
 [paths]
 source =
-   src/brenda_parser
-   */site-packages/brenda_parser
+    src/brenda_parser
+    */site-packages/brenda_parser
 
 [run]
 branch = true
 source =
     brenda_parser
-    tests
 parallel = true
+omit =
+    */_version.py
+    */lextab.py
+    */parsetab.py
 
 [report]
 show_missing = true

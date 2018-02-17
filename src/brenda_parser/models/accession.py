@@ -28,26 +28,44 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-"""Provide a data model for additional information."""
+"""Provide a data model for a protein database cross reference."""
 
 from __future__ import absolute_import
 
 import logging
+import re
 
-from sqlalchemy import Column, Text
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship, validates
 
 from brenda_parser.models import Base
+from brenda_parser.exceptions import ValidationError
 
-__all__ = ("SpecialInformation",)
+__all__ = ("Accession",)
 
 LOGGER = logging.getLogger(__name__)
 
 
-class SpecialInformation(Base):
+class Accession(Base):
 
-    __tablename__ = "special"
+    __tablename__ = "accession"
 
+    # http://identifiers.org/uniprot/
+    UNIPROT_PATTERN = re.compile(
+        r"([A-NR-Z][0-9]([A-Z][A-Z0-9][A-Z0-9][0-9]){1,2})|"
+        r"([OPQ][0-9][A-Z0-9][A-Z0-9][A-Z0-9][0-9])(\.\d+)?")
+
+    id = Column(Integer, primary_key=True)
+    accession = Column(String(255), nullable=False, unique=True, index=True)
+    database = Column(String(255), nullable=True)
     proteins = relationship("Protein")
-    commentary = Column(Text())
-    citations = relationship("Reference")
+
+    @validates("accession")
+    def validate_accession(self, key, value):
+        if value is None:
+            return value
+        if self.UNIPROT_PATTERN.match(value) is None:
+            raise ValidationError(
+                "'{}' does not match the required pattern '{}'."
+                "".format(value, self.UNIPROT_PATTERN))
+        return value

@@ -33,17 +33,39 @@
 from __future__ import absolute_import
 
 import logging
-import re
 
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import validates, relationship
+from sqlalchemy import Table, Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
 
-from brenda_parser.exceptions import ValidationError
 from brenda_parser.models import Base
 
 __all__ = ("FieldEntry",)
 
 LOGGER = logging.getLogger(__name__)
+
+
+fieldentry_protein_association = Table(
+    "fieldentry_protein_association",
+    Base.metadata,
+    Column('fieldentry_id', Integer, ForeignKey('fieldentry.id')),
+    Column('protein_id', Integer, ForeignKey('protein.id'))
+)
+
+
+fieldentry_citation_association = Table(
+    "fieldentry_citation_association",
+    Base.metadata,
+    Column('fieldentry_id', Integer, ForeignKey('fieldentry.id')),
+    Column('reference_id', Integer, ForeignKey('reference.id'))
+)
+
+
+fieldentry_comment_association = Table(
+    "fieldentry_comment_association",
+    Base.metadata,
+    Column('fieldentry_id', Integer, ForeignKey('fieldentry.id')),
+    Column('comment_id', Integer, ForeignKey('comment.id'))
+)
 
 
 class FieldEntry(Base):
@@ -55,22 +77,24 @@ class FieldEntry(Base):
     field = relationship("InformationField")
     # The `body` might have to be Text.
     body = Column(String(255), nullable=False)
-    # enzyme_id = Column(Integer, ForeignKey("enzyme.id"))
-    # enzyme = relationship("Enzyme")
-    # proteins = relationship("Protein")
-    # citations = relationship("Reference")
-    # comments = relationship("Comment")
-    # special_information = relationship("SpecialInformation")
+    special = Column(String(255), nullable=True)
+    enzyme_id = Column(Integer, ForeignKey("enzyme.id"))
+    enzyme = relationship("Enzyme")
+    proteins = relationship("Protein",
+                            secondary=fieldentry_protein_association)
+    citations = relationship("Reference",
+                             secondary=fieldentry_citation_association)
+    comments = relationship("Comment",
+                            secondary=fieldentry_comment_association)
 
     def __init__(self, **kwargs):
         """
         Instantiate an entry with extra attributes.
 
         The attributes are used to hold the integer references to proteins
-        and citations. These are later replaced with actual relationships
-        when an entire enzyme section is completed.
+        and citations. These are later replaced with actual relationships.
+
         """
         super(FieldEntry, self).__init__(**kwargs)
         self.protein_references = list()
         self.citation_references = list()
-        self.comment_references = list()

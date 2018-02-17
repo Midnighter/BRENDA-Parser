@@ -2,4 +2,4 @@
 Authors
 =======
 
-* Moritz E. Beber - https://github.com/Midnighter/BRENDA-Parser
+* `Moritz E. Beber <moritz.beber@gmail.com>`_
