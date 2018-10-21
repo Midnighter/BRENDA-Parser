@@ -123,8 +123,9 @@ def comment_parser():
 
 
 @pytest.mark.parametrize("text, expected", [
-    pytest.mark.raises((" ( )", None), exception=AttributeError,
-                       message="NoneType"),
+    pytest.param(" ( )", None,
+                 marks=pytest.mark.raises(exception=AttributeError,
+                                          message="NoneType")),
     (" ( I am important content. )", "I am important content.")
 ])
 def test_comment(comment_parser, text, expected):

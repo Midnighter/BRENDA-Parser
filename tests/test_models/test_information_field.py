@@ -31,23 +31,27 @@ from __future__ import absolute_import
 
 import pytest
 from six import iteritems
-from sqlalchemy.exc import IntegrityError
+# from sqlalchemy.exc import IntegrityError
 
 from brenda_parser.exceptions import ValidationError
 from brenda_parser.models import InformationField
 
 
 @pytest.mark.parametrize("attributes", [
-    pytest.mark.raises({"acronym": ""}, exception=ValidationError),
-    pytest.mark.raises({"acronym": "I"}, exception=ValidationError),
-    pytest.mark.raises({"acronym": "on"}, exception=ValidationError),
+    pytest.param({"acronym": ""},
+                 marks=pytest.mark.raises(exception=ValidationError)),
+    pytest.param({"acronym": "I"},
+                 marks=pytest.mark.raises(exception=ValidationError)),
+    pytest.param({"acronym": "on"},
+                 marks=pytest.mark.raises(exception=ValidationError)),
     {"acronym": "RN"},
     {"acronym": "REF"},
     {"acronym": "IC50"},
-    pytest.mark.raises({"acronym": "too long"}, exception=ValidationError),
+    pytest.param({"acronym": "too long"},
+                 marks=pytest.mark.raises(exception=ValidationError)),
     {"acronym": "SM", "name": "Super Man"},
-    # pytest.mark.raises({"acronym": "SM", "name": "an" * 51},
-    #                    exception=IntegrityError)
+    pytest.param({"acronym": "SM", "name": "an" * 51})
+                 # marks=pytest.mark.raises(exception=IntegrityError)),
 ])
 def test_create_information_field(session, attributes):
     obj = InformationField(**attributes)

@@ -38,10 +38,11 @@ from brenda_parser.models import Reference
 
 
 @pytest.mark.parametrize("attributes", [
-    pytest.mark.raises({"body": None}, exception=IntegrityError),
+    pytest.param({"body": None},
+                 marks=pytest.mark.raises(exception=IntegrityError)),
     {"body": "Cunning et al."},
-    pytest.mark.raises({"body": "Evil Inc.", "pubmed": "fail"},
-                       exception=ValidationError),
+    pytest.param({"body": "Evil Inc.", "pubmed": "fail"},
+                 marks=pytest.mark.raises(exception=ValidationError)),
     {"body": "Vitello et al.", "pubmed": "Pubmed:1234567"}
 ])
 def test_create_reference(session, attributes):
@@ -53,10 +54,9 @@ def test_create_reference(session, attributes):
 
 
 @pytest.mark.parametrize("ref_a, ref_b", [
-    pytest.mark.raises(
-        ({"body": "Vitello et al.", "pubmed": "Pubmed:1234567"},
-         {"body": "The Others", "pubmed": "Pubmed:1234567"}),
-        exception=IntegrityError),
+    pytest.param({"body": "Vitello et al.", "pubmed": "Pubmed:1234567"},
+                 {"body": "The Others", "pubmed": "Pubmed:1234567"},
+                 marks=pytest.mark.raises(exception=IntegrityError)),
     ({"body": "Batman", "pubmed": "Pubmed:1111111"},
      {"body": "Robin", "pubmed": "Pubmed:2222222"})
 ])

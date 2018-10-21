@@ -37,7 +37,8 @@ from brenda_parser.models import Organism
 
 
 @pytest.mark.parametrize("attributes", [
-    pytest.mark.raises({"name": None}, exception=IntegrityError),
+    pytest.param({"name": None},
+                 marks=pytest.mark.raises(exception=IntegrityError)),
     {"name": ""},
     {"name": "Homo sapiens"}
 ])
@@ -50,7 +51,8 @@ def test_create_organism(session, attributes):
 
 
 @pytest.mark.parametrize("name_a, name_b", [
-    pytest.mark.raises(("same", "same"), exception=IntegrityError),
+    pytest.param("same", "same",
+                 marks=pytest.mark.raises(exception=IntegrityError)),
     ("way", "different")
 ])
 def test_unique_name(session, name_a, name_b):
