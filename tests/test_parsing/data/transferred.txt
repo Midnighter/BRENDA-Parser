@@ -1,0 +1,17 @@
+ID	1.4.99.4 (transferred to EC 1.4.9.2)
+********************************************************************************
+*                                                                              *
+* Copyrighted by Dietmar Schomburg, Techn. University Braunschweig, GERMANY    *
+* Distributed under the License as stated at http:/www.brenda-enzymes.org      *
+*                                                                              *
+********************************************************************************
+
+RECOMMENDED_NAME
+RN	aralkylamine dehydrogenase
+
+
+SYSTEMATIC_NAME
+SN
+
+
+///
