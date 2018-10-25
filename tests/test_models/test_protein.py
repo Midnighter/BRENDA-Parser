@@ -33,8 +33,8 @@ import pytest
 from six import iteritems
 from sqlalchemy.exc import IntegrityError
 
-from brenda_parser.exceptions import ValidationError
 import brenda_parser.models as models
+from brenda_parser.exceptions import ValidationError
 
 
 def test_create_protein(session):

@@ -274,7 +274,7 @@ class BRENDAParser(object):
             "SS",
             "ST",
             "SU",
-            "SY",
+            "SY",models.Comment(body=c)
             "TN",
             "TO",
             "TR",

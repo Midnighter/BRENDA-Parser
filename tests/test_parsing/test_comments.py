@@ -39,6 +39,7 @@ from sqlalchemy.orm import sessionmaker
 from brenda_parser.models import Base, InformationField
 from brenda_parser.parsing.parser import BRENDAParser
 
+
 Session = sessionmaker()
 
 
@@ -92,4 +93,4 @@ def test_long_comment(session, parser):
     assert entry.field.acronym == "IN"
     assert len(entry.protein_references) == 8
     assert len(entry.citation_references) == 40
-    assert len(entry.comments) == 40
+    assert len(entry.comments) == 44

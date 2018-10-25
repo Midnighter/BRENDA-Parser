@@ -38,12 +38,13 @@ import re
 
 from importlib_resources import open_text
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import validates
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import validates
 
 import brenda_parser.data
 from brenda_parser.exceptions import ValidationError
 from brenda_parser.models import Base
+
 
 __all__ = ("InformationField",)
 

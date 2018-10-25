@@ -39,6 +39,7 @@ from sqlalchemy.orm import sessionmaker
 from brenda_parser.models import Base, InformationField
 from brenda_parser.parsing.parser import BRENDAParser
 
+
 Session = sessionmaker()
 
 

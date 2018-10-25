@@ -34,10 +34,11 @@ from __future__ import absolute_import
 
 import logging
 
-from sqlalchemy import Table, Column, String, Integer, ForeignKey
+from sqlalchemy import Column, ForeignKey, Integer, String, Table
 from sqlalchemy.orm import relationship
 
 from brenda_parser.models import Base
+
 
 __all__ = ("Comment",)
 
@@ -70,4 +71,3 @@ class Comment(Base):
                             secondary=comment_protein_association)
     citations = relationship("Reference",
                              secondary=comment_citation_association)
-

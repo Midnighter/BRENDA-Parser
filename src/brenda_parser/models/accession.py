@@ -38,8 +38,9 @@ import re
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship, validates
 
-from brenda_parser.models import Base
 from brenda_parser.exceptions import ValidationError
+from brenda_parser.models import Base
+
 
 __all__ = ("Accession",)
 

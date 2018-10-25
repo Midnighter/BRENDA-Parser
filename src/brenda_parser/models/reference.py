@@ -35,11 +35,12 @@ from __future__ import absolute_import
 import logging
 import re
 
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship, validates
 
 from brenda_parser.exceptions import ValidationError
 from brenda_parser.models import Base
+
 
 __all__ = ("Reference",)
 

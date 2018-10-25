@@ -35,6 +35,7 @@ import logging
 
 from ply.lex import lex
 
+
 __all__ = ("BRENDALexer",)
 
 LOGGER = logging.getLogger(__name__)

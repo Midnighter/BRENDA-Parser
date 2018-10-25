@@ -41,6 +41,7 @@ import click_log
 import brenda_parser.api as api
 from brenda_parser import __version__
 
+
 LOGGER = logging.getLogger(__name__.split(".", 1)[0])
 click_log.basic_config(LOGGER)
 

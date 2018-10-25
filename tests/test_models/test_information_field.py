@@ -31,10 +31,13 @@ from __future__ import absolute_import
 
 import pytest
 from six import iteritems
-# from sqlalchemy.exc import IntegrityError
 
 from brenda_parser.exceptions import ValidationError
 from brenda_parser.models import InformationField
+
+
+# from sqlalchemy.exc import IntegrityError
+
 
 
 @pytest.mark.parametrize("attributes", [

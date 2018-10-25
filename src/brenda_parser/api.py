@@ -41,7 +41,8 @@ from sqlalchemy.orm import sessionmaker
 from tqdm import tqdm
 
 import brenda_parser.models as models
-from brenda_parser.parsing import BRENDAParser, BRENDALexer
+from brenda_parser.parsing import BRENDALexer, BRENDAParser
+
 
 __all__ = ("initialize", "parse")
 
@@ -113,7 +114,7 @@ def parse(lines, connection="sqlite:///:memory:", processes=1):
     else:
         init_worker(engine)
         single_parse(sections)
-    return session
+    return engine, session
 
 
 def single_parse(sections):

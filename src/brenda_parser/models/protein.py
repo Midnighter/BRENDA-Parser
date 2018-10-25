@@ -34,11 +34,12 @@ from __future__ import absolute_import
 
 import logging
 
-from sqlalchemy import Table, Column, Integer, ForeignKey
-from sqlalchemy.orm import validates, relationship
+from sqlalchemy import Column, ForeignKey, Integer, Table
+from sqlalchemy.orm import relationship, validates
 
 from brenda_parser.exceptions import ValidationError
 from brenda_parser.models import Base
+
 
 __all__ = ("Protein",)
 

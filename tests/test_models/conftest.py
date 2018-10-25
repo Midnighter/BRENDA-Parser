@@ -35,6 +35,7 @@ from sqlalchemy.orm import sessionmaker
 
 from brenda_parser.models import Base
 
+
 Session = sessionmaker()
 
 
@@ -68,5 +69,3 @@ def session(connection):
     yield session
     session.close()
     transaction.rollback()
-
-

@@ -38,6 +38,7 @@ from sqlalchemy import Column, Integer, String
 
 from brenda_parser.models import Base
 
+
 __all__ = ("Organism",)
 
 LOGGER = logging.getLogger(__name__)

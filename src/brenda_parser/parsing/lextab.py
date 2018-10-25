@@ -1,6 +1,6 @@
-# lextab.py. This file automatically created by PLY (version 3.10). Don't edit!
+# lextab.py. This file automatically created by PLY (version 3.11). Don't edit!
 _tabversion   = '3.10'
-_lextokens    = set(('COMMENT', 'RCURLY', 'REFERENCE_ENTRY', 'EC_NUMBER', 'CONTENT', 'ENTRY', 'RANGLE', 'LPARENS', 'RPARENS', 'LCURLY', 'ENZYME_ENTRY', 'PROTEIN', 'END', 'LANGLE', 'SPECIAL', 'AND', 'PROTEIN_ENTRY', 'CITATION', 'POUND', 'ACCESSION'))
+_lextokens    = set(('ACCESSION', 'AND', 'CITATION', 'COMMENT', 'CONTENT', 'EC_NUMBER', 'END', 'ENTRY', 'ENZYME_ENTRY', 'LANGLE', 'LCURLY', 'LPARENS', 'POUND', 'PROTEIN', 'PROTEIN_ENTRY', 'RANGLE', 'RCURLY', 'REFERENCE_ENTRY', 'RPARENS', 'SPECIAL'))
 _lexreflags   = 64
 _lexliterals  = ''
 _lexstateinfo = {'INITIAL': 'inclusive', 'citation': 'exclusive', 'protein': 'exclusive', 'special': 'exclusive', 'comment': 'exclusive', 'enzyme': 'exclusive', 'protentry': 'inclusive'}

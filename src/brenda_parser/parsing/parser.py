@@ -40,6 +40,7 @@ import brenda_parser.models as models
 from brenda_parser.exceptions import ValidationError
 from brenda_parser.parsing.lexer import BRENDALexer
 
+
 __all__ = ("BRENDAParser",)
 
 LOGGER = logging.getLogger(__name__)
@@ -368,6 +369,7 @@ class BRENDAParser(object):
     def p_comment_end(self, p):
         """comment : COMMENT %prec REDUCE"""
         p[0] = models.Comment(body=p[1])
+        # p[0] = [models.Comment(body=c) for c in p[1].split(";")]
 
     def p_error(self, p):
         LOGGER.debug("Error: %s", str(p))
