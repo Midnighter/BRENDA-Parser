@@ -27,31 +27,38 @@
 
 
 import pytest
-from six import iteritems
 from sqlalchemy.exc import IntegrityError
 
 from brenda_parser.models import Organism
 
 
-@pytest.mark.parametrize("attributes", [
-    pytest.param({"name": None},
-                 marks=pytest.mark.raises(exception=IntegrityError)),
-    {"name": ""},
-    {"name": "Homo sapiens"}
-])
+@pytest.mark.parametrize(
+    "attributes",
+    [
+        pytest.param(
+            {"name": None}, marks=pytest.mark.raises(exception=IntegrityError)
+        ),
+        {"name": ""},
+        {"name": "Homo sapiens"},
+    ],
+)
 def test_create_organism(session, attributes):
     obj = Organism(**attributes)
     session.add(obj)
     session.commit()
-    for attr, value in iteritems(attributes):
+    for attr, value in attributes.items():
         assert getattr(obj, attr) == value
 
 
-@pytest.mark.parametrize("name_a, name_b", [
-    pytest.param("same", "same",
-                 marks=pytest.mark.raises(exception=IntegrityError)),
-    ("way", "different")
-])
+@pytest.mark.parametrize(
+    "name_a, name_b",
+    [
+        pytest.param(
+            "same", "same", marks=pytest.mark.raises(exception=IntegrityError)
+        ),
+        ("way", "different"),
+    ],
+)
 def test_unique_name(session, name_a, name_b):
     obj_a = Organism(name=name_a)
     obj_b = Organism(name=name_b)

@@ -45,16 +45,16 @@ LOGGER = logging.getLogger(__name__)
 comment_protein_association = Table(
     "comment_protein_association",
     Base.metadata,
-    Column('comment_id', Integer, ForeignKey('comment.id')),
-    Column('protein_id', Integer, ForeignKey('protein.id'))
+    Column("comment_id", Integer, ForeignKey("comment.id")),
+    Column("protein_id", Integer, ForeignKey("protein.id")),
 )
 
 
 comment_citation_association = Table(
     "comment_citation_association",
     Base.metadata,
-    Column('comment_id', Integer, ForeignKey('comment.id')),
-    Column('reference_id', Integer, ForeignKey('reference.id'))
+    Column("comment_id", Integer, ForeignKey("comment.id")),
+    Column("reference_id", Integer, ForeignKey("reference.id")),
 )
 
 
@@ -64,7 +64,7 @@ class Comment(Base):
 
     id = Column(Integer, primary_key=True)
     body = Column(String(255))
-    proteins = relationship("Protein",
-                            secondary=comment_protein_association)
-    citations = relationship("Reference",
-                             secondary=comment_citation_association)
+    proteins = relationship("Protein", secondary=comment_protein_association)
+    citations = relationship(
+        "Reference", secondary=comment_citation_association
+    )

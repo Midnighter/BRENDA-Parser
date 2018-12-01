@@ -80,10 +80,9 @@ def proteins_parser():
     return BRENDAParser(start="proteins")
 
 
-@pytest.mark.parametrize("text, expected", [
-    (" #, #", None),
-    (" #13, 334,23 #", [13, 334, 23]),
-])
+@pytest.mark.parametrize(
+    "text, expected", [(" #, #", None), (" #13, 334,23 #", [13, 334, 23])]
+)
 def test_proteins(proteins_parser, text, expected):
     assert proteins_parser.parse(text, None) == expected
 
@@ -93,10 +92,9 @@ def citations_parser():
     return BRENDAParser(start="citations")
 
 
-@pytest.mark.parametrize("text, expected", [
-    (" <, >", None),
-    (" <13, 334,23 >", [13, 334, 23]),
-])
+@pytest.mark.parametrize(
+    "text, expected", [(" <, >", None), (" <13, 334,23 >", [13, 334, 23])]
+)
 def test_citations(citations_parser, text, expected):
     assert citations_parser.parse(text, None) == expected
 
@@ -106,10 +104,13 @@ def special_parser():
     return BRENDAParser(start="special")
 
 
-@pytest.mark.parametrize("text, expected", [
-    (" { }", None),
-    (" { I am important content. }", "I am important content.")
-])
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        (" { }", None),
+        (" { I am important content. }", "I am important content."),
+    ],
+)
 def test_special(special_parser, text, expected):
     assert special_parser.parse(text, None) == expected
 
@@ -119,12 +120,19 @@ def comment_parser():
     return BRENDAParser(start="comment")
 
 
-@pytest.mark.parametrize("text, expected", [
-    pytest.param(" ( )", None,
-                 marks=pytest.mark.raises(exception=AttributeError,
-                                          message="NoneType")),
-    (" ( I am important content. )", "I am important content.")
-])
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        pytest.param(
+            " ( )",
+            None,
+            marks=pytest.mark.raises(
+                exception=AttributeError, message="NoneType"
+            ),
+        ),
+        (" ( I am important content. )", "I am important content."),
+    ],
+)
 def test_comment(comment_parser, text, expected):
     assert comment_parser.parse(text, None).body == expected
 
@@ -134,12 +142,15 @@ def protein_entry_parser():
     return BRENDAParser(start="protein_entry")
 
 
-@pytest.mark.parametrize("text, expected", [
-    ("PR\t#2#", "PR"),
-    ("PR\t#2# alpha omega", "PR"),
-    ("PR\t#2# <12, 14>", "PR"),
-    ("PR\t#2# Q4AE87 SwissProt", "PR"),
-])
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        ("PR\t#2#", "PR"),
+        ("PR\t#2# alpha omega", "PR"),
+        ("PR\t#2# <12, 14>", "PR"),
+        ("PR\t#2# Q4AE87 SwissProt", "PR"),
+    ],
+)
 def test_protein_entry(session, protein_entry_parser, text, expected):
     protein = protein_entry_parser.parse(text, session)
     assert protein.field.acronym == expected
@@ -151,12 +162,15 @@ def reference_entry_parser():
     return BRENDAParser(start="reference_entry")
 
 
-@pytest.mark.parametrize("text, expected", [
-    ("RF\t<2>", "RF"),
-    ("RF\t<2> Dogbert & Co", "RF"),
-    ("RF\t<2> Dogbert & Co (1748) Cool", "RF"),
-    ("RF\t<2> Dogbert & Co {Pubmed:1234567}", "RF"),
-])
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        ("RF\t<2>", "RF"),
+        ("RF\t<2> Dogbert & Co", "RF"),
+        ("RF\t<2> Dogbert & Co (1748) Cool", "RF"),
+        ("RF\t<2> Dogbert & Co {Pubmed:1234567}", "RF"),
+    ],
+)
 def test_reference_entry(session, reference_entry_parser, text, expected):
     reference = reference_entry_parser.parse(text, session)
     assert reference.field.acronym == expected
@@ -168,11 +182,14 @@ def entry_parser():
     return BRENDAParser(start="entry")
 
 
-@pytest.mark.parametrize("text, expected", [
-    ("PI\thigh point", "PI"),
-    ("KI\t(high point)", "KI"),
-    ("KM\thigh point (this is a comment)", "KM"),
-])
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        ("PI\thigh point", "PI"),
+        ("KI\t(high point)", "KI"),
+        ("KM\thigh point (this is a comment)", "KM"),
+    ],
+)
 def test_entry(session, entry_parser, text, expected):
     entry = entry_parser.parse(text, session)
     assert entry.field.acronym == expected
@@ -183,11 +200,14 @@ def enzyme_parser():
     return BRENDAParser(start="enzyme")
 
 
-@pytest.mark.parametrize("text, expected", [
-    ("ID\t1.1.1.1", "1.1.1.1"),
-    ("ID\t1.1.2.1\n///\n", "1.1.2.1"),
-    ("ID\t1.1.2.3 (mighty comment)\n///\n", "1.1.2.3"),
-])
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        ("ID\t1.1.1.1", "1.1.1.1"),
+        ("ID\t1.1.2.1\n///\n", "1.1.2.1"),
+        ("ID\t1.1.2.3 (mighty comment)\n///\n", "1.1.2.3"),
+    ],
+)
 def test_enzyme(session, enzyme_parser, text, expected):
     enzyme = enzyme_parser.parse(text, session)
     assert enzyme.ec_number == expected
@@ -195,7 +215,8 @@ def test_enzyme(session, enzyme_parser, text, expected):
 
 def test_section(session):
     parser = BRENDAParser()
-    with open(join(
-            dirname(__file__), "data", "small_section.txt")) as file_handle:
+    with open(
+        join(dirname(__file__), "data", "small_section.txt")
+    ) as file_handle:
         enzyme = parser.parse(file_handle.read(), session)
     print(enzyme.__dict__)

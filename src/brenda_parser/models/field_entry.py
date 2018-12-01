@@ -45,24 +45,24 @@ LOGGER = logging.getLogger(__name__)
 fieldentry_protein_association = Table(
     "fieldentry_protein_association",
     Base.metadata,
-    Column('fieldentry_id', Integer, ForeignKey('fieldentry.id')),
-    Column('protein_id', Integer, ForeignKey('protein.id'))
+    Column("fieldentry_id", Integer, ForeignKey("fieldentry.id")),
+    Column("protein_id", Integer, ForeignKey("protein.id")),
 )
 
 
 fieldentry_citation_association = Table(
     "fieldentry_citation_association",
     Base.metadata,
-    Column('fieldentry_id', Integer, ForeignKey('fieldentry.id')),
-    Column('reference_id', Integer, ForeignKey('reference.id'))
+    Column("fieldentry_id", Integer, ForeignKey("fieldentry.id")),
+    Column("reference_id", Integer, ForeignKey("reference.id")),
 )
 
 
 fieldentry_comment_association = Table(
     "fieldentry_comment_association",
     Base.metadata,
-    Column('fieldentry_id', Integer, ForeignKey('fieldentry.id')),
-    Column('comment_id', Integer, ForeignKey('comment.id'))
+    Column("fieldentry_id", Integer, ForeignKey("fieldentry.id")),
+    Column("comment_id", Integer, ForeignKey("comment.id")),
 )
 
 
@@ -78,12 +78,11 @@ class FieldEntry(Base):
     special = Column(String(255), nullable=True)
     enzyme_id = Column(Integer, ForeignKey("enzyme.id"))
     enzyme = relationship("Enzyme")
-    proteins = relationship("Protein",
-                            secondary=fieldentry_protein_association)
-    citations = relationship("Reference",
-                             secondary=fieldentry_citation_association)
-    comments = relationship("Comment",
-                            secondary=fieldentry_comment_association)
+    proteins = relationship("Protein", secondary=fieldentry_protein_association)
+    citations = relationship(
+        "Reference", secondary=fieldentry_citation_association
+    )
+    comments = relationship("Comment", secondary=fieldentry_comment_association)
 
     def __init__(self, **kwargs):
         """

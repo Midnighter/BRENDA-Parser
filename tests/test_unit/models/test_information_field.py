@@ -27,7 +27,6 @@
 
 
 import pytest
-from six import iteritems
 
 from brenda_parser.exceptions import ValidationError
 from brenda_parser.models import InformationField
@@ -36,26 +35,35 @@ from brenda_parser.models import InformationField
 # from sqlalchemy.exc import IntegrityError
 
 
-
-@pytest.mark.parametrize("attributes", [
-    pytest.param({"acronym": ""},
-                 marks=pytest.mark.raises(exception=ValidationError)),
-    pytest.param({"acronym": "I"},
-                 marks=pytest.mark.raises(exception=ValidationError)),
-    pytest.param({"acronym": "on"},
-                 marks=pytest.mark.raises(exception=ValidationError)),
-    {"acronym": "RN"},
-    {"acronym": "REF"},
-    {"acronym": "IC50"},
-    pytest.param({"acronym": "too long"},
-                 marks=pytest.mark.raises(exception=ValidationError)),
-    {"acronym": "SM", "name": "Super Man"},
-    pytest.param({"acronym": "SM", "name": "an" * 51})
-                 # marks=pytest.mark.raises(exception=IntegrityError)),
-])
+@pytest.mark.parametrize(
+    "attributes",
+    [
+        pytest.param(
+            {"acronym": ""}, marks=pytest.mark.raises(exception=ValidationError)
+        ),
+        pytest.param(
+            {"acronym": "I"},
+            marks=pytest.mark.raises(exception=ValidationError),
+        ),
+        pytest.param(
+            {"acronym": "on"},
+            marks=pytest.mark.raises(exception=ValidationError),
+        ),
+        {"acronym": "RN"},
+        {"acronym": "REF"},
+        {"acronym": "IC50"},
+        pytest.param(
+            {"acronym": "too long"},
+            marks=pytest.mark.raises(exception=ValidationError),
+        ),
+        {"acronym": "SM", "name": "Super Man"},
+        pytest.param({"acronym": "SM", "name": "an" * 51})
+        # marks=pytest.mark.raises(exception=IntegrityError)),
+    ],
+)
 def test_create_information_field(session, attributes):
     obj = InformationField(**attributes)
     session.add(obj)
     session.commit()
-    for attr, value in iteritems(attributes):
+    for attr, value in attributes.items():
         assert getattr(obj, attr) == value

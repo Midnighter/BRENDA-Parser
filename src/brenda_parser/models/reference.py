@@ -64,5 +64,6 @@ class Reference(Base):
         if self.PUBMED_PATTERN.match(value) is None:
             raise ValidationError(
                 "'{}' does not match the required pattern '{}'."
-                "".format(value, self.PUBMED_PATTERN))
+                "".format(value, self.PUBMED_PATTERN)
+            )
         return value

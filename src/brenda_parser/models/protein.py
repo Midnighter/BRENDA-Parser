@@ -46,16 +46,16 @@ LOGGER = logging.getLogger(__name__)
 protein_citation_association = Table(
     "protein_citation_association",
     Base.metadata,
-    Column('protein_id', Integer, ForeignKey('protein.id')),
-    Column('reference_id', Integer, ForeignKey('reference.id'))
+    Column("protein_id", Integer, ForeignKey("protein.id")),
+    Column("reference_id", Integer, ForeignKey("reference.id")),
 )
 
 
 protein_comment_association = Table(
     "protein_comment_association",
     Base.metadata,
-    Column('protein_id', Integer, ForeignKey('protein.id')),
-    Column('comment_id', Integer, ForeignKey('comment.id'))
+    Column("protein_id", Integer, ForeignKey("protein.id")),
+    Column("comment_id", Integer, ForeignKey("comment.id")),
 )
 
 
@@ -70,10 +70,10 @@ class Protein(Base):
     organism = relationship("Organism")
     accession_id = Column(Integer, ForeignKey("accession.id"))
     accession = relationship("Accession")
-    citations = relationship("Reference",
-                             secondary=protein_citation_association)
-    comments = relationship("Comment",
-                            secondary=protein_comment_association)
+    citations = relationship(
+        "Reference", secondary=protein_citation_association
+    )
+    comments = relationship("Comment", secondary=protein_comment_association)
 
     def __init__(self, **kwargs):
         super(Protein, self).__init__(**kwargs)

@@ -45,16 +45,16 @@ LOGGER = logging.getLogger(__name__)
 enzyme_entry_association = Table(
     "enzyme_entry_association",
     Base.metadata,
-    Column('enzyme_id', Integer, ForeignKey('enzyme.id')),
-    Column('fieldentry_id', Integer, ForeignKey('fieldentry.id'))
+    Column("enzyme_id", Integer, ForeignKey("enzyme.id")),
+    Column("fieldentry_id", Integer, ForeignKey("fieldentry.id")),
 )
 
 
 enzyme_comment_association = Table(
     "enzyme_comment_association",
     Base.metadata,
-    Column('enzyme_id', Integer, ForeignKey('enzyme.id')),
-    Column('comment_id', Integer, ForeignKey('comment.id'))
+    Column("enzyme_id", Integer, ForeignKey("enzyme.id")),
+    Column("comment_id", Integer, ForeignKey("comment.id")),
 )
 
 

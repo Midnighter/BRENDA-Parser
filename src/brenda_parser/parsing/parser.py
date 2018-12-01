@@ -88,7 +88,7 @@ class BRENDAParser(object):
         # ("left", "ENZYME"),
         ("left", "ASSEMBLE"),
         ("left", "REDUCE"),
-        ("left", "COMBINE")
+        ("left", "COMBINE"),
     )
 
     def __init__(self, lexer=None, **kwargs):
@@ -179,9 +179,11 @@ class BRENDAParser(object):
 
     def p_new_entry(self, p):
         """new_entry : %prec REDUCE"""
-        field = self._session.query(models.InformationField) \
-            .filter_by(acronym=p[-1]) \
+        field = (
+            self._session.query(models.InformationField)
+            .filter_by(acronym=p[-1])
             .one()
+        )
         p[0] = models.FieldEntry(field=field, body="")
 
     def p_entry_content(self, p):
@@ -223,9 +225,11 @@ class BRENDAParser(object):
     def p_new_reference(self, p):
         """new_reference :"""
         assert p[-1] == "RF"
-        field = self._session.query(models.InformationField) \
-            .filter_by(acronym=p[-1]) \
+        field = (
+            self._session.query(models.InformationField)
+            .filter_by(acronym=p[-1])
             .one()
+        )
         p[0] = models.Reference(field=field, body="")
 
     def p_reference_content(self, p):
@@ -257,9 +261,11 @@ class BRENDAParser(object):
     def p_new_protein(self, p):
         """new_protein :"""
         assert p[-1] == "PR"
-        field = self._session.query(models.InformationField) \
-            .filter_by(acronym=p[-1]) \
+        field = (
+            self._session.query(models.InformationField)
+            .filter_by(acronym=p[-1])
             .one()
+        )
         p[0] = models.Protein(field=field)
 
     def p_protein_organism(self, p):

@@ -27,36 +27,48 @@
 
 
 import pytest
-from six import iteritems
 from sqlalchemy.exc import IntegrityError
 
 from brenda_parser.exceptions import ValidationError
 from brenda_parser.models import Reference
 
 
-@pytest.mark.parametrize("attributes", [
-    pytest.param({"body": None},
-                 marks=pytest.mark.raises(exception=IntegrityError)),
-    {"body": "Cunning et al."},
-    pytest.param({"body": "Evil Inc.", "pubmed": "fail"},
-                 marks=pytest.mark.raises(exception=ValidationError)),
-    {"body": "Vitello et al.", "pubmed": "Pubmed:1234567"}
-])
+@pytest.mark.parametrize(
+    "attributes",
+    [
+        pytest.param(
+            {"body": None}, marks=pytest.mark.raises(exception=IntegrityError)
+        ),
+        {"body": "Cunning et al."},
+        pytest.param(
+            {"body": "Evil Inc.", "pubmed": "fail"},
+            marks=pytest.mark.raises(exception=ValidationError),
+        ),
+        {"body": "Vitello et al.", "pubmed": "Pubmed:1234567"},
+    ],
+)
 def test_create_reference(session, attributes):
     obj = Reference(**attributes)
     session.add(obj)
     session.commit()
-    for attr, value in iteritems(attributes):
+    for attr, value in attributes.items():
         assert getattr(obj, attr) == value
 
 
-@pytest.mark.parametrize("ref_a, ref_b", [
-    pytest.param({"body": "Vitello et al.", "pubmed": "Pubmed:1234567"},
-                 {"body": "The Others", "pubmed": "Pubmed:1234567"},
-                 marks=pytest.mark.raises(exception=IntegrityError)),
-    ({"body": "Batman", "pubmed": "Pubmed:1111111"},
-     {"body": "Robin", "pubmed": "Pubmed:2222222"})
-])
+@pytest.mark.parametrize(
+    "ref_a, ref_b",
+    [
+        pytest.param(
+            {"body": "Vitello et al.", "pubmed": "Pubmed:1234567"},
+            {"body": "The Others", "pubmed": "Pubmed:1234567"},
+            marks=pytest.mark.raises(exception=IntegrityError),
+        ),
+        (
+            {"body": "Batman", "pubmed": "Pubmed:1111111"},
+            {"body": "Robin", "pubmed": "Pubmed:2222222"},
+        ),
+    ],
+)
 def test_unique_name(session, ref_a, ref_b):
     obj_a = Reference(**ref_a)
     obj_b = Reference(**ref_b)

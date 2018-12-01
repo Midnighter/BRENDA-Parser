@@ -28,7 +28,6 @@
 from __future__ import absolute_import
 
 import pytest
-from six import iteritems
 from sqlalchemy.exc import IntegrityError
 
 import brenda_parser.models as models

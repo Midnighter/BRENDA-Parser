@@ -42,80 +42,124 @@ def tokenizer(lexer, request):
     return lexer
 
 
-@pytest.mark.parametrize("tokenizer, expected", [
-    ("KM\tRF\tKI\t", ["INITIAL", "INITIAL", "INITIAL"]),
-    ("KM\tPR\tKI\t", ["INITIAL", "protentry", "INITIAL"]),
-    ("KM\tPR\tPR\tKI\t", ["INITIAL", "protentry", "protentry", "INITIAL"]),
-    ("KM\tPR\tRF\t", ["INITIAL", "protentry", "INITIAL"])
-], indirect=["tokenizer"])
+@pytest.mark.parametrize(
+    "tokenizer, expected",
+    [
+        ("KM\tRF\tKI\t", ["INITIAL", "INITIAL", "INITIAL"]),
+        ("KM\tPR\tKI\t", ["INITIAL", "protentry", "INITIAL"]),
+        ("KM\tPR\tPR\tKI\t", ["INITIAL", "protentry", "protentry", "INITIAL"]),
+        ("KM\tPR\tRF\t", ["INITIAL", "protentry", "INITIAL"]),
+    ],
+    indirect=["tokenizer"],
+)
 def test_inclusive_entry_states(tokenizer, expected):
     states = [t.lexer.current_state() for t in tokenizer]
     assert states == expected
 
 
-@pytest.mark.parametrize("tokenizer, expected", [
-    ("<13>", ["citation", "citation", "INITIAL"]),
-    ("#13#", ["protein", "protein", "INITIAL"]),
-    ("#13##", ["protein", "protein", "INITIAL", "protein"]),
-    ("{13}", ["special", "special", "INITIAL"]),
-    ("(13)", ["comment", "comment", "INITIAL"]),
-], indirect=["tokenizer"])
+@pytest.mark.parametrize(
+    "tokenizer, expected",
+    [
+        ("<13>", ["citation", "citation", "INITIAL"]),
+        ("#13#", ["protein", "protein", "INITIAL"]),
+        ("#13##", ["protein", "protein", "INITIAL", "protein"]),
+        ("{13}", ["special", "special", "INITIAL"]),
+        ("(13)", ["comment", "comment", "INITIAL"]),
+    ],
+    indirect=["tokenizer"],
+)
 def test_exclusive_states(tokenizer, expected):
     states = [t.lexer.current_state() for t in tokenizer]
     assert states == expected
 
 
-@pytest.mark.parametrize("tokenizer, expected", [
-    ("# ,,#", ["POUND", "POUND"]),
-    ("#12#", ["POUND", "PROTEIN", "POUND"]),
-    ("# 12,423,23#", ["POUND", "PROTEIN", "PROTEIN", "PROTEIN", "POUND"]),
-    ("# # 13 #", ["POUND", "POUND", "CONTENT", "POUND"]),
-], indirect=["tokenizer"])
+@pytest.mark.parametrize(
+    "tokenizer, expected",
+    [
+        ("# ,,#", ["POUND", "POUND"]),
+        ("#12#", ["POUND", "PROTEIN", "POUND"]),
+        ("# 12,423,23#", ["POUND", "PROTEIN", "PROTEIN", "PROTEIN", "POUND"]),
+        ("# # 13 #", ["POUND", "POUND", "CONTENT", "POUND"]),
+    ],
+    indirect=["tokenizer"],
+)
 def test_protein_tokens(tokenizer, expected):
     tokens = [t.type for t in tokenizer]
     assert tokens == expected
 
 
-@pytest.mark.parametrize("tokenizer, expected", [
-    ("< ,,>", ["LANGLE", "RANGLE"]),
-    ("<12>", ["LANGLE", "CITATION", "RANGLE"]),
-    ("< 12,423,23>", ["LANGLE", "CITATION", "CITATION", "CITATION", "RANGLE"]),
-    ("<12> 13 <", ["LANGLE", "CITATION", "RANGLE", "CONTENT", "LANGLE"]),
-], indirect=["tokenizer"])
+@pytest.mark.parametrize(
+    "tokenizer, expected",
+    [
+        ("< ,,>", ["LANGLE", "RANGLE"]),
+        ("<12>", ["LANGLE", "CITATION", "RANGLE"]),
+        (
+            "< 12,423,23>",
+            ["LANGLE", "CITATION", "CITATION", "CITATION", "RANGLE"],
+        ),
+        ("<12> 13 <", ["LANGLE", "CITATION", "RANGLE", "CONTENT", "LANGLE"]),
+    ],
+    indirect=["tokenizer"],
+)
 def test_citation_tokens(tokenizer, expected):
     tokens = [t.type for t in tokenizer]
     assert tokens == expected
 
 
-@pytest.mark.parametrize("tokenizer, expected", [
-    ("{ }", ["LCURLY", "RCURLY"]),
-    ("{12}", ["LCURLY", "SPECIAL", "RCURLY"]),
-    ("{ 12,423,23}", ["LCURLY", "SPECIAL", "RCURLY"]),
-    ("{12} 13 {", ["LCURLY", "SPECIAL", "RCURLY", "CONTENT", "LCURLY"]),
-], indirect=["tokenizer"])
+@pytest.mark.parametrize(
+    "tokenizer, expected",
+    [
+        ("{ }", ["LCURLY", "RCURLY"]),
+        ("{12}", ["LCURLY", "SPECIAL", "RCURLY"]),
+        ("{ 12,423,23}", ["LCURLY", "SPECIAL", "RCURLY"]),
+        ("{12} 13 {", ["LCURLY", "SPECIAL", "RCURLY", "CONTENT", "LCURLY"]),
+    ],
+    indirect=["tokenizer"],
+)
 def test_special_tokens(tokenizer, expected):
     tokens = [t.type for t in tokenizer]
     assert tokens == expected
 
 
-@pytest.mark.parametrize("tokenizer, expected", [
-    ("( )", ["LPARENS", "RPARENS"]),
-    ("(12)", ["LPARENS", "COMMENT", "RPARENS"]),
-    ("( 12,423,23)", ["LPARENS", "COMMENT", "RPARENS"]),
-    ("(12) 13 (", ["LPARENS", "COMMENT", "RPARENS", "CONTENT", "LPARENS"]),
-], indirect=["tokenizer"])
+@pytest.mark.parametrize(
+    "tokenizer, expected",
+    [
+        ("( )", ["LPARENS", "RPARENS"]),
+        ("(12)", ["LPARENS", "COMMENT", "RPARENS"]),
+        ("( 12,423,23)", ["LPARENS", "COMMENT", "RPARENS"]),
+        ("(12) 13 (", ["LPARENS", "COMMENT", "RPARENS", "CONTENT", "LPARENS"]),
+    ],
+    indirect=["tokenizer"],
+)
 def test_comment_tokens(tokenizer, expected):
     tokens = [t.type for t in tokenizer]
     assert tokens == expected
 
 
-@pytest.mark.parametrize("tokenizer, expected", [
-    ("KM\t#13# Q4AE87 SwissProt\n",
-     ["ENTRY", "POUND", "PROTEIN", "POUND", "CONTENT", "CONTENT"]),
-    ("PR\t#41# Pseudomonas sp. Q4AE87 SwissProt\nPI\t",
-     ["PROTEIN_ENTRY", "POUND", "PROTEIN", "POUND", "CONTENT", "CONTENT",
-      "ACCESSION", "CONTENT", "ENTRY"]),
-], indirect=["tokenizer"])
+@pytest.mark.parametrize(
+    "tokenizer, expected",
+    [
+        (
+            "KM\t#13# Q4AE87 SwissProt\n",
+            ["ENTRY", "POUND", "PROTEIN", "POUND", "CONTENT", "CONTENT"],
+        ),
+        (
+            "PR\t#41# Pseudomonas sp. Q4AE87 SwissProt\nPI\t",
+            [
+                "PROTEIN_ENTRY",
+                "POUND",
+                "PROTEIN",
+                "POUND",
+                "CONTENT",
+                "CONTENT",
+                "ACCESSION",
+                "CONTENT",
+                "ENTRY",
+            ],
+        ),
+    ],
+    indirect=["tokenizer"],
+)
 def test_protein_entry_state(tokenizer, expected):
     tokens = [t.type for t in tokenizer]
     assert tokens == expected

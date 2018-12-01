@@ -103,7 +103,7 @@ def parse(lines, connection="sqlite:///:memory:", processes=1):
             start = i
             continue
         if lines[i].startswith("///"):
-            sections.append("".join(lines[start:i + 1]))
+            sections.append("".join(lines[start : i + 1]))
     processes = min(processes, len(sections))
     if processes > 1:
         multi_parse(sections, engine, processes=processes)
@@ -139,9 +139,11 @@ def single_parse(sections):
 
 def multi_parse(sections, engine, processes=2):
     pool = multiprocessing.Pool(
-        processes=processes, initializer=init_worker, initargs=(engine,))
+        processes=processes, initializer=init_worker, initargs=(engine,)
+    )
     result_iter = pool.imap_unordered(
-        worker, sections, chunksize=len(sections) // processes)
+        worker, sections, chunksize=len(sections) // processes
+    )
     with tqdm(total=len(sections)) as pbar:
         for success, enzyme in result_iter:
             if success:

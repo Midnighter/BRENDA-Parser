@@ -51,7 +51,8 @@ class Accession(Base):
     # http://identifiers.org/uniprot/
     UNIPROT_PATTERN = re.compile(
         r"([A-NR-Z][0-9]([A-Z][A-Z0-9][A-Z0-9][0-9]){1,2})|"
-        r"([OPQ][0-9][A-Z0-9][A-Z0-9][A-Z0-9][0-9])(\.\d+)?")
+        r"([OPQ][0-9][A-Z0-9][A-Z0-9][A-Z0-9][0-9])(\.\d+)?"
+    )
 
     id = Column(Integer, primary_key=True)
     accession = Column(String(255), nullable=False, unique=True, index=True)
@@ -65,5 +66,6 @@ class Accession(Base):
         if self.UNIPROT_PATTERN.match(value) is None:
             raise ValidationError(
                 "'{}' does not match the required pattern '{}'."
-                "".format(value, self.UNIPROT_PATTERN))
+                "".format(value, self.UNIPROT_PATTERN)
+            )
         return value

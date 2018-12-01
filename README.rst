@@ -12,6 +12,7 @@ Overview
     * - tests
       - | |travis| |appveyor|
         | |codecov|
+        | |black|
     * - package
       - | |version| |wheel| |supported-versions| |supported-implementations|
         | |commits-since|
@@ -31,6 +32,10 @@ Overview
 .. |codecov| image:: https://codecov.io/github/Midnighter/BRENDA-Parser/coverage.svg?branch=master
     :alt: Coverage Status
     :target: https://codecov.io/github/Midnighter/BRENDA-Parser
+
+.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :alt: code style: black
+    :target: https://github.com/ambv/black
 
 .. |version| image:: https://img.shields.io/pypi/v/brenda-parser.svg
     :alt: PyPI Package latest release

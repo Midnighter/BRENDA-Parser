@@ -74,7 +74,7 @@ class BRENDALexer(object):
         "SPECIAL",
         "COMMENT",
         "AND",
-        "ACCESSION"
+        "ACCESSION",
     )
 
     # A string containing ignored characters interpreted literally not as regex.
@@ -132,7 +132,7 @@ class BRENDALexer(object):
         t.lexer.skip(1)
 
     def t_ANY_newline(self, t):
-        r'\n+'
+        r"\n+"
         LOGGER.debug("lineno %d +%d", t.lineno, len(t.value))
         t.lexer.lineno += len(t.value)
 
@@ -260,8 +260,9 @@ class BRENDALexer(object):
 
     def t_brenda_header(self, t):
         r"[A-Z0-9_]{4,}\n"
-        LOGGER.debug("lineno %d: Section header '%s'.", t.lineno,
-                     t.value.strip())
+        LOGGER.debug(
+            "lineno %d: Section header '%s'.", t.lineno, t.value.strip()
+        )
         t.lexer.lineno += 1
 
     def t_protentry_AND(self, t):

@@ -63,7 +63,8 @@ class InformationField(Base):
         if self.ACRONYM_PATTERN.match(value) is None:
             raise ValidationError(
                 "'{}' does not match the required pattern '{}'."
-                "".format(value, self.ACRONYM_PATTERN))
+                "".format(value, self.ACRONYM_PATTERN)
+            )
         return value
 
     @classmethod
@@ -88,8 +89,8 @@ class InformationField(Base):
             for row in rows:
                 # This query will ignore or fail on non-existent
                 # `row["acronym"]`.
-                session.query(InformationField) \
-                    .filter_by(acronym=row["acronym"]) \
-                    .update(row)
+                session.query(InformationField).filter_by(
+                    acronym=row["acronym"]
+                ).update(row)
                 LOGGER.debug("Updated field '%s'.", row["acronym"])
         session.commit()

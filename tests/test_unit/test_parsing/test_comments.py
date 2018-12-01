@@ -81,8 +81,9 @@ def parser():
 
 
 def test_long_comment(session, parser):
-    with open(join(
-            dirname(__file__), "data", "long_comments.txt")) as file_handle:
+    with open(
+        join(dirname(__file__), "data", "long_comments.txt")
+    ) as file_handle:
         enzyme = parser.parse(file_handle.read(), session)
     assert len(enzyme.entries) == 1
     entry = enzyme.entries[0]
