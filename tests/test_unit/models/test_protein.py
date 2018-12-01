@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright (c) 2018 Moritz E. Beber
 #
 # Redistribution and use in source and binary forms, with or without

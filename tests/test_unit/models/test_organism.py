@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright (c) 2018 Moritz E. Beber
 #
 # Redistribution and use in source and binary forms, with or without
@@ -27,38 +25,35 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from __future__ import absolute_import
 
 import pytest
 from six import iteritems
+from sqlalchemy.exc import IntegrityError
 
-from brenda_parser.exceptions import ValidationError
-from brenda_parser.models import InformationField
-
-
-# from sqlalchemy.exc import IntegrityError
-
+from brenda_parser.models import Organism
 
 
 @pytest.mark.parametrize("attributes", [
-    pytest.param({"acronym": ""},
-                 marks=pytest.mark.raises(exception=ValidationError)),
-    pytest.param({"acronym": "I"},
-                 marks=pytest.mark.raises(exception=ValidationError)),
-    pytest.param({"acronym": "on"},
-                 marks=pytest.mark.raises(exception=ValidationError)),
-    {"acronym": "RN"},
-    {"acronym": "REF"},
-    {"acronym": "IC50"},
-    pytest.param({"acronym": "too long"},
-                 marks=pytest.mark.raises(exception=ValidationError)),
-    {"acronym": "SM", "name": "Super Man"},
-    pytest.param({"acronym": "SM", "name": "an" * 51})
-                 # marks=pytest.mark.raises(exception=IntegrityError)),
+    pytest.param({"name": None},
+                 marks=pytest.mark.raises(exception=IntegrityError)),
+    {"name": ""},
+    {"name": "Homo sapiens"}
 ])
-def test_create_information_field(session, attributes):
-    obj = InformationField(**attributes)
+def test_create_organism(session, attributes):
+    obj = Organism(**attributes)
     session.add(obj)
     session.commit()
     for attr, value in iteritems(attributes):
         assert getattr(obj, attr) == value
+
+
+@pytest.mark.parametrize("name_a, name_b", [
+    pytest.param("same", "same",
+                 marks=pytest.mark.raises(exception=IntegrityError)),
+    ("way", "different")
+])
+def test_unique_name(session, name_a, name_b):
+    obj_a = Organism(name=name_a)
+    obj_b = Organism(name=name_b)
+    session.add_all([obj_a, obj_b])
+    session.commit()

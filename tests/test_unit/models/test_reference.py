@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright (c) 2018 Moritz E. Beber
 #
 # Redistribution and use in source and binary forms, with or without
@@ -27,36 +25,40 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from __future__ import absolute_import
 
 import pytest
 from six import iteritems
 from sqlalchemy.exc import IntegrityError
 
-from brenda_parser.models import Organism
+from brenda_parser.exceptions import ValidationError
+from brenda_parser.models import Reference
 
 
 @pytest.mark.parametrize("attributes", [
-    pytest.param({"name": None},
+    pytest.param({"body": None},
                  marks=pytest.mark.raises(exception=IntegrityError)),
-    {"name": ""},
-    {"name": "Homo sapiens"}
+    {"body": "Cunning et al."},
+    pytest.param({"body": "Evil Inc.", "pubmed": "fail"},
+                 marks=pytest.mark.raises(exception=ValidationError)),
+    {"body": "Vitello et al.", "pubmed": "Pubmed:1234567"}
 ])
-def test_create_organism(session, attributes):
-    obj = Organism(**attributes)
+def test_create_reference(session, attributes):
+    obj = Reference(**attributes)
     session.add(obj)
     session.commit()
     for attr, value in iteritems(attributes):
         assert getattr(obj, attr) == value
 
 
-@pytest.mark.parametrize("name_a, name_b", [
-    pytest.param("same", "same",
+@pytest.mark.parametrize("ref_a, ref_b", [
+    pytest.param({"body": "Vitello et al.", "pubmed": "Pubmed:1234567"},
+                 {"body": "The Others", "pubmed": "Pubmed:1234567"},
                  marks=pytest.mark.raises(exception=IntegrityError)),
-    ("way", "different")
+    ({"body": "Batman", "pubmed": "Pubmed:1111111"},
+     {"body": "Robin", "pubmed": "Pubmed:2222222"})
 ])
-def test_unique_name(session, name_a, name_b):
-    obj_a = Organism(name=name_a)
-    obj_b = Organism(name=name_b)
+def test_unique_name(session, ref_a, ref_b):
+    obj_a = Reference(**ref_a)
+    obj_b = Reference(**ref_b)
     session.add_all([obj_a, obj_b])
     session.commit()

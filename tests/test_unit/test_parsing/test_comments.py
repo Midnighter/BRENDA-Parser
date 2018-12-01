@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright (c) 2018 Moritz E. Beber
 #
 # Redistribution and use in source and binary forms, with or without
@@ -27,19 +25,21 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from __future__ import absolute_import
+
+from os.path import dirname, join
 
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from brenda_parser.models import Base
+from brenda_parser.models import Base, InformationField
+from brenda_parser.parsing.parser import BRENDAParser
 
 
 Session = sessionmaker()
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="module")
 def connection():
     """
     Use a connection such transactions can be used.
@@ -51,6 +51,10 @@ def connection():
     """
     engine = create_engine("sqlite:///:memory:")
     Base.metadata.create_all(engine)
+    session = Session(bind=engine)
+    InformationField.preload(session)
+    session.close()
+    del session
     connection = engine.connect()
     yield connection
     connection.close()
@@ -69,3 +73,20 @@ def session(connection):
     yield session
     session.close()
     transaction.rollback()
+
+
+@pytest.fixture(scope="module")
+def parser():
+    return BRENDAParser()
+
+
+def test_long_comment(session, parser):
+    with open(join(
+            dirname(__file__), "data", "long_comments.txt")) as file_handle:
+        enzyme = parser.parse(file_handle.read(), session)
+    assert len(enzyme.entries) == 1
+    entry = enzyme.entries[0]
+    assert entry.field.acronym == "IN"
+    assert len(entry.protein_references) == 8
+    assert len(entry.citation_references) == 40
+    assert len(entry.comments) == 44

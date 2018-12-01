@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright (c) 2018 Moritz E. Beber
 #
 # Redistribution and use in source and binary forms, with or without
@@ -27,41 +25,37 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from __future__ import absolute_import
 
 import pytest
 from six import iteritems
-from sqlalchemy.exc import IntegrityError
 
 from brenda_parser.exceptions import ValidationError
-from brenda_parser.models import Reference
+from brenda_parser.models import InformationField
+
+
+# from sqlalchemy.exc import IntegrityError
+
 
 
 @pytest.mark.parametrize("attributes", [
-    pytest.param({"body": None},
-                 marks=pytest.mark.raises(exception=IntegrityError)),
-    {"body": "Cunning et al."},
-    pytest.param({"body": "Evil Inc.", "pubmed": "fail"},
+    pytest.param({"acronym": ""},
                  marks=pytest.mark.raises(exception=ValidationError)),
-    {"body": "Vitello et al.", "pubmed": "Pubmed:1234567"}
+    pytest.param({"acronym": "I"},
+                 marks=pytest.mark.raises(exception=ValidationError)),
+    pytest.param({"acronym": "on"},
+                 marks=pytest.mark.raises(exception=ValidationError)),
+    {"acronym": "RN"},
+    {"acronym": "REF"},
+    {"acronym": "IC50"},
+    pytest.param({"acronym": "too long"},
+                 marks=pytest.mark.raises(exception=ValidationError)),
+    {"acronym": "SM", "name": "Super Man"},
+    pytest.param({"acronym": "SM", "name": "an" * 51})
+                 # marks=pytest.mark.raises(exception=IntegrityError)),
 ])
-def test_create_reference(session, attributes):
-    obj = Reference(**attributes)
+def test_create_information_field(session, attributes):
+    obj = InformationField(**attributes)
     session.add(obj)
     session.commit()
     for attr, value in iteritems(attributes):
         assert getattr(obj, attr) == value
-
-
-@pytest.mark.parametrize("ref_a, ref_b", [
-    pytest.param({"body": "Vitello et al.", "pubmed": "Pubmed:1234567"},
-                 {"body": "The Others", "pubmed": "Pubmed:1234567"},
-                 marks=pytest.mark.raises(exception=IntegrityError)),
-    ({"body": "Batman", "pubmed": "Pubmed:1111111"},
-     {"body": "Robin", "pubmed": "Pubmed:2222222"})
-])
-def test_unique_name(session, ref_a, ref_b):
-    obj_a = Reference(**ref_a)
-    obj_b = Reference(**ref_b)
-    session.add_all([obj_a, obj_b])
-    session.commit()
