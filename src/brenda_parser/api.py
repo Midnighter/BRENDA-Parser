@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright (c) 2018 Moritz E. Beber
 #
 # Redistribution and use in source and binary forms, with or without
@@ -29,12 +27,10 @@
 
 """Provide an API to the BRENDA parser."""
 
-from __future__ import absolute_import, division
 
 import logging
 import multiprocessing
 import re
-from warnings import warn
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker

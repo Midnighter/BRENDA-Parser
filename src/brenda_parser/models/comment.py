@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright (c) 2018 Moritz E. Beber
 #
 # Redistribution and use in source and binary forms, with or without
@@ -30,7 +28,6 @@
 
 """Provide a data model for a comment."""
 
-from __future__ import absolute_import
 
 import logging
 

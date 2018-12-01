@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright (c) 2018 Moritz E. Beber
 #
 # Redistribution and use in source and binary forms, with or without
@@ -29,7 +27,6 @@
 
 """Provide a command line interface for the parser."""
 
-from __future__ import absolute_import
 
 import logging
 from multiprocessing import cpu_count

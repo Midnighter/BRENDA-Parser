@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright (c) 2013 Jacobs University Bremen gGmbH
 # Copyright (c) 2018 Moritz E. Beber
 #
@@ -28,15 +26,15 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+
 """BRENDA Enzyme Database Parser."""
 
-from __future__ import absolute_import
 
-__author__ = 'Moritz E. Beber'
-__email__ = 'moritz.beber@gmail.com'
+__author__ = "Moritz E. Beber"
+__email__ = "midnighter@posteo.net"
 
 from ._version import get_versions
-__version__ = get_versions()['version']
+__version__ = get_versions()["version"]
 del get_versions
 
 

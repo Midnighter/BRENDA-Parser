@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright (c) 2013 Jacobs University Bremen gGmbH
 # Copyright (c) 2018 Moritz E. Beber
 #
@@ -29,5 +27,3 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 """Provide data resources."""
-
-from __future__ import absolute_import

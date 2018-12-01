@@ -1,12 +1,2 @@
-graft src
-
-include AUTHORS.rst
-include CHANGELOG.rst
-include CONTRIBUTING.rst
-include LICENSE
-include README.rst
 include versioneer.py
 include src/brenda_parser/_version.py
-include src/brenda_parser/data/*.csv
-
-global-exclude *.py[cod] __pycache__ *.so *.dylib

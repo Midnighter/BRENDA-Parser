@@ -1,7 +1,5 @@
 #!/usr/bin/env python
-# -*- encoding: utf-8 -*-
 
-from __future__ import absolute_import
 
 import versioneer
 from setuptools import setup
@@ -11,6 +9,4 @@ from setuptools import setup
 setup(
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
-    # Temporary workaround for https://github.com/pypa/setuptools/issues/1136.
-    package_dir={"": "src"}
 )

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Copyright (c) 2011 Jacobs University Bremen gGmbH
 # Copyright (c) 2018 Moritz E. Beber
 #
@@ -30,7 +28,6 @@
 
 """Parse BRENDA tokens using the provided grammar."""
 
-from __future__ import absolute_import
 
 import logging
 
