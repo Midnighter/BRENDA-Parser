@@ -29,8 +29,6 @@
 """Provide a data model for a comment."""
 
 
-import logging
-
 from sqlalchemy import Column, ForeignKey, Integer, String, Table
 from sqlalchemy.orm import relationship
 
@@ -38,8 +36,6 @@ from brenda_parser.models import Base
 
 
 __all__ = ("Comment",)
-
-LOGGER = logging.getLogger(__name__)
 
 
 comment_protein_association = Table(

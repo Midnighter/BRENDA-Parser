@@ -40,7 +40,8 @@ from brenda_parser.parsing.lexer import BRENDALexer
 
 __all__ = ("BRENDAParser",)
 
-LOGGER = logging.getLogger(__name__)
+
+logger = logging.getLogger(__name__)
 
 
 class BRENDAParser(object):
@@ -106,7 +107,7 @@ class BRENDAParser(object):
         super(BRENDAParser, self).__init__()
         self._lexer = BRENDALexer() if lexer is None else lexer
         self.tokens = self._lexer.tokens
-        self.parser = yacc(module=self, errorlog=LOGGER, **kwargs)
+        self.parser = yacc(module=self, errorlog=logger, **kwargs)
         self._session = None
         self.proteins = dict()
         self.citations = dict()
@@ -141,7 +142,7 @@ class BRENDAParser(object):
 
     def p_new_enzyme(self, p):
         """new_enzyme :"""
-        LOGGER.debug("%s %s", self.p_new_enzyme.__doc__, p[-1])
+        logger.debug("%s %s", self.p_new_enzyme.__doc__, p[-1])
         assert p[-2] == "ID"
         p[0] = models.Enzyme(ec_number=p[-1])
 
@@ -375,7 +376,7 @@ class BRENDAParser(object):
         # p[0] = [models.Comment(body=c) for c in p[1].split(";")]
 
     def p_error(self, p):
-        LOGGER.debug("Error: %s", str(p))
+        logger.debug("Error: %s", str(p))
         # TODO: If `p` is None (we allow some empty rules) it's only an error
         # if any parentheses or similar are unbalanced.
         if False:

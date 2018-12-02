@@ -35,7 +35,8 @@ from ply.lex import lex
 
 __all__ = ("BRENDALexer",)
 
-LOGGER = logging.getLogger(__name__)
+
+logger = logging.getLogger(__name__)
 
 
 class BRENDALexer(object):
@@ -101,7 +102,7 @@ class BRENDALexer(object):
             Keyword arguments are passed to the ply.lex.lex call.
         """
         super(BRENDALexer, self).__init__()
-        self.lexer = lex(module=self, errorlog=LOGGER, **kwargs)
+        self.lexer = lex(module=self, errorlog=logger, **kwargs)
         self.parens_level = 0
         self.last_lparens = 0
         self.last_rparens = 0
@@ -128,17 +129,17 @@ class BRENDALexer(object):
         self.lexer.input(data)
 
     def t_ANY_error(self, t):
-        LOGGER.error("Invalid token '%s' at line %d.", t.value[0], t.lineno)
+        logger.error("Invalid token '%s' at line %d.", t.value[0], t.lineno)
         t.lexer.skip(1)
 
     def t_ANY_newline(self, t):
         r"\n+"
-        LOGGER.debug("lineno %d +%d", t.lineno, len(t.value))
+        logger.debug("lineno %d +%d", t.lineno, len(t.value))
         t.lexer.lineno += len(t.value)
 
     def t_brenda_comment(self, t):
         r"\*.+\n"
-        LOGGER.debug("lineno %d: Skipping comment line.", t.lineno)
+        logger.debug("lineno %d: Skipping comment line.", t.lineno)
         t.lexer.lineno += 1
 
     def t_POUND(self, t):
@@ -260,7 +261,7 @@ class BRENDALexer(object):
 
     def t_brenda_header(self, t):
         r"[A-Z0-9_]{4,}\n"
-        LOGGER.debug(
+        logger.debug(
             "lineno %d: Section header '%s'.", t.lineno, t.value.strip()
         )
         t.lexer.lineno += 1

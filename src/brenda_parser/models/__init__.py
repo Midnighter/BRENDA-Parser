@@ -26,11 +26,15 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+
 """Provide data models for storing BRENDA EC-number information."""
+
 
 from sqlalchemy.ext.declarative import declarative_base
 
+
 Base = declarative_base()
+
 
 from brenda_parser.models.information_field import *
 from brenda_parser.models.accession import *

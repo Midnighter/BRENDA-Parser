@@ -30,7 +30,6 @@
 
 import logging
 from multiprocessing import cpu_count
-from warnings import warn
 
 import click
 import click_log
@@ -39,13 +38,14 @@ import brenda_parser.api as api
 from brenda_parser import __version__
 
 
-LOGGER = logging.getLogger(__name__.split(".", 1)[0])
-click_log.basic_config(LOGGER)
+logger = logging.getLogger(__name__.split(".", 1)[0])
+click_log.basic_config(logger)
+
 
 try:
     PROCESSES = cpu_count()
 except NotImplementedError:
-    warn("Could not detect the number of CPUs - assuming 1.", UserWarning)
+    logger.warning("Could not detect the number of CPUs - assuming 1.")
     PROCESSES = 1
 
 
@@ -53,7 +53,7 @@ except NotImplementedError:
 @click.help_option("--help", "-h")
 @click.version_option(__version__, "--version", "-V")
 @click_log.simple_verbosity_option(
-    LOGGER,
+    logger,
     default="INFO",
     show_default=True,
     type=click.Choice(["CRITICAL", "ERROR", "WARN", "INFO", "DEBUG"]),

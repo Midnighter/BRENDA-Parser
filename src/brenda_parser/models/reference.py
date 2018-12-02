@@ -29,7 +29,6 @@
 """Provide a data model for a reference."""
 
 
-import logging
 import re
 
 from sqlalchemy import Column, ForeignKey, Integer, String
@@ -40,8 +39,6 @@ from brenda_parser.models import Base
 
 
 __all__ = ("Reference",)
-
-LOGGER = logging.getLogger(__name__)
 
 
 class Reference(Base):
@@ -55,15 +52,15 @@ class Reference(Base):
     # The `body` might have to be Text.
     body = Column(String(255), nullable=False)
 
-    PUBMED_PATTERN = re.compile(r"^Pubmed:\d{7}$")
+    pubmed_pattern = re.compile(r"^Pubmed:\d{7}$")
 
     @validates("pubmed")
     def validate_pubmed(self, key, value):
         if value is None:
             return value
-        if self.PUBMED_PATTERN.match(value) is None:
+        if self.pubmed_pattern.match(value) is None:
             raise ValidationError(
                 "'{}' does not match the required pattern '{}'."
-                "".format(value, self.PUBMED_PATTERN)
+                "".format(value, self.pubmed_pattern)
             )
         return value

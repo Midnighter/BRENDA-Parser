@@ -29,7 +29,6 @@
 """Provide a data model for a protein database cross reference."""
 
 
-import logging
 import re
 
 from sqlalchemy import Column, Integer, String
@@ -40,8 +39,6 @@ from brenda_parser.models import Base
 
 
 __all__ = ("Accession",)
-
-LOGGER = logging.getLogger(__name__)
 
 
 class Accession(Base):

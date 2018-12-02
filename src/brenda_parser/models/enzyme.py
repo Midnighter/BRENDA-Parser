@@ -29,8 +29,6 @@
 """Provide a data model for an information field entry."""
 
 
-import logging
-
 from sqlalchemy import Column, ForeignKey, Integer, String, Table
 from sqlalchemy.orm import relationship
 
@@ -38,8 +36,6 @@ from brenda_parser.models import Base
 
 
 __all__ = ("Enzyme",)
-
-LOGGER = logging.getLogger(__name__)
 
 
 enzyme_entry_association = Table(

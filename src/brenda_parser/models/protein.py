@@ -29,8 +29,6 @@
 """Provide a data model for a protein."""
 
 
-import logging
-
 from sqlalchemy import Column, ForeignKey, Integer, Table
 from sqlalchemy.orm import relationship, validates
 
@@ -39,8 +37,6 @@ from brenda_parser.models import Base
 
 
 __all__ = ("Protein",)
-
-LOGGER = logging.getLogger(__name__)
 
 
 protein_citation_association = Table(

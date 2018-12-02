@@ -42,8 +42,10 @@ from brenda_parser.parsing import BRENDALexer, BRENDAParser
 
 __all__ = ("initialize", "parse")
 
-LOGGER = logging.getLogger(__name__)
-EC_PATTERN = re.compile(r"ID\t((\d+)\.(\d+)\.(\d+)\.(\d+))")
+
+logger = logging.getLogger(__name__)
+ec_pattern = re.compile(r"ID\t((\d+)\.(\d+)\.(\d+)\.(\d+))")
+
 
 Session = sessionmaker()
 
@@ -62,7 +64,7 @@ def worker(section):
     global session
     enzyme = parser.parse(section, session)
     if enzyme is None:
-        match = EC_PATTERN.match(section)
+        match = ec_pattern.match(section)
         return False, match.group(1)
     else:
         return True, enzyme
@@ -129,9 +131,9 @@ def single_parse(sections):
     for section in tqdm(sections):
         enzyme = parser.parse(section, session)
         if enzyme is None:
-            match = EC_PATTERN.match(section)
-            LOGGER.error("Problem with enzyme '%s'.", match.group(1))
-            LOGGER.debug("%s", section)
+            match = ec_pattern.match(section)
+            logger.error("Problem with enzyme '%s'.", match.group(1))
+            logger.debug("%s", section)
         else:
             session.add(enzyme)
             session.commit()
@@ -150,7 +152,7 @@ def multi_parse(sections, engine, processes=2):
                 session.add(enzyme)
                 session.commit()
             else:
-                LOGGER.error("Problem with enzyme '%s'.", enzyme)
+                logger.error("Problem with enzyme '%s'.", enzyme)
             pbar.update()
     pool.close()
     pool.join()

@@ -45,7 +45,8 @@ from brenda_parser.models import Base
 
 __all__ = ("InformationField",)
 
-LOGGER = logging.getLogger(__name__)
+
+logger = logging.getLogger(__name__)
 
 
 class InformationField(Base):
@@ -83,7 +84,7 @@ class InformationField(Base):
         table = cls.__table__
         try:
             session.execute(table.insert().values(rows))
-            LOGGER.debug("Successfully loaded information fields.")
+            logger.debug("Successfully loaded information fields.")
         except IntegrityError:
             session.rollback()
             for row in rows:
@@ -92,5 +93,5 @@ class InformationField(Base):
                 session.query(InformationField).filter_by(
                     acronym=row["acronym"]
                 ).update(row)
-                LOGGER.debug("Updated field '%s'.", row["acronym"])
+                logger.debug("Updated field '%s'.", row["acronym"])
         session.commit()
