@@ -105,7 +105,7 @@ def parse(lines, connection="sqlite:///:memory:", processes=1):
             start = i
             continue
         if lines[i].startswith("///"):
-            sections.append("".join(lines[start : i + 1]))
+            sections.append("\n".join(lines[start : i + 1]))
     processes = min(processes, len(sections))
     if processes > 1:
         multi_parse(sections, engine, processes=processes)

@@ -39,7 +39,7 @@ __all__ = ("BRENDALexer",)
 logger = logging.getLogger(__name__)
 
 
-class BRENDALexer(object):
+class BRENDALexer:
     """
 
     We use functions for most tokens in order to fully control pattern
@@ -76,6 +76,7 @@ class BRENDALexer(object):
         "COMMENT",
         "AND",
         "ACCESSION",
+        "HEADER",
     )
 
     # A string containing ignored characters interpreted literally not as regex.
@@ -213,8 +214,9 @@ class BRENDALexer(object):
             t.type = "COMMENT"
         return t
 
-    def t_END(self, t):
-        r"[/]{3}\s"
+    def t_ANY_END(self, t):
+        r"[/]{3}\n"
+        t.lexer.lineno += 1
         t.lexer.push_state("INITIAL")
         t.value = t.value.strip()
         return t
@@ -259,12 +261,13 @@ class BRENDALexer(object):
         t.value = t.value.strip()
         return t
 
-    def t_brenda_header(self, t):
+    def t_HEADER(self, t):
         r"[A-Z0-9_]{4,}\n"
         logger.debug(
             "lineno %d: Section header '%s'.", t.lineno, t.value.strip()
         )
         t.lexer.lineno += 1
+        return t
 
     def t_protentry_AND(self, t):
         r"AND"

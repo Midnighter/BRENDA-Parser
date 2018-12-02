@@ -28,23 +28,21 @@
 
 """Parse BRENDA tokens using the provided grammar."""
 
-
 import logging
 
 from ply.yacc import yacc
+from sqlalchemy.orm.exc import NoResultFound
 
 import brenda_parser.models as models
 from brenda_parser.exceptions import ValidationError
 from brenda_parser.parsing.lexer import BRENDALexer
 
-
 __all__ = ("BRENDAParser",)
-
 
 logger = logging.getLogger(__name__)
 
 
-class BRENDAParser(object):
+class BRENDAParser:
     """
     Parse the BRENDA flat file into database models.
 
@@ -57,6 +55,7 @@ class BRENDAParser(object):
         entry : ENTRY protein TEXT comment citation special
                 | ENTRY protein TEXT comment
                 | ENTRY protein TEXT
+                | ENTRY HEADER
 
         protein_entry : PROTEIN_ENTRY new_protein protein_entry
                         | protein_entry protein_entry
@@ -86,7 +85,6 @@ class BRENDAParser(object):
     """
 
     precedence = (
-        # ("left", "ENZYME"),
         ("left", "ASSEMBLE"),
         ("left", "REDUCE"),
         ("left", "COMBINE"),
@@ -168,8 +166,12 @@ class BRENDAParser(object):
         p[1].entries.append(p[2])
         p[0] = p[1]
 
+    def p_enzyme_header(self, p):
+        """enzyme : enzyme HEADER"""
+        p[0] = p[1]
+
     def p_enzyme_end(self, p):
-        """enzyme : enzyme END"""
+        """enzyme : enzyme END %prec REDUCE"""
         # TODO: Finalize protein and citation references.
         p[0] = p[1]
 
@@ -180,12 +182,23 @@ class BRENDAParser(object):
 
     def p_new_entry(self, p):
         """new_entry : %prec REDUCE"""
-        field = (
-            self._session.query(models.InformationField)
-            .filter_by(acronym=p[-1])
-            .one()
-        )
-        p[0] = models.FieldEntry(field=field, body="")
+        try:
+            field = (
+                self._session.query(models.InformationField)
+                    .filter_by(acronym=p[-1])
+                    .one()
+            )
+        except NoResultFound:
+            logger.critical("Could not find any information field with "
+                            "acronym '%s'.", p[-1])
+            raise
+        else:
+            p[0] = models.FieldEntry(field=field, body="")
+
+    def p_entry_header(self, p):
+        """entry : entry HEADER %prec ASSEMBLE"""
+        # A header introduces a new section and completes this section.
+        p[0] = p[1]
 
     def p_entry_content(self, p):
         """entry : entry CONTENT"""
@@ -226,12 +239,23 @@ class BRENDAParser(object):
     def p_new_reference(self, p):
         """new_reference :"""
         assert p[-1] == "RF"
-        field = (
-            self._session.query(models.InformationField)
-            .filter_by(acronym=p[-1])
-            .one()
-        )
-        p[0] = models.Reference(field=field, body="")
+        try:
+            field = (
+                self._session.query(models.InformationField)
+                    .filter_by(acronym=p[-1])
+                    .one()
+            )
+        except NoResultFound:
+            logger.critical("Could not find any information field with "
+                            "acronym '%s'.", p[-1])
+            raise
+        else:
+            p[0] = models.Reference(field=field, body="")
+
+    def p_reference_header(self, p):
+        """reference_entry : reference_entry HEADER %prec ASSEMBLE"""
+        # A header introduces a new section and completes this section.
+        p[0] = p[1]
 
     def p_reference_content(self, p):
         """reference_entry : reference_entry CONTENT"""
@@ -262,122 +286,158 @@ class BRENDAParser(object):
     def p_new_protein(self, p):
         """new_protein :"""
         assert p[-1] == "PR"
-        field = (
-            self._session.query(models.InformationField)
-            .filter_by(acronym=p[-1])
-            .one()
-        )
-        p[0] = models.Protein(field=field)
+        try:
+            field = (
+                self._session.query(models.InformationField)
+                    .filter_by(acronym=p[-1])
+                    .one()
+            )
+        except NoResultFound:
+            logger.critical("Could not find any information field with "
+                            "acronym '%s'.", p[-1])
+            raise
+        else:
+            p[0] = models.Protein(field=field)
 
-    def p_protein_organism(self, p):
-        """protein_entry : protein_entry CONTENT %prec ASSEMBLE"""
-        assert len(p[2]) > 0
-        # TODO: Find or create the organism.
-        p[1].organism_name += p[2]
-        p[0] = p[1]
 
-    def p_protein_accession(self, p):
-        """protein_entry : protein_entry accession %prec ASSEMBLE"""
-        p[1].accession = p[2]
-        p[0] = p[1]
+def p_protein_header(self, p):
+    """protein_entry : protein_entry HEADER %prec ASSEMBLE"""
+    # A header introduces a new section and completes this section.
+    p[0] = p[1]
 
-    def p_protein_comment(self, p):
-        """protein_entry : protein_entry comment %prec ASSEMBLE"""
-        if p[2] is not None:
-            p[1].comments.append(p[2])
-        p[0] = p[1]
 
-    def p_protein_citations(self, p):
-        """protein_entry : protein_entry citations %prec ASSEMBLE"""
-        if p[2] is not None:
-            p[1].citation_references.extend(p[2])
-        p[0] = p[1]
+def p_protein_organism(self, p):
+    """protein_entry : protein_entry CONTENT %prec ASSEMBLE"""
+    assert len(p[2]) > 0
+    # TODO: Find or create the organism.
+    p[1].organism_name += p[2]
+    p[0] = p[1]
 
-    def p_accession_combine(self, p):
-        """accession : accession AND ACCESSION %prec COMBINE"""
-        p[1].accession = f"{p[1].accession} & {p[3]}"
-        p[0] = p[1]
 
-    def p_accession_database(self, p):
-        """accession : accession CONTENT %prec COMBINE"""
-        p[1].database = p[2]
-        p[0] = p[1]
+def p_protein_accession(self, p):
+    """protein_entry : protein_entry accession %prec ASSEMBLE"""
+    p[1].accession = p[2]
+    p[0] = p[1]
 
-    def p_accession(self, p):
-        """accession : ACCESSION %prec REDUCE"""
-        p[0] = models.Accession(accession=p[1])
 
-    def p_special(self, p):
-        """special : LCURLY special RCURLY"""
-        p[0] = p[2]
+def p_protein_comment(self, p):
+    """protein_entry : protein_entry comment %prec ASSEMBLE"""
+    if p[2] is not None:
+        p[1].comments.append(p[2])
+    p[0] = p[1]
 
-    def p_special_empty(self, p):
-        """special : LCURLY RCURLY"""
-        pass
 
-    def p_special_combine(self, p):
-        """special : special SPECIAL %prec COMBINE"""
-        p[0] = f"{p[1]} {p[2]}"
+def p_protein_citations(self, p):
+    """protein_entry : protein_entry citations %prec ASSEMBLE"""
+    if p[2] is not None:
+        p[1].citation_references.extend(p[2])
+    p[0] = p[1]
 
-    def p_special_end(self, p):
-        """special : SPECIAL %prec REDUCE"""
-        p[0] = p[1].strip()
 
-    def p_proteins(self, p):
-        """proteins : POUND proteins POUND %prec ASSEMBLE"""
-        p[0] = p[2]
+def p_accession_combine(self, p):
+    """accession : accession AND ACCESSION %prec COMBINE"""
+    p[1].accession = f"{p[1].accession} & {p[3]}"
+    p[0] = p[1]
 
-    def p_proteins_empty(self, p):
-        """proteins : POUND POUND %prec ASSEMBLE"""
-        pass
 
-    def p_proteins_combine(self, p):
-        """proteins : proteins PROTEIN %prec COMBINE"""
-        p[1].append(p[2])
-        p[0] = p[1]
+def p_accession_database(self, p):
+    """accession : accession CONTENT %prec COMBINE"""
+    p[1].database = p[2]
+    p[0] = p[1]
 
-    def p_proteins_end(self, p):
-        """proteins : PROTEIN %prec REDUCE"""
-        p[0] = [p[1]]
 
-    def p_citations(self, p):
-        """citations : LANGLE citations RANGLE %prec ASSEMBLE"""
-        p[0] = p[2]
+def p_accession(self, p):
+    """accession : ACCESSION %prec REDUCE"""
+    p[0] = models.Accession(accession=p[1])
 
-    def p_citations_empty(self, p):
-        """citations : LANGLE RANGLE %prec ASSEMBLE"""
-        pass
 
-    def p_citations_combine(self, p):
-        """citations : citations CITATION %prec COMBINE"""
-        p[1].append(p[2])
-        p[0] = p[1]
+def p_special(self, p):
+    """special : LCURLY special RCURLY"""
+    p[0] = p[2]
 
-    def p_citations_end(self, p):
-        """citations : CITATION %prec REDUCE"""
-        p[0] = [p[1]]
 
-    def p_comment(self, p):
-        """comment : LPARENS comment RPARENS %prec ASSEMBLE"""
-        p[0] = p[2]
+def p_special_empty(self, p):
+    """special : LCURLY RCURLY"""
+    pass
 
-    def p_comment_empty(self, p):
-        """comment : LPARENS RPARENS %prec ASSEMBLE"""
-        pass
 
-    def p_comment_combine(self, p):
-        """comment : comment COMMENT %prec COMBINE"""
-        p[1].body = f"{p[1].body} {p[2]}"
-        p[0] = p[1]
+def p_special_combine(self, p):
+    """special : special SPECIAL %prec COMBINE"""
+    p[0] = f"{p[1]} {p[2]}"
 
-    def p_comment_end(self, p):
-        """comment : COMMENT %prec REDUCE"""
-        p[0] = models.Comment(body=p[1])
-        # p[0] = [models.Comment(body=c) for c in p[1].split(";")]
 
-    def p_error(self, p):
-        logger.debug("Error: %s", str(p))
-        # TODO: If `p` is None (we allow some empty rules) it's only an error
-        # if any parentheses or similar are unbalanced.
-        if False:
-            raise SyntaxError(str(p))
+def p_special_end(self, p):
+    """special : SPECIAL %prec REDUCE"""
+    p[0] = p[1].strip()
+
+
+def p_proteins(self, p):
+    """proteins : POUND proteins POUND %prec ASSEMBLE"""
+    p[0] = p[2]
+
+
+def p_proteins_empty(self, p):
+    """proteins : POUND POUND %prec ASSEMBLE"""
+    pass
+
+
+def p_proteins_combine(self, p):
+    """proteins : proteins PROTEIN %prec COMBINE"""
+    p[1].append(p[2])
+    p[0] = p[1]
+
+
+def p_proteins_end(self, p):
+    """proteins : PROTEIN %prec REDUCE"""
+    p[0] = [p[1]]
+
+
+def p_citations(self, p):
+    """citations : LANGLE citations RANGLE %prec ASSEMBLE"""
+    p[0] = p[2]
+
+
+def p_citations_empty(self, p):
+    """citations : LANGLE RANGLE %prec ASSEMBLE"""
+    pass
+
+
+def p_citations_combine(self, p):
+    """citations : citations CITATION %prec COMBINE"""
+    p[1].append(p[2])
+    p[0] = p[1]
+
+
+def p_citations_end(self, p):
+    """citations : CITATION %prec REDUCE"""
+    p[0] = [p[1]]
+
+
+def p_comment(self, p):
+    """comment : LPARENS comment RPARENS %prec ASSEMBLE"""
+    p[0] = p[2]
+
+
+def p_comment_empty(self, p):
+    """comment : LPARENS RPARENS %prec ASSEMBLE"""
+    pass
+
+
+def p_comment_combine(self, p):
+    """comment : comment COMMENT %prec COMBINE"""
+    p[1].body = f"{p[1].body} {p[2]}"
+    p[0] = p[1]
+
+
+def p_comment_end(self, p):
+    """comment : COMMENT %prec REDUCE"""
+    p[0] = models.Comment(body=p[1])
+    # p[0] = [models.Comment(body=c) for c in p[1].split(";")]
+
+
+def p_error(self, p):
+    logger.debug("Error: %s", str(p))
+    # TODO: If `p` is None (we allow some empty rules) it's only an error
+    # if any parentheses or similar are unbalanced.
+    if False:
+        raise SyntaxError(str(p))
