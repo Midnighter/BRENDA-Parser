@@ -60,7 +60,7 @@ class Reference(Base):
             return value
         if self.pubmed_pattern.match(value) is None:
             raise ValidationError(
-                "'{}' does not match the required pattern '{}'."
-                "".format(value, self.pubmed_pattern)
+                f"'{value}' does not match the required pattern "
+                f"'{self.pubmed_pattern}'."
             )
         return value

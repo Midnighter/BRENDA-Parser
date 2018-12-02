@@ -46,7 +46,7 @@ class Accession(Base):
     __tablename__ = "accession"
 
     # http://identifiers.org/uniprot/
-    UNIPROT_PATTERN = re.compile(
+    uniprot_pattern = re.compile(
         r"([A-NR-Z][0-9]([A-Z][A-Z0-9][A-Z0-9][0-9]){1,2})|"
         r"([OPQ][0-9][A-Z0-9][A-Z0-9][A-Z0-9][0-9])(\.\d+)?"
     )
@@ -60,9 +60,9 @@ class Accession(Base):
     def validate_accession(self, key, value):
         if value is None:
             return value
-        if self.UNIPROT_PATTERN.match(value) is None:
+        if self.uniprot_pattern.match(value) is None:
             raise ValidationError(
-                "'{}' does not match the required pattern '{}'."
-                "".format(value, self.UNIPROT_PATTERN)
+                f"'{value}' does not match the required pattern "
+                f"'{self.uniprot_pattern}'."
             )
         return value

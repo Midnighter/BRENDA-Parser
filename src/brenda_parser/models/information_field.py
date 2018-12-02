@@ -57,14 +57,14 @@ class InformationField(Base):
     acronym = Column(String(4), nullable=False, unique=True, index=True)
     name = Column(String(100), nullable=True)
 
-    ACRONYM_PATTERN = re.compile(r"^[A-Z0-9]{2,4}$")
+    acronym_pattern = re.compile(r"^[A-Z0-9]{2,4}$")
 
     @validates("acronym")
     def validate_acronym(self, key, value):
-        if self.ACRONYM_PATTERN.match(value) is None:
+        if self.acronym_pattern.match(value) is None:
             raise ValidationError(
-                "'{}' does not match the required pattern '{}'."
-                "".format(value, self.ACRONYM_PATTERN)
+                f"'{value}' does not match the required pattern "
+                f"'{self.acronym_pattern}'."
             )
         return value
 

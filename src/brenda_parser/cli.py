@@ -92,7 +92,7 @@ def cli():
 )
 def parse(flat_file, filename, connection, processes):
     if connection is None:
-        connection = "sqlite:///{}".format(filename)
+        connection = f"sqlite:///{filename}"
     with open(flat_file) as file_handle:
         lines = file_handle.readlines()
     api.parse(lines, connection, processes=processes)

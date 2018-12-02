@@ -190,7 +190,7 @@ class BRENDAParser(object):
     def p_entry_content(self, p):
         """entry : entry CONTENT"""
         assert len(p[2]) > 0
-        p[1].body += " {}".format(p[2])
+        p[1].body = f"{p[1].body} {p[2]}"
         p[0] = p[1]
 
     def p_entry_proteins(self, p):
@@ -236,13 +236,13 @@ class BRENDAParser(object):
     def p_reference_content(self, p):
         """reference_entry : reference_entry CONTENT"""
         assert len(p[2]) > 0
-        p[1].body += " {}".format(p[2])
+        p[1].body = f"{p[1].body} {p[2]}"
         p[0] = p[1]
 
     def p_reference_year(self, p):
         """reference_entry : reference_entry comment %prec ASSEMBLE"""
         if p[2] is not None:
-            p[1].body += " ({})".format(p[2].body)
+            p[1].body = f"{p[1].body} ({p[2].body})"
         p[0] = p[1]
 
     def p_reference_pubmed(self, p):
@@ -295,7 +295,7 @@ class BRENDAParser(object):
 
     def p_accession_combine(self, p):
         """accession : accession AND ACCESSION %prec COMBINE"""
-        p[1].accession = "{} & {}".format(p[1].accession, p[3])
+        p[1].accession = f"{p[1].accession} & {p[3]}"
         p[0] = p[1]
 
     def p_accession_database(self, p):
@@ -317,7 +317,7 @@ class BRENDAParser(object):
 
     def p_special_combine(self, p):
         """special : special SPECIAL %prec COMBINE"""
-        p[0] = "{0} {1}".format(p[1], p[2])
+        p[0] = f"{p[1]} {p[2]}"
 
     def p_special_end(self, p):
         """special : SPECIAL %prec REDUCE"""
@@ -367,7 +367,7 @@ class BRENDAParser(object):
 
     def p_comment_combine(self, p):
         """comment : comment COMMENT %prec COMBINE"""
-        p[1].body = "{0} {1}".format(p[1].body, p[2])
+        p[1].body = f"{p[1].body} {p[2]}"
         p[0] = p[1]
 
     def p_comment_end(self, p):
