@@ -1,0 +1,66 @@
+language: python
+sudo: false
+python:
+  - '2.7'
+  - '3.5'
+  - '3.6'
+  - '3.7-dev'
+cache:
+  pip: true
+git:
+  depth: 2
+env:
+  global:
+    - GITHUB_REPO=Midnighter/BRENDA-Parser
+    - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+    - SEGFAULT_SIGNALS=all
+branches:
+  only:
+  - master
+  - develop
+  - "/^\\d+\\.\\d+\\.\\d+[a]?\\d*$/"
+matrix:
+  fast_finish: true
+before_install:
+  - python --version
+  - uname -a
+  - lsb_release -a
+install:
+  - pip install --upgrade pip setuptools wheel tox tox-travis
+script:
+  - tox -- --cov-report xml --cov-report term
+  - bash <(curl -s https://codecov.io/bash)
+
+stages:
+- test
+- name: deploy
+  if: tag IS present
+
+jobs:
+  include:
+  - stage: deploy
+    before_install: skip
+    install: skip
+    script:
+    - echo "Deploying brenda-parser."
+    deploy:
+    - provider: pypi
+      skip_cleanup: true
+      user: midnighter
+      password: $PYPI_PASSWORD
+      on:
+        tags: true
+        repo: $GITHUB_REPO
+    - provider: releases
+      skip_cleanup: true
+      api_key: $GITHUB_TOKEN
+      body: "Please see https://github.com/${GITHUB_REPO}/blob/${TRAVIS_TAG}/CHANGELOG.rst for the full release notes."
+      on:
+        tags: true
+        repo: $GITHUB_REPO
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
+    on_pull_requests: false

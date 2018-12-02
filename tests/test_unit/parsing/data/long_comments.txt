@@ -1,0 +1,155 @@
+ID	1.1.1.1
+
+IN	#2,4,5,8,27,34,36,38# more (#8# high ionic strength inhibits the enzyme
+	to a higher extent when NADPH instead of NADH is used as a cofactor
+	<17>; #5# model of inhibitor binding interactions <34>; #5,8# scarcely
+	inhibitory: sorbinil <44>; #4# aldose reductase inhibitors have
+	considerable potential for the treatment of diabetes, without increased
+	risk of hypoglycemia, structure-activity relationship study, the
+	applicable side alkyl chain length and the presence of a OCH3 group at
+	C3 in the aromatic ring are essential features for enzyme recognition
+	and binding, no or poor inhibition by gingerol, shogaol,
+	2-(4-hydroxy-3-nitrophenyl)ethanoic acid,
+	2-(3,4-dihydroxyphenyl)ethanoic acid, and 2-(4-hydroxyphenyl)ethanoic
+	acid <71>; #5# enzyme inhibition counteracts nitrosative stress and
+	poly(ADP-ribose) polymerase activation in diabetic kidney cortex <69>;
+	#4# enzyme inhibition counteracts nitrosative stress and
+	poly(ADP-ribose) polymerase activation in high-glucose exposed
+	mesengial cells <69>; #4# enzyme-inhibitor complex structures, the
+	hydrophobic nature of the enzyme active site makes significant
+	contributions to inhibitor binding rather than a reliance on pi-pi
+	orbital interactions with Trp 20, overview <60>; #4,5# inhibition of AR
+	protects the ischemic myocardium and is associated with improved energy
+	metabolism <68>; #2# inhibition of the aldehyde-metabolizing enzyme
+	modulates NF-kappaB-dependent activation of inflammatory cytokines and
+	chemokines in mouse serum, liver, heart, and spleen, overview <74>; #5#
+	inhibitor synthesis, overview, enzyme docking study, modeling, no
+	inhibition by
+	(1,3,3-trioxo-2,3-dihydronaphtho[2,3-d]isothiazol-2-yl)acetic acid and
+	2-methyl-1,3,3-trioxo-1,2-dihydronaphtho[1,2-d]isothiazole-4-carboxylic
+	acid <77>; #8# molecular modelling, enzyme docking at the active site
+	of the enzyme, structure-activity relationships of
+	5-arylidene-2,4-thiazolidinediones, an additional aromatic ring or an
+	H-bond donor group on the 5-benzylidene ring enhance ALR2 inhibitory
+	potency, the presence of a carboxylic anionic chain on N-3 is
+	important, and the length of the carboxylic chain is critical,
+	overview, no inhibition by 5b
+	4-[2,4-dioxo-5-(4-phenoxybenzylidene)thiazolidin-3-yl]-2-butenoic acid
+	methyl ester <61>; #8# no inhibition by
+	3,5-bis(3,4-dimethoxybenzylidene)-4-piperidone,
+	1,5-bis(3,4-dimethoxyphenyl)-1,4-pentadiene-3-one,
+	2,5-bis(3,4-dimethoxybenzylidene)cyclopentanone, and
+	2,6-bis(3,4-dimethoxybenzylidene)cyclohexanone, at 0.1 mM <56>; #8#
+	poor inhibition by
+	[2,4-dioxo-5-(4-phenoxybenzyl)thiazolidin-3-yl]acetic acid methyl ester
+	<62>; #5# synthesis and structure-activity relationship study of
+	inhibitors, overview <76>; #4# Arg312 in ALR1 contributes favourably to
+	the binding of 3,5-dichlorosalicylic acid through an electrostatic
+	interaction with the inhibitors electronegative halide atom and
+	undergoes a conformational change upon tolrestat binding. Tyr116 in
+	ALR1 forms electrostatic interactions with the fluorobenzyl moiety of
+	minalrestat and the 3- and 4-hydroxy groups on the phenyl ring of
+	quercetin. <109>; #5# berberine and palmatine exhibit no RLAR
+	inhibitory activities within the test concentration of 0.012.5-0.05
+	mg/ml <105>; #5# extract and fractions of the rhizome of Coptis
+	chinensis exhibit broad and moderate RLAR inhibitory activities of
+	approximately 0.038.9-0.067.5 mg/ml <105>; #5# methanolic and ethanolic
+	extracts of Litchi chinensis fruits are potent inhibitors of rat lens
+	aldose reductase <117>; #4# not inibited by
+	(Z)-2-[2,4-dioxo-5-(4-phenoxybenzylidene)thiazolidin-3-yl]acetamide,
+	(Z)-2-[5-(4-methoxybenzylidene)-2,4-dioxothiazolidin-3-yl]acetamide,
+	and
+	(Z)-2-[5-(3-hydroxy-4-methoxybenzylidene)-2
+	4-dioxothiazolidin-3-yl]acetamide <108>; #5# the enzyme activity is not
+	affected by 0.1 mM Wy14643 <110>; #5# design and synthesis of pyrrole
+	based inhibitors and evaluation as selective aldose reductase
+	inhibitors, bioisosterism between a carboxylic acid moiety and that of
+	a tetrazole, overview <131>; #4# development of series of highly potent
+	and selective
+	[3-(4,5,7-trifluoro-benzothiazol-2-ylmethyl)-pyrrolo[2
+	3-b]pyridin-1-yl]acetic acid aldose reductase inhibitors. The compounds
+	inhibit aldose reductase, but are inactive against aldehyde reductase
+	<129>; #4# enzyme active site interactions with the
+	3-carboxymethoxy-4-methoxy-phenyl moiety of the inhibitor, binding
+	structure, overview <135>; #4# identification of inhibitory compounds
+	from Glycyrrhiza uralensis, overview <128>; #5# identification of
+	inhibitory compounds from Glycyrrhiza uralensis, overview. Inhibitory
+	effect of the compounds on the sorbitol accumulation in rat lenses
+	incubated with high glucose <128>; #4# inhibition of the enzyme
+	activity also inhibits the expression of the enzyme protein in
+	xenograft tissue <141>; #5# inhibitory effect of total lignan from
+	fructus Arctii on aldose reductase, ethanolic extract from dry ripe
+	fruits of Arctium lappa <143>; #4# structure analysis of a series of
+	2,4-thiazolidinediones derivative ALR2 inhibitors, 3D-QSAR molcular
+	modeling, detailed overview. A large volume group next to the
+	R-substituent will increase the ALR2 inhibitory activity, and adding a
+	-CH2COOH substituent at the R-position can generate a compound with
+	higher predicted activity <140>; #5# structure-activity relationship of
+	a series of coumarins as ALR1 inhibitors, overview. The C6 OH group
+	interferes with ALR1 inhibition activity <130>; #5# structure-activity
+	relationship of a series of coumarins as ALR2 inhibitors and their
+	suppressive effect on the accumulation of galactitol in the rat lens,
+	overview. Substitutions in the C7 OH group enhanced the potency toward
+	ALR2 <130>; #8# synthesis and evaluation of 2,4-thiazolidinedione
+	inhibitors, structure-activity relationships, overview. No inhibition
+	by
+	(Z)-5-[(4-benzyloxyphenyl)methylidene]-3-(3,3
+	3-trifluoro-2-oxopropyl)-2,4-thiazolidinedione <132>; #5# inhibitor
+	development, synthesis and molecular docking, overview <148>; #4#
+	inhibitor molecular docking study with ALR2, overview <149>; #5#
+	inhibitors isolated from Prunus mume flower buds, cultivated in
+	Zhejiang province, China, structure analysis, overview <152>; #5#
+	synthesis of quinoxalinone derivatives as potent inhibitors of aldose
+	reductase, Structure-activity relationship and molecular docking
+	studies, overview <146>; #27# analysis of pterin-7-carboxamides as
+	aldose reductase inhibitors, evaluation of the inhibitory activity of
+	the compounds <159>; #27# design and synthesis of chiral
+	2H-chromene-N-imidazolo-imino acid conjugates as aldose reductase
+	inhibitors, identification by NMR and mass spectrometry, in vitro
+	inhibition screening, molecular docking study, overview <162>; #34#
+	design and synthesis of potent and multifunctional aldose reductase
+	inhibitors based on quinoxalinones, overview. Phenolic structure is
+	installed in the compounds for the combination of antioxidant activity
+	and strengthening the ability to fight against diabetic complications,
+	radical scavenging activity using the model reaction with the stable
+	free radicals of 2,2-diphenyl-1-picrylhydrazyl. Molecular docking study
+	using the lidorestat-bound conformation of ALR2, PDB ID 1Z3N <169>;
+	#34# flavonoids from Litsea japonica inhibit advanced glycation end
+	products formation and rat lense aldose reductase in vitro with IC50
+	values of 0.0074-0.072 mM, flavonoid structure determinations by NMR
+	spectroscopy, overview. No significant inhibition by 1, 2, afzelin,
+	quercitrin, rutin, and lyoniside <173>; #27# identification of aldose
+	reductase inhibitors based on carboxymethylated mercaptotriazinoindole
+	scaffold, structure-activity relationships, overview <170>; #27,36# no
+	inhibition by the triazole
+	1-(beta-D-glucopyranosyl)-4-(3,4,5-trihydroxyphenyl)-1,2,3-triazole,
+	the amide N-phenylacetyl beta-D-glucopyranosylamine, and the glycosides
+	of beta-glucogallin, 2-(3,4,5-trihydroxyphenyl)ethyl
+	beta-D-glucopyranoside,
+	[1-(3,4,5-trihydroxybenzyl)-1,2,3-triazole-4-yl]methyl
+	beta-D-glucopyranoside, and 3-(3,4,5-trihydroxyphenyl)propyl
+	beta-D-glucopyranoside, synthesis and evaluation, overview <168>;
+	#27,38# partial nonclassical competitive inhibition is exerted by the
+	aldose hemiacetal on the reduction of the free aldehyde, aldose
+	reductase modulation by hemiacetals, negative cooperative behavior of
+	AR acting on L-idose, mechanism of inhibition, kinetic modelling,
+	nonclassical competitive model, detailed overview <158>; #34#
+	structure-activity relationships study of quinoxalinone derivatives as
+	aldose reductase inhibitors. Among them, N1-acetate derivatives have
+	significant activity, molecular modeling and docking, overview. Both
+	C3-phenethyl and C6-NO2 groups play an important role in enhancing the
+	activity and selectivity of the quinoxalinone based inhibitors <163>;
+	#38# synthesis, characterization, hypoglycemic and aldose reductase
+	inhibition activity of
+	arylsulfonylspiro[fluorene-9,5-imidazolidine]-2,4-diones, analysis of
+	the Kador-Sharpless model for minimal pharmacophoric requirements for
+	an aldose reductase inhibitor, and superposition of target molecules on
+	a hypoglycemic pharmacophoric model and a aldose reductase
+	pharmacophoric model, overview. Molecular dynamics simulations and
+	inhibitor binding model. Effects of the compounds on diabetic BALB/c
+	mice <164>)
+	<17,34,44,56,60,61,62,68,69,71,74,76,77,105,108,109,110,117,128,129,130
+	131,132,135,140,141,143,146,148,149,152,158,159,162,163,164,168,169,170
+	173>
+
+///

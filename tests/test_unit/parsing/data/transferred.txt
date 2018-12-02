@@ -1,0 +1,35 @@
+ID	1.4.99.4 (transferred to EC 1.4.9.2)
+********************************************************************************
+*                                                                              *
+* Copyrighted by Dietmar Schomburg, Techn. University Braunschweig, GERMANY    *
+* Distributed under the License as stated at http:/www.brenda-enzymes.org      *
+*                                                                              *
+********************************************************************************
+
+RECOMMENDED_NAME
+RN	aralkylamine dehydrogenase
+
+
+SYSTEMATIC_NAME
+SN
+
+
+///
+
+ID	2.7.1.37 (transferred entry: protein kinase. Now divided into EC 2.7.11.1 (non-specific serine/threonine protein kinase), EC 2.7.11.8 (Fas-activated serine/threonine kinase), EC 2.7.11.9 (Goodpasture antigen-binding protein kinase), EC 2.7.11.10 (IkB kinase), EC 2.7.11.11 (cAMP-dependent protein kinase), EC 2.7.11.12 (cGMP-dependent protein kinase), EC 2.7.11.13 (protein kinase C), EC 2.7.11.21 (polo kinase), EC 2.7.11.22 (cyclin-dependent kinase), EC 2.7.11.24 (mitogen-activated protein kinase), EC 2.7.11.25 (mitogen-activated protein kinase kinase kinase), EC 2.7.11.30 (receptor protein serine/threonine kinase) and EC 2.7.12.1 (dual-specificity kinase).)
+********************************************************************************
+*                                                                              *
+* Copyrighted by Dietmar Schomburg, Techn. University Braunschweig, GERMANY    *
+* Distributed under the License as stated at http:/www.brenda-enzymes.org      *
+*                                                                              *
+********************************************************************************
+
+RECOMMENDED_NAME
+RN	protein kinase
+
+
+SYSTEMATIC_NAME
+SN
+
+
+///

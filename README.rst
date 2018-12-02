@@ -1,62 +1,101 @@
+========
+Overview
+========
+
+.. start-badges
+
+.. list-table::
+    :stub-columns: 1
+
+    * - docs
+      - |docs|
+    * - tests
+      - | |travis| |appveyor|
+        | |codecov|
+        | |black|
+    * - package
+      - | |version| |wheel| |supported-versions| |supported-implementations|
+        | |commits-since|
+
+.. |docs| image:: https://readthedocs.org/projects/BRENDA-Parser/badge/?style=flat
+    :target: https://readthedocs.org/projects/BRENDA-Parser
+    :alt: Documentation Status
+
+.. |travis| image:: https://travis-ci.org/Midnighter/BRENDA-Parser.svg?branch=master
+    :alt: Travis-CI Build Status
+    :target: https://travis-ci.org/Midnighter/BRENDA-Parser
+
+.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/Midnighter/BRENDA-Parser?branch=master&svg=true
+    :alt: AppVeyor Build Status
+    :target: https://ci.appveyor.com/project/Midnighter/BRENDA-Parser
+
+.. |codecov| image:: https://codecov.io/github/Midnighter/BRENDA-Parser/coverage.svg?branch=master
+    :alt: Coverage Status
+    :target: https://codecov.io/github/Midnighter/BRENDA-Parser
+
+.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :alt: code style: black
+    :target: https://github.com/ambv/black
+
+.. |version| image:: https://img.shields.io/pypi/v/brenda-parser.svg
+    :alt: PyPI Package latest release
+    :target: https://pypi.python.org/pypi/brenda-parser
+
+.. |commits-since| image:: https://img.shields.io/github/commits-since/Midnighter/BRENDA-Parser/v0.1.0.svg
+    :alt: Commits since latest release
+    :target: https://github.com/Midnighter/BRENDA-Parser/compare/v0.1.0...master
+
+.. |wheel| image:: https://img.shields.io/pypi/wheel/brenda-parser.svg
+    :alt: PyPI Wheel
+    :target: https://pypi.python.org/pypi/brenda-parser
+
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/brenda-parser.svg
+    :alt: Supported versions
+    :target: https://pypi.python.org/pypi/brenda-parser
+
+.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/brenda-parser.svg
+    :alt: Supported implementations
+    :target: https://pypi.python.org/pypi/brenda-parser
+
+
+.. end-badges
+
+A parser for the BRENDA flat file distribution.
+
+* Free software: Apache Software License 2.0
+
+Installation
+============
+
+::
+
+    pip install brenda-parser
+
+Documentation
 =============
-BRENDA Parser
-=============
 
-This Python module provides classes that encapsulate information provided by the
-`BRENDA database`__ and a parser that generates relevant content from the text
-file that can be downloaded for free.
+https://BRENDA-Parser.readthedocs.io/
 
-.. __: http://www.brenda-enzymes.org/
+Development
+===========
 
-Copyright
----------
+To run the all tests run::
 
-:Author:
-    Moritz Emanuel Beber
-:License:
-    Please see the LICENSE.rst file distributed with this module.
+    tox
 
-Recent Changes
---------------
+Note, to combine the coverage data from all the tox environments run:
 
-* Parser no longer hick-ups on empty lines, continued lines not starting with a
-  tab, and other format breaking content.
-* Parser now prints progress to stdout.
-* Soon, support for the SOAP interface will be added.
-* If desired, a setup script could be added.
+.. list-table::
+    :widths: 10 90
+    :stub-columns: 1
 
-Usage
------
+    - - Windows
+      - ::
 
-If you want to use this module outside its directory, you will have to add it to your
-PYTHONPATH environment variable (unix).
+            set PYTEST_ADDOPTS=--cov-append
+            tox
 
-.. code:: python
+    - - Other
+      - ::
 
-    >>> from brenda import BRENDAParser
-    >>> with BRENDAParser("brenda_download.txt") as bp:
-    ...     content = bp.parse()
-
-The method parse returns a dictionary with all enzymes that were parsed. Every
-key in the dictionary is a string representing an EC number starting form the 6
-general classes down to the individual enzymes. The values in the dictionary are
-always lists, as an example:
-
-.. code:: python
-
-    >>> len(content["1"])
-    1348
-    >>> len(content["1.1.1.1"])
-    1
-
-Warning
--------
-
-The API changed slightly.
-
-Notes
------
-
-There is one additional key "file_encoding" which contains the argument used
-for the parser when reading the file.
-
+            PYTEST_ADDOPTS=--cov-append tox
