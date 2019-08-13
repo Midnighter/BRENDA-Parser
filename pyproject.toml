@@ -10,7 +10,5 @@ py36 = true
 exclude = '''
 /(
     _version.py
-    | lextab.py
-    | parsetab.py
 )/
 '''
