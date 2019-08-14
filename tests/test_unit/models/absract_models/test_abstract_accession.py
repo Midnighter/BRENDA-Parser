@@ -26,7 +26,16 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-"""Provide abstract data models for storing BRENDA EC-number-indexed information."""
+"""Provide an abstract data model for a protein database cross-reference."""
 
 
-from .abstract_accession import *
+from brenda_parser.models.abstract_models import AbstractAccession
+
+
+class Accession(AbstractAccession):
+
+    pass
+
+
+def test_init():
+    Accession()

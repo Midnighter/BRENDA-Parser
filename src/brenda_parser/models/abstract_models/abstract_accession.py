@@ -26,7 +26,28 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-"""Provide abstract data models for storing BRENDA EC-number-indexed information."""
+"""Provide an abstract data model for a protein database cross-reference."""
 
 
-from .abstract_accession import *
+from abc import ABC
+from typing import Optional
+
+
+__all__ = ("AbstractAccession",)
+
+
+class AbstractAccession(ABC):
+    """
+    Define an abstract protein cross-reference.
+
+    Attributes
+    ----------
+    accession : str
+        The protein identifer (cross-reference) within the source database.
+    source : str
+        A source database.
+
+    """
+
+    accession: str
+    source: Optional[str] = None
