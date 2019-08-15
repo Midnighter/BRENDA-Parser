@@ -44,7 +44,7 @@ from brenda_parser import parser
 ])
 def test_protein_information(text, expected):
     result = parser.protein_information.parseString(text, parseAll=True)
-    assert [int(p) for p in result.proteins] == expected
+    assert list(result.proteins) == expected
 
 
 @pytest.mark.parametrize("text, expected", [
@@ -54,14 +54,14 @@ def test_protein_information(text, expected):
 ])
 def test_literature_citation(text, expected):
     result = parser.literature_citation.parseString(text, parseAll=True)
-    assert [int(c) for c in result.citations] == expected
+    assert list(result.citations) == expected
 
 
 @pytest.mark.parametrize("text, proteins, content, citations", [
     ("föö", [], ["föö"], []),
     ("föö bär", [], ["föö bär"], []),
     ("föö 24 bär", [], ["föö 24 bär"], []),
-    ("#11# at pH 4.5, 30°C <100>", ["11"], [" at pH 4.5, 30°C "], ["100"]),
+    ("#11# at pH 4.5, 30°C <100>", [11], [" at pH 4.5, 30°C "], [100]),
 ])
 def test_comment(text, proteins, content, citations):
     result = parser.comment.parseString(text, parseAll=True)
@@ -76,11 +76,11 @@ def test_comment(text, proteins, content, citations):
         ([], ["at pH 4.5, 30°C"], []),
     ]),
     ("(#11# at pH 4.5, 30°C <100>)", [
-        (["11"], [" at pH 4.5, 30°C "], ["100"]),
+        ([11], [" at pH 4.5, 30°C "], [100]),
     ]),
     (r"(#11# at pH 4.5, 30°C <100>; #11# at pH 5.5, 30°C\n\t<100>)", [
-        (["11"], [" at pH 4.5, 30°C "], ["100"]),
-        (["11"], [r" at pH 5.5, 30°C\n\t"], ["100"]),
+        ([11], [" at pH 4.5, 30°C "], [100]),
+        ([11], [r" at pH 5.5, 30°C\n\t"], [100]),
     ]),
 ])
 def test_comments(text, expected):

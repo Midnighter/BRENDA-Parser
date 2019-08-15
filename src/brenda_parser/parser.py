@@ -32,11 +32,11 @@
 import pyparsing as pp
 
 
-number = pp.Word(pp.nums)
+integer = pp.pyparsing_common.integer
 
-protein_information = "#" + pp.Group(pp.delimitedList(number))("proteins") + "#"
+protein_information = "#" + pp.Group(pp.delimitedList(integer))("proteins") + "#"
 
-literature_citation = "<" + pp.Group(pp.delimitedList(number))("citations") + ">"
+literature_citation = "<" + pp.Group(pp.delimitedList(integer))("citations") + ">"
 
 comment = (
     pp.Optional(protein_information) +
@@ -54,8 +54,8 @@ comments = (
 )
 
 ec_number = pp.Combine(
-    number +
-    ("." + number) * (0, 2) +
+    pp.Word(pp.nums) +
+    ("." + pp.Word(pp.nums)) * (0, 2) +
     pp.Optional("." + pp.Word("n" + pp.nums, pp.nums))
 )
 
