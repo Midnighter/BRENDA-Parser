@@ -59,9 +59,9 @@ def test_literature_citation(text, expected):
 
 @pytest.mark.parametrize("text, proteins, content, citations", [
     ("föö", [], ["föö"], []),
-    ("föö bär", [], ["föö bär"], []),
-    ("föö 24 bär", [], ["föö 24 bär"], []),
-    ("#11# at pH 4.5, 30°C <100>", [11], [" at pH 4.5, 30°C "], [100]),
+    ("föö bär", [], "föö bär".split(), []),
+    ("föö 24 bär", [], "föö 24 bär".split(), []),
+    ("#11# at pH 4.5, 30°C <100>", [11], "at pH 4.5, 30°C".split(), [100]),
 ])
 def test_comment(text, proteins, content, citations):
     result = parser.comment.parseString(text, parseAll=True)
@@ -73,14 +73,14 @@ def test_comment(text, proteins, content, citations):
 @pytest.mark.parametrize("text, expected", [
     ("()", [([], [], [])]),
     ("(at pH 4.5, 30°C)", [
-        ([], ["at pH 4.5, 30°C"], []),
+        ([], "at pH 4.5, 30°C".split(), []),
     ]),
     ("(#11# at pH 4.5, 30°C <100>)", [
-        ([11], [" at pH 4.5, 30°C "], [100]),
+        ([11], "at pH 4.5, 30°C".split(), [100]),
     ]),
     (r"(#11# at pH 4.5, 30°C <100>; #11# at pH 5.5, 30°C\n\t<100>)", [
-        ([11], [" at pH 4.5, 30°C "], [100]),
-        ([11], [r" at pH 5.5, 30°C\n\t"], [100]),
+        ([11], "at pH 4.5, 30°C".split(), [100]),
+        ([11], r"at pH 5.5, 30°C\n\t".split(), [100]),
     ]),
 ])
 def test_comments(text, expected):
@@ -106,7 +106,7 @@ def test_ec_number(text, expected):
 @pytest.mark.parametrize("text, expected", [
     ("ID\t1.1.1.1", ("1.1.1.1", [])),
     ("ID\t1.1.1.109 (transferred to EC 1.3.1.28)",
-        ("1.1.1.109", [([], ["transferred to EC 1.3.1.28"], [])])
+        ("1.1.1.109", [([], "transferred to EC 1.3.1.28".split(), [])])
     ),
 ])
 def test_enzyme_begin(text, expected):

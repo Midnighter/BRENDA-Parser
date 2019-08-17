@@ -26,7 +26,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-"""Define the parsing expression grammar (PEG)."""
+"""Define the parsing expression grammar (PEG) for BRENDA."""
 
 
 import pyparsing as pp
@@ -35,14 +35,43 @@ import pyparsing as pp
 integer = pp.pyparsing_common.integer
 
 protein_information = "#" + pp.Group(pp.delimitedList(integer))("proteins") + "#"
+protein_information.__doc__ = """
+Parse one or more comma-separated integers representing protein identifiers.
+
+Parse a text representation of comma-separated integers enclosed by hashes 
+``#`` to a list of integers.
+
+"""
 
 literature_citation = "<" + pp.Group(pp.delimitedList(integer))("citations") + ">"
+literature_citation.__doc__ = """
+Parse one or more comma-separated integers representing literature citations.
+
+Parse a text representation of comma-separated integers enclosed by angled 
+brackets ``<>`` to a list of integers.
+
+"""
+
+content = pp.Regex(r"[^#<>;(){}\s]+")
+content.__doc__ = """
+Parse any unicode string that is not whitespace or of special meaning to BRENDA.
+
+This is meant to parse content of comments. Within the special context of 
+comments in the BRENDA format the following special symbols do not occur:
+``#<>;(){}``. Everything else that is not whitespace is considered valid 
+content.
+
+"""
 
 comment = (
     pp.Optional(protein_information) +
-    pp.Group(pp.ZeroOrMore(pp.CharsNotIn("<;)")))("content") +
+    pp.Group(pp.ZeroOrMore(content))("content") +
     pp.Optional(literature_citation)
 )
+comment.__doc__ = """
+Define the expected format of a single (sub-)comment entry.
+
+"""
 
 comments = (
     "(" +
@@ -52,14 +81,36 @@ comments = (
     )) +
     ")"
 )
+comments.__doc__ = """
+Parse zero or more comments.
+
+Comments are enclosed by parentheses (``()``) and may contain none, or many 
+semi-colon (``;``) separated sub-comments.
+
+"""
 
 ec_number = pp.Combine(
     pp.Word(pp.nums) +
     ("." + pp.Word(pp.nums)) * (0, 2) +
     pp.Optional("." + pp.Word("n" + pp.nums, pp.nums))
 )
+ec_number.__doc__ = """
+Parse a full or partial EC number.
+
+An EC number is a hierarchical number format that consists of up to four 
+parts. Any of the parts following the first may be omitted to mean broader 
+categories. Preliminary EC numbers prefix the last number with an ``n``. Read
+more at https://en.wikipedia.org/wiki/Enzyme_Commission_number.
+
+"""
 
 enzyme_begin = pp.LineStart() + pp.Keyword("ID") + ec_number("ec_number") + \
                pp.Optional(comments)
+enzyme_begin.__doc__ = """
+Parse the beginning of an enzyme defining section.
+"""
 
 enzyme_end = pp.LineStart() + pp.Keyword("///")
+enzyme_end.__doc__ = """
+Parse the symbol defining the end of an enzyme section.
+"""
