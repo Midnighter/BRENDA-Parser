@@ -26,8 +26,57 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-"""Provide functionality for parsing the BRENDA textfile."""
+"""Provide functions for the actual content parsing."""
 
 
-from .grammar import *
-from .content import *
+from typing import Iterable, List
+
+
+__all__ = ("enzyme_section_iter",)
+
+
+ENZYME_BEGIN = "ID"
+ENZYME_END = "///"
+COMMENT = "*"
+
+
+def enzyme_section_iter(lines: Iterable[str]):
+    """
+    Yield individual enzyme sections from linewise text content.
+
+    Parameters
+    ----------
+    lines : iterable of str
+        The entire content as individual lines that is to be broken up.
+
+    Returns
+    -------
+    list
+        Yields lists of all the lines representing one enzyme section.
+
+    """
+    buffer: List[str] = []
+    balance = 0
+    collect = False
+    # We skip comment lines but keep empty lines since they are important
+    # markers for the end of a sub-section.
+    for index, line in (
+        (i, l) for i, l in enumerate(lines, start=1)
+        if not l.startswith(COMMENT)
+    ):
+        if line.startswith(ENZYME_BEGIN):
+            assert balance == 0
+            balance += 1
+            collect = True
+            buffer = [line]
+        elif line.startswith(ENZYME_END):
+            balance -= 1
+            collect = False
+            buffer.append(line)
+            assert balance == 0
+            yield buffer
+        elif collect:
+            buffer.append(line)
+
+
+
