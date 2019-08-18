@@ -110,6 +110,15 @@ enzyme_begin.__doc__ = """
 Parse the beginning of an enzyme defining section.
 """
 
+field_entry = (
+    pp.LineStart() +
+    pp.Regex(r"[A-Z0-9]{2,4}")("key") +
+    pp.Optional(protein_information) +
+    pp.Group(pp.ZeroOrMore(content))("entry") +
+    pp.Optional(comments) +
+    pp.Optional(literature_citation)
+)
+
 enzyme_end = pp.LineStart() + pp.Keyword("///")
 enzyme_end.__doc__ = """
 Parse the symbol defining the end of an enzyme section.
