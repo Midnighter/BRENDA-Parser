@@ -26,10 +26,51 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-"""Provide functionality for parsing the BRENDA textfile."""
+"""Define an abstract enzyme parser."""
 
 
-from .result import *
-from .abstract_enzyme_parser import *
-from .pyparsing_enzyme_parser import *
-from .content import *
+from abc import ABC, abstractmethod
+
+from . import result
+
+
+__all__ = ("AbstractEnzymeParser",)
+
+
+class AbstractEnzymeParser(ABC):
+
+    @abstractmethod
+    def parse_id(self, text: str) -> result.AbstractIDParsingResult:
+        pass
+
+    @abstractmethod
+    def parse_field_entry(self, text: str) -> result.AbstractEntryParsingResult:
+        pass
+
+    @abstractmethod
+    def parse_ki_value(self, text: str) -> result.AbstractKiValueParsingResult:
+        pass
+
+    @abstractmethod
+    def parse_km_value(self, text: str) -> result.AbstractKmValueParsingResult:
+        pass
+
+    @abstractmethod
+    def parse_natural_substrate_product(self, text: str) -> result.AbstractNaturalSubstrateProductParsingResult:
+        pass
+
+    @abstractmethod
+    def parse_substrate_product(self, text: str) -> result.AbstractSubstrateProductParsingResult:
+        pass
+
+    @abstractmethod
+    def parse_turnover_number(self, text: str) -> result.AbstractTurnoverNumberParsingResult:
+        pass
+
+    @abstractmethod
+    def parse_protein(self, text: str) -> result.AbstractProteinParsingResult:
+        pass
+
+    @abstractmethod
+    def parse_reference(self, text: str) -> result.AbstractReferenceParsingResult:
+        pass
