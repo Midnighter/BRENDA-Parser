@@ -26,28 +26,19 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-"""Provide an abstract data model for a protein database cross-reference."""
+"""Provide an abstract interface for enzyme data models."""
 
 
 from abc import ABC
-from typing import Optional
 
 
-__all__ = ("AbstractAccession",)
+__all__ = ("AbstractEnzymeModel",)
 
 
-class AbstractAccession(ABC):
-    """
-    Define an abstract protein cross-reference.
+class AbstractEnzymeModel(ABC):
 
-    Attributes
-    ----------
-    accession : str
-        The protein identifer (cross-reference) within the source database.
-    source : str
-        A source database.
-
-    """
-
-    accession: str
-    source: Optional[str] = None
+    def __init__(self, ec_number: str, **kwargs):
+        super().__init__(**kwargs)
+        self.ec_number = ec_number
+        self.protein_references = {}
+        self.citation_references = {}

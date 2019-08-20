@@ -29,4 +29,4 @@
 """Provide data models for storing BRENDA EC-number-indexed information."""
 
 
-from .abstract_models import *
+from .abstract_model import *
