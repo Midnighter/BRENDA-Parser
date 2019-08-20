@@ -1,0 +1,45 @@
+acronym,description,heading
+AC,activating compound,ACTIVATING_COMPOUND
+AP,application,APPLICATION
+CF,cofactor,COFACTOR
+CL,cloned,CLONED
+CR,crystallization,CRYSTALLIZATION
+EN,engineering,ENGINEERING
+EXP,expression,EXPRESSION
+GI,general information on enzyme,
+GS,general stability,GENERAL_STABILITY
+IC50,IC-50 Value,IC50_VALUE
+ID,EC-class,
+IN,inhibitors,INHIBITORS
+KKM,Kcat/KM-Value,KCAT_KM_VALUE
+KI,Ki-value,KI_VALUE
+KM,KM-value,KM_VALUE
+LO,localization,LOCALIZATION
+ME,metals/ions,METALS_IONS
+MW,molecular weight,MOLECULAR_WEIGHT
+NSP,natural substrates/products,NATURAL_SUBSTRATE_PRODUCT
+OS,oxygen stability,OXIDATION_STABILITY
+OSS,organic solvent stability,ORGANIC_SOLVENT_STABILITY
+PHO,pH-optimum,PH_OPTIMUM
+PHR,pH-range,PH_RANGE
+PHS,pH stability,PH_STABILITY
+PI,isoelectric point,PI_VALUE
+PM,posttranslation modification,POSTTRANSLATIONAL_MODIFICATION
+PR,protein,PROTEIN
+PU,purification,PURIFICATION
+RE,reaction catalyzed,REACTION
+RF,references,REFERENCE
+REN,renatured,RENATURED
+RN,accepted name (IUPAC),RECOMMENDED_NAME
+RT,reaction type,REACTION_TYPE
+SA,specific activity,SPECIFIC_ACTIVITY
+SN,systematic name,SYSTEMATIC_NAME
+SP,substrates/products,SUBSTRATE_PRODUCT
+SS,storage stability,STORAGE_STABILITY
+ST,source/tissue,SOURCE_TISSUE
+SU,subunits,SUBUNITS
+SY,synonyms,SYNONYMS
+TN,turnover number,TURNOVER_NUMBER
+TO,temperature optimum,TEMPERATURE_OPTIMUM
+TR,temperature range,TEMPERATURE_RANGE
+TS,temperature stability,TEMPERATURE_STABILITY
