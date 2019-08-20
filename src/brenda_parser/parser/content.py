@@ -32,7 +32,7 @@
 from typing import Iterable, List
 
 
-__all__ = ("enzyme_section_iter",)
+__all__ = ("enzyme_section_iter", "ENZYME_END")
 
 
 ENZYME_BEGIN = "ID"
@@ -49,8 +49,8 @@ def enzyme_section_iter(lines: Iterable[str]):
     lines : iterable of str
         The entire content as individual lines that is to be broken up.
 
-    Returns
-    -------
+    Yields
+    ------
     list
         Yields lists of all the lines representing one enzyme section.
 
