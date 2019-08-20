@@ -41,7 +41,7 @@ __all__ = ("AbstractTurnoverNumberParsingResult",)
 class AbstractTurnoverNumberParsingResult(AbstractParsingResult):
 
     def __init__(
-        self, key: str = "KM",
+        self, key: str = "TN",
         protein: int = None,
         value: str = None,
         substrate: str = None,

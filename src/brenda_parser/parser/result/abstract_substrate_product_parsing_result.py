@@ -42,7 +42,7 @@ class AbstractSubstrateProductParsingResult(AbstractParsingResult):
 
     def __init__(
         self,
-        key: str = "NSP",
+        key: str = "SP",
         proteins: List[int] = None,
         value: str = None,
         comments: List[AbstractCommentParsingResult] = None,
