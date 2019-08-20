@@ -26,7 +26,19 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-"""Provide data models for storing BRENDA EC-number-indexed information."""
+"""Provide an abstract interface for enzyme data models."""
 
 
-from .abstract_models import *
+from abc import ABC
+
+
+__all__ = ("AbstractEnzyme",)
+
+
+class AbstractEnzyme(ABC):
+
+    def __init__(self, ec_number: str, **kwargs):
+        super().__init__(**kwargs)
+        self.ec_number = ec_number
+        self.protein_references = {}
+        self.citation_references = {}

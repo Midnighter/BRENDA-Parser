@@ -30,3 +30,4 @@
 
 
 from .abstract_accession import *
+from .abstract_enzyme import *
