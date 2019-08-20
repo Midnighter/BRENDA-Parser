@@ -26,51 +26,33 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-"""Provide an abstract data model for a protein database cross-reference."""
+"""Define an abstract substrate/product parsing result."""
 
 
-import pytest
-import pyparsing as pp
+from typing import List
+
+from .abstract_comment_parsing_result import AbstractCommentParsingResult
+from .abstract_parsing_result import AbstractParsingResult
 
 
-@pytest.fixture()
-def text():
-    return "2,3-dihydro-2,3-dihydroxybenzoate dehydrogenase 30°C"
+__all__ = ("AbstractSubstrateProductParsingResult",)
 
 
-def content_alpha(text):
-    return pp.OneOrMore(
-        pp.Word(pp.printables + "°", excludeChars="#<>;")
-    ).parseString(text, parseAll=True)
+class AbstractSubstrateProductParsingResult(AbstractParsingResult):
 
-
-def content_unicode(text):
-    return pp.OneOrMore(
-        pp.Word(pp.pyparsing_unicode.printables, excludeChars="#<>;")
-    ).parseString(text, parseAll=True)
-
-
-def content_not_in(text):
-    return pp.CharsNotIn("#<>;").parseString(text, parseAll=True)
-
-
-def content_regex(text):
-    return pp.OneOrMore(
-        pp.Regex(r"[^#<>;\s]+")
-    ).parseString(text, parseAll=True)
-
-
-def test_content_alpha(benchmark, text):
-    benchmark(content_alpha, text)
-
-
-def test_content_unicode(benchmark, text):
-    benchmark(content_unicode, text)
-
-
-def test_content_not_in(benchmark, text):
-    benchmark(content_not_in, text)
-
-
-def test_content_regex(benchmark, text):
-    benchmark(content_regex, text)
+    def __init__(
+        self,
+        key: str = "NSP",
+        proteins: List[int] = None,
+        value: str = None,
+        comments: List[AbstractCommentParsingResult] = None,
+        reversibility: str = None,
+        references: List[int] = None,
+        **kwargs
+    ):
+        super().__init__(key=key, **kwargs)
+        self.proteins = proteins
+        self.value = value
+        self.reversibility = reversibility
+        self.comments = comments
+        self.references = references

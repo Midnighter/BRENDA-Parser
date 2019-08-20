@@ -26,10 +26,22 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-"""Provide different parsing result classes."""
+"""
+Provide different abstract parsing result classes.
+
+The abstract classes within this sub-package describe the desired shape to be
+returned by parser implementations.
+
+"""
 
 
 from .abstract_id_parsing_result import AbstractIDParsingResult
+from .abstract_comment_parsing_result import AbstractCommentParsingResult
 from .abstract_entry_parsing_result import AbstractEntryParsingResult
+from .abstract_ki_value_parsing_result import AbstractKiValueParsingResult
+from .abstract_km_value_parsing_result import AbstractKmValueParsingResult
+from .abstract_natural_substrate_product_parsing_result import AbstractNaturalSubstrateProductParsingResult
 from .abstract_protein_parsing_result import AbstractProteinParsingResult
 from .abstract_reference_parsing_result import AbstractReferenceParsingResult
+from .abstract_substrate_product_parsing_result import AbstractSubstrateProductParsingResult
+from .abstract_turnover_number_parsing_result import AbstractTurnoverNumberParsingResult

@@ -26,33 +26,31 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-"""Define an abstract entry parsing result."""
+"""Define an abstract Ki-value parsing result."""
 
 
 from typing import List
 
-from .abstract_comment_parsing_result import AbstractCommentParsingResult
 from .abstract_parsing_result import AbstractParsingResult
+from .abstract_comment_parsing_result import AbstractCommentParsingResult
 
 
-__all__ = ("AbstractEntryParsingResult",)
+__all__ = ("AbstractKiValueParsingResult",)
 
 
-class AbstractEntryParsingResult(AbstractParsingResult):
+class AbstractKiValueParsingResult(AbstractParsingResult):
 
     def __init__(
-        self,
-        key: str,
-        proteins: List[int] = None,
+        self, key: str = "KI",
+        protein: int = None,
         value: str = None,
-        special: str = None,
+        inhibitor: str = None,
         comments: List[AbstractCommentParsingResult] = None,
-        references: List[int] = None,
-        **kwargs
+        references: List[int] = None, **kwargs
     ):
         super().__init__(key=key, **kwargs)
-        self.proteins = proteins
+        self.protein = protein
         self.value = value
-        self.special = special
+        self.inhibitor = inhibitor
         self.comments = comments
         self.references = references

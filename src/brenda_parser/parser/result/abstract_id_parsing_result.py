@@ -29,7 +29,6 @@
 """Define an abstract enzyme identifier parsing result."""
 
 
-from abc import abstractmethod
 from typing import List
 
 from .abstract_parsing_result import AbstractParsingResult
@@ -41,12 +40,13 @@ __all__ = ("AbstractIDParsingResult",)
 
 class AbstractIDParsingResult(AbstractParsingResult):
 
-    @property
-    @abstractmethod
-    def ec_number(self) -> str:
-        pass
-
-    @property
-    @abstractmethod
-    def comments(self) -> List[AbstractCommentParsingResult]:
-        pass
+    def __init__(
+        self,
+        key: str = "ID",
+        ec_number: str = None,
+        comments: List[AbstractCommentParsingResult] = None,
+        **kwargs
+    ):
+        super().__init__(key=key, **kwargs)
+        self.ec_number = ec_number
+        self.comments = comments

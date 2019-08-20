@@ -29,10 +29,10 @@
 """Define an abstract protein parsing result."""
 
 
-from abc import abstractmethod
 from typing import List
 
 from .abstract_parsing_result import AbstractParsingResult
+from .abstract_comment_parsing_result import AbstractCommentParsingResult
 
 
 __all__ = ("AbstractProteinParsingResult",)
@@ -40,22 +40,21 @@ __all__ = ("AbstractProteinParsingResult",)
 
 class AbstractProteinParsingResult(AbstractParsingResult):
 
-    @property
-    @abstractmethod
-    def proteins(self) -> List[int]:
-        pass
-
-    @property
-    @abstractmethod
-    def organism(self) -> str:
-        pass
-
-    @property
-    @abstractmethod
-    def accession(self) -> str:
-        pass
-
-    @property
-    @abstractmethod
-    def citations(self) -> List[int]:
-        pass
+    def __init__(
+        self,
+        key: str = "PR",
+        protein: int = None,
+        organism: str = None,
+        accession: str = None,
+        registry: str = None,
+        comments: List[AbstractCommentParsingResult] = None,
+        references: List[int] = None,
+        **kwargs
+    ):
+        super().__init__(key=key, **kwargs)
+        self.protein = protein
+        self.organism = organism
+        self.accession = accession
+        self.registry = registry
+        self.comments = comments
+        self.references = references

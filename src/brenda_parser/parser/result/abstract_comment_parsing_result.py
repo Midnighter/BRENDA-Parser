@@ -29,7 +29,7 @@
 """Define an abstract comment parsing result."""
 
 
-from abc import ABC, abstractmethod
+from abc import ABC
 from typing import List
 
 
@@ -38,18 +38,14 @@ __all__ = ("AbstractCommentParsingResult",)
 
 class AbstractCommentParsingResult(ABC):
 
-    @property
-    @abstractmethod
-    def proteins(self) -> List[int]:
-        pass
-
-    @property
-    @abstractmethod
-    def content(self) -> str:
-        pass
-
-    @property
-    @abstractmethod
-    def citations(self) -> List[int]:
-        pass
-
+    def __init__(
+        self,
+        proteins: List[int] = None,
+        content: str = None,
+        references: List[int] = None,
+        **kwargs
+    ):
+        super().__init__(**kwargs)
+        self.proteins = proteins
+        self.references = references
+        self.content = content

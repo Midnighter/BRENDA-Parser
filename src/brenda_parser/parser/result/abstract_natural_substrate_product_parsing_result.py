@@ -26,7 +26,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-"""Define an abstract entry parsing result."""
+"""Define an abstract natural substrate/product parsing result."""
 
 
 from typing import List
@@ -35,24 +35,24 @@ from .abstract_comment_parsing_result import AbstractCommentParsingResult
 from .abstract_parsing_result import AbstractParsingResult
 
 
-__all__ = ("AbstractEntryParsingResult",)
+__all__ = ("AbstractNaturalSubstrateProductParsingResult",)
 
 
-class AbstractEntryParsingResult(AbstractParsingResult):
+class AbstractNaturalSubstrateProductParsingResult(AbstractParsingResult):
 
     def __init__(
         self,
-        key: str,
+        key: str = "NSP",
         proteins: List[int] = None,
         value: str = None,
-        special: str = None,
         comments: List[AbstractCommentParsingResult] = None,
+        reversibility: str = None,
         references: List[int] = None,
         **kwargs
     ):
         super().__init__(key=key, **kwargs)
         self.proteins = proteins
         self.value = value
-        self.special = special
+        self.reversibility = reversibility
         self.comments = comments
         self.references = references

@@ -29,7 +29,7 @@
 """Define a base abstract parsing result."""
 
 
-from abc import ABC, abstractmethod
+from abc import ABC
 
 
 __all__ = ("AbstractParsingResult",)
@@ -37,8 +37,8 @@ __all__ = ("AbstractParsingResult",)
 
 class AbstractParsingResult(ABC):
 
-    @property
-    @abstractmethod
-    def key(self) -> str:
-        pass
-
+    def __init__(
+        self, key: str, **kwargs
+    ):
+        super().__init__(**kwargs)
+        self.key = key

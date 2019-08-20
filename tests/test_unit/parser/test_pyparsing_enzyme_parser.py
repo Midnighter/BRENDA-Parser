@@ -34,7 +34,7 @@ from itertools import zip_longest
 import pytest
 from pyparsing import ParseException
 
-from brenda_parser.parser import grammar
+from brenda_parser.parser import pyparsing_enzyme_parser
 
 
 @pytest.mark.parametrize("text, expected", [
@@ -43,7 +43,7 @@ from brenda_parser.parser import grammar
     pytest.param("##", None, marks=pytest.mark.raises(exception=ParseException)),
 ])
 def test_protein_information(text, expected):
-    result = grammar.protein_information.parseString(text, parseAll=True)
+    result = pyparsing_enzyme_parser.protein_information.parseString(text, parseAll=True)
     assert list(result.proteins) == expected
 
 
@@ -53,7 +53,7 @@ def test_protein_information(text, expected):
     pytest.param("<>", None, marks=pytest.mark.raises(exception=ParseException)),
 ])
 def test_literature_citation(text, expected):
-    result = grammar.literature_citation.parseString(text, parseAll=True)
+    result = pyparsing_enzyme_parser.literature_citation.parseString(text, parseAll=True)
     assert list(result.citations) == expected
 
 
@@ -64,7 +64,7 @@ def test_literature_citation(text, expected):
     ("#11# at pH 4.5, 30°C <100>", [11], "at pH 4.5, 30°C".split(), [100]),
 ])
 def test_comment(text, proteins, content, citations):
-    result = grammar.comment.parseString(text, parseAll=True)
+    result = pyparsing_enzyme_parser.comment.parseString(text, parseAll=True)
     assert list(result.proteins) == proteins
     assert list(result.content) == content
     assert list(result.citations) == citations
@@ -84,7 +84,7 @@ def test_comment(text, proteins, content, citations):
     ]),
 ])
 def test_comments(text, expected):
-    result = grammar.comments.parseString(text, parseAll=True)
+    result = pyparsing_enzyme_parser.comments.parseString(text, parseAll=True)
     for comment, outcome in zip_longest(result.comments, expected):
         assert list(comment.proteins) == outcome[0]
         assert list(comment.content) == outcome[1]
@@ -99,7 +99,7 @@ def test_comments(text, expected):
     ("1.1.1.n1", "1.1.1.n1"),
 ])
 def test_ec_number(text, expected):
-    result = grammar.ec_number.parseString(text, parseAll=True)
+    result = pyparsing_enzyme_parser.ec_number.parseString(text, parseAll=True)
     assert result[0] == expected
 
 
@@ -110,7 +110,7 @@ def test_ec_number(text, expected):
     ),
 ])
 def test_enzyme_begin(text, expected):
-    result = grammar.enzyme_begin.parseString(text, parseAll=True)
+    result = pyparsing_enzyme_parser.enzyme_begin.parseString(text, parseAll=True)
     assert result.ec_number == expected[0]
     for comment, outcome in zip_longest(result.comments, expected[1]):
         assert list(comment.proteins) == outcome[0]
@@ -125,5 +125,5 @@ def test_enzyme_begin(text, expected):
         exception=ParseException)),
 ])
 def test_enzyme_end(text, expected):
-    result = grammar.enzyme_end.parseString(text, parseAll=True)
+    result = pyparsing_enzyme_parser.enzyme_end.parseString(text, parseAll=True)
     assert result[0] == expected

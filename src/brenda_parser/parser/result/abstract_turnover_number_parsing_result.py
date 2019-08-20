@@ -26,33 +26,31 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-"""Define an abstract entry parsing result."""
+"""Define an abstract turnover number parsing result."""
 
 
 from typing import List
 
-from .abstract_comment_parsing_result import AbstractCommentParsingResult
 from .abstract_parsing_result import AbstractParsingResult
+from .abstract_comment_parsing_result import AbstractCommentParsingResult
 
 
-__all__ = ("AbstractEntryParsingResult",)
+__all__ = ("AbstractTurnoverNumberParsingResult",)
 
 
-class AbstractEntryParsingResult(AbstractParsingResult):
+class AbstractTurnoverNumberParsingResult(AbstractParsingResult):
 
     def __init__(
-        self,
-        key: str,
-        proteins: List[int] = None,
+        self, key: str = "KM",
+        protein: int = None,
         value: str = None,
-        special: str = None,
+        substrate: str = None,
         comments: List[AbstractCommentParsingResult] = None,
-        references: List[int] = None,
-        **kwargs
+        references: List[int] = None, **kwargs
     ):
         super().__init__(key=key, **kwargs)
-        self.proteins = proteins
+        self.protein = protein
         self.value = value
-        self.special = special
+        self.substrate = substrate
         self.comments = comments
         self.references = references

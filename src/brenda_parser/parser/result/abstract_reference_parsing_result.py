@@ -29,7 +29,6 @@
 """Define an abstract reference parsing result."""
 
 
-from abc import abstractmethod
 from typing import List
 
 from .abstract_parsing_result import AbstractParsingResult
@@ -40,17 +39,17 @@ __all__ = ("AbstractReferenceParsingResult",)
 
 class AbstractReferenceParsingResult(AbstractParsingResult):
 
-    @property
-    @abstractmethod
-    def organism(self) -> str:
-        pass
-
-    @property
-    @abstractmethod
-    def accession(self) -> str:
-        pass
-
-    @property
-    @abstractmethod
-    def citations(self) -> List[int]:
-        pass
+    def __init__(
+        self,
+        key: str = "RF",
+        reference: int = None,
+        value: str = None,
+        pubmed: str = None,
+        type: List[str] = None,
+        **kwargs
+    ):
+        super().__init__(key=key, **kwargs)
+        self.reference = reference
+        self.value = value
+        self.pubmed = pubmed
+        self.type = type
