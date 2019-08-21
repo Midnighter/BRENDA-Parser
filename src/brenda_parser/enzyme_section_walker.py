@@ -32,7 +32,7 @@
 from os import linesep
 from typing import List, Tuple
 
-from .abstract_enzyme_visitor import AbstractEnzymeSectionVisitor
+from .abstract_enzyme_section_visitor import AbstractEnzymeSectionVisitor
 from .parser import ENZYME_END
 
 
