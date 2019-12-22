@@ -29,13 +29,8 @@
 """Provide an abstract data model for a protein database cross-reference."""
 
 
-from brenda_parser.model.abstract_model import AbstractAccessionModel
-
-
-class Accession(AbstractAccessionModel):
-
-    pass
+from brenda_parser.model.data_model import AccessionModel
 
 
 def test_init():
-    Accession()
+    AccessionModel(accession="foo")
