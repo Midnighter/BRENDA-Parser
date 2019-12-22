@@ -41,6 +41,7 @@ __all__ = ("AbstractKmValueParsingResult",)
 class AbstractKmValueParsingResult(AbstractParsingResult):
     def __init__(
         self,
+        *,
         key: str = "KM",
         protein: int = None,
         value: str = None,

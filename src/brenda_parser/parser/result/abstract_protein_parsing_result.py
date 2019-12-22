@@ -41,6 +41,7 @@ __all__ = ("AbstractProteinParsingResult",)
 class AbstractProteinParsingResult(AbstractParsingResult):
     def __init__(
         self,
+        *,
         key: str = "PR",
         protein: int = None,
         organism: str = None,

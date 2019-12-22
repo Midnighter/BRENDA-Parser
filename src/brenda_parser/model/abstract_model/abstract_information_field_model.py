@@ -44,7 +44,9 @@ class AbstractInformationFieldModel(ABC):
 
     """
 
-    def __init__(self, acronym: str, heading: str, description: str = None, **kwargs):
+    def __init__(
+        self, *, acronym: str, heading: str, description: str = None, **kwargs
+    ):
         super().__init__(**kwargs)
         self.acronym = acronym
         self.description = description

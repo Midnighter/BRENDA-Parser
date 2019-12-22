@@ -41,6 +41,7 @@ __all__ = ("AbstractIDParsingResult",)
 class AbstractIDParsingResult(AbstractParsingResult):
     def __init__(
         self,
+        *,
         key: str = "ID",
         ec_number: str = None,
         comments: List[AbstractCommentParsingResult] = None,

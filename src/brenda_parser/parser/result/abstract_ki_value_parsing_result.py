@@ -41,6 +41,7 @@ __all__ = ("AbstractKiValueParsingResult",)
 class AbstractKiValueParsingResult(AbstractParsingResult):
     def __init__(
         self,
+        *,
         key: str = "KI",
         protein: int = None,
         value: str = None,

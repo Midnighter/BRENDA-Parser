@@ -67,7 +67,7 @@ class EnzymeSectionBuildDirector(AbstractEnzymeSectionVisitor):
 
     """
 
-    def __init__(self, parser: AbstractEnzymeParser, builder: AbstractEnzymeBuilder):
+    def __init__(self, *, parser: AbstractEnzymeParser, builder: AbstractEnzymeBuilder):
         self.parser = parser
         self.builder = builder
         self._dispatch = {

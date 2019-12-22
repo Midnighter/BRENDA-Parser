@@ -47,6 +47,7 @@ class AbstractCommentModel(ABC):
 
     def __init__(
         self,
+        *,
         value: str,
         proteins: List[int] = None,
         references: List[int] = None,

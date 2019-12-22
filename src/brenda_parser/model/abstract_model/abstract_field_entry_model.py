@@ -49,6 +49,7 @@ class AbstractFieldEntryModel(ABC):
 
     def __init__(
         self,
+        *,
         key: str,
         proteins: List[int] = None,
         value: str = None,

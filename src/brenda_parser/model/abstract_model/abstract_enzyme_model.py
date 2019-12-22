@@ -36,7 +36,7 @@ __all__ = ("AbstractEnzymeModel",)
 
 
 class AbstractEnzymeModel(ABC):
-    def __init__(self, ec_number: str, **kwargs):
+    def __init__(self, *, ec_number: str, **kwargs):
         super().__init__(**kwargs)
         self.ec_number = ec_number
         self.protein_references = {}

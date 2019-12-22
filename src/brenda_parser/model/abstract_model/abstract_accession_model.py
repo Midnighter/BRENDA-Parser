@@ -48,7 +48,7 @@ class AbstractAccessionModel(ABC):
 
     """
 
-    def __init__(self, accession: str, registry: str = None, **kwargs):
+    def __init__(self, *, accession: str, registry: str = None, **kwargs):
         super().__init__(**kwargs)
         self.accession = accession
         self.registry = registry

@@ -41,6 +41,7 @@ __all__ = ("AbstractNaturalSubstrateProductParsingResult",)
 class AbstractNaturalSubstrateProductParsingResult(AbstractParsingResult):
     def __init__(
         self,
+        *,
         key: str = "NSP",
         proteins: List[int] = None,
         value: str = None,
