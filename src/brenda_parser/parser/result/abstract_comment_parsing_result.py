@@ -41,11 +41,11 @@ class AbstractCommentParsingResult(ABC):
     def __init__(
         self,
         proteins: List[int] = None,
-        content: str = None,
+        value: str = None,
         references: List[int] = None,
         **kwargs
     ):
         super().__init__(**kwargs)
         self.proteins = proteins
         self.references = references
-        self.content = content
+        self.value = value
