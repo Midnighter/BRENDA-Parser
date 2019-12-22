@@ -26,9 +26,23 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-"""Provide enzyme builder classes."""
+"""Define public functions for parsing content."""
 
 
-from .abstract_enzyme_builder import *
-from .orm_enzyme_builder import *
-from .parsing_result_logger import *
+from .enzyme_section_walker import EnzymeSectionWalker
+from .enzyme_build_director import EnzymeSectionBuildDirector
+from .parser import PyParsingEnzymeParser, enzyme_section_iter
+from .builder import ParsingResultLogger
+
+
+def brenda_logger(filename: str):
+    with open(filename) as handler:
+        lines = handler.readlines()
+    parser = PyParsingEnzymeParser()
+    builder = ParsingResultLogger()
+    director = EnzymeSectionBuildDirector(parser, builder)
+    walker = EnzymeSectionWalker(director)
+    for i, section in enumerate(enzyme_section_iter(lines)):
+        walker(section)
+        if i > 2:
+            break
