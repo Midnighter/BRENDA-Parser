@@ -38,9 +38,10 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import validates
 
-from . import Base
-from ..abstract_model import AbstractInformationFieldModel
 from ... import data
+from ..abstract_model import AbstractInformationFieldModel
+from . import Base
+
 
 __all__ = ("InformationFieldORMModel",)
 

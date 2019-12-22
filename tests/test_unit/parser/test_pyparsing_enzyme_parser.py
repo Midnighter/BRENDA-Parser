@@ -32,72 +32,107 @@
 from itertools import zip_longest
 
 import pytest
-from pyparsing import ParseException, Optional
+from pyparsing import Optional, ParseException
 
 from brenda_parser.parser.pyparsing_enzyme_parser import PyParsingEnzymeParser
 
 
-@pytest.mark.parametrize("text, expected", [
-    ("#1#", [1]),
-    ("#1,2,3#", [1, 2, 3]),
-    pytest.param("##", None, marks=pytest.mark.raises(exception=ParseException)),
-])
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        ("#1#", [1]),
+        ("#1,2,3#", [1, 2, 3]),
+        pytest.param("##", None, marks=pytest.mark.raises(exception=ParseException)),
+    ],
+)
 def test_protein_information(text, expected):
     result = PyParsingEnzymeParser.protein_information.parseString(text, parseAll=True)
     assert list(result.proteins) == expected
 
 
-@pytest.mark.parametrize("text, expected", [
-    ("<1>", [1]),
-    ("<1,2,3>", [1, 2, 3]),
-    pytest.param("<>", None, marks=pytest.mark.raises(exception=ParseException)),
-])
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        ("<1>", [1]),
+        ("<1,2,3>", [1, 2, 3]),
+        pytest.param("<>", None, marks=pytest.mark.raises(exception=ParseException)),
+    ],
+)
 def test_literature_citation(text, expected):
     result = PyParsingEnzymeParser.literature_citation.parseString(text, parseAll=True)
     assert list(result.references) == expected
 
 
-@pytest.mark.parametrize("text, expected", [
-    ("fööbär", "fööbär"),
-    pytest.param("fööbär#", None, marks=pytest.mark.raises(exception=ParseException)),
-    pytest.param("fööbär<", None, marks=pytest.mark.raises(exception=ParseException)),
-    pytest.param("fööbär>", None, marks=pytest.mark.raises(exception=ParseException)),
-    pytest.param("fööbär;", None, marks=pytest.mark.raises(exception=ParseException)),
-    pytest.param("fööbär(", None, marks=pytest.mark.raises(exception=ParseException)),
-    pytest.param("fööbär)", None, marks=pytest.mark.raises(exception=ParseException)),
-    pytest.param("fööbär{", None, marks=pytest.mark.raises(exception=ParseException)),
-    pytest.param("fööbär}", None, marks=pytest.mark.raises(exception=ParseException)),
-    pytest.param("fööbär ", "fööbär"),
-    pytest.param("fööbär\t", "fööbär"),
-    pytest.param("fööbär\n", "fööbär"),
-    pytest.param("fööbär\r", "fööbär"),
-    pytest.param("fööbär\r\n", "fööbär"),
-])
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        ("fööbär", "fööbär"),
+        pytest.param(
+            "fööbär#", None, marks=pytest.mark.raises(exception=ParseException)
+        ),
+        pytest.param(
+            "fööbär<", None, marks=pytest.mark.raises(exception=ParseException)
+        ),
+        pytest.param(
+            "fööbär>", None, marks=pytest.mark.raises(exception=ParseException)
+        ),
+        pytest.param(
+            "fööbär;", None, marks=pytest.mark.raises(exception=ParseException)
+        ),
+        pytest.param(
+            "fööbär(", None, marks=pytest.mark.raises(exception=ParseException)
+        ),
+        pytest.param(
+            "fööbär)", None, marks=pytest.mark.raises(exception=ParseException)
+        ),
+        pytest.param(
+            "fööbär{", None, marks=pytest.mark.raises(exception=ParseException)
+        ),
+        pytest.param(
+            "fööbär}", None, marks=pytest.mark.raises(exception=ParseException)
+        ),
+        pytest.param("fööbär ", "fööbär"),
+        pytest.param("fööbär\t", "fööbär"),
+        pytest.param("fööbär\n", "fööbär"),
+        pytest.param("fööbär\r", "fööbär"),
+        pytest.param("fööbär\r\n", "fööbär"),
+    ],
+)
 def test_content(text, expected):
     result = PyParsingEnzymeParser.content.parseString(text, parseAll=True)
     assert result[0] == expected
 
 
-@pytest.mark.parametrize("text, expected", [
-    ("föö", ["föö"]),
-    ("föö bär", "föö bär".split()),
-    ("föö 24 bär", "föö 24 bär".split()),
-    ("at (pH 4.5), 30°C", "at ( pH 4.5 ) , 30°C".split()),
-    ("at (pH), 30°C", "at ( pH ) , 30°C".split()),
-])
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        ("föö", ["föö"]),
+        ("föö bär", "föö bär".split()),
+        ("föö 24 bär", "föö 24 bär".split()),
+        ("at (pH 4.5), 30°C", "at ( pH 4.5 ) , 30°C".split()),
+        ("at (pH), 30°C", "at ( pH ) , 30°C".split()),
+    ],
+)
 def test_value(text, expected):
     result = PyParsingEnzymeParser.inside.parseString(text, parseAll=True)
     assert list(result.value) == expected
 
 
-@pytest.mark.parametrize("text, proteins, content, citations", [
-    ("föö", [], ["föö"], []),
-    ("föö bär", [], "föö bär".split(), []),
-    ("föö 24 bär", [], "föö 24 bär".split(), []),
-    ("#11# at pH 4.5, 30°C <100>", [11], "at pH 4.5, 30°C".split(), [100]),
-    ("#11# at pH 4.5 (5 mL), 30°C <100>", [11],
-     "at pH 4.5 ( 5 mL ) , 30°C".split(), [100]),
-])
+@pytest.mark.parametrize(
+    "text, proteins, content, citations",
+    [
+        ("föö", [], ["föö"], []),
+        ("föö bär", [], "föö bär".split(), []),
+        ("föö 24 bär", [], "föö 24 bär".split(), []),
+        ("#11# at pH 4.5, 30°C <100>", [11], "at pH 4.5, 30°C".split(), [100]),
+        (
+            "#11# at pH 4.5 (5 mL), 30°C <100>",
+            [11],
+            "at pH 4.5 ( 5 mL ) , 30°C".split(),
+            [100],
+        ),
+    ],
+)
 def test_inside(text, proteins, content, citations):
     result = PyParsingEnzymeParser.inside.parseString(text, parseAll=True)
     assert list(result.proteins) == proteins
@@ -105,23 +140,23 @@ def test_inside(text, proteins, content, citations):
     assert list(result.references) == citations
 
 
-@pytest.mark.parametrize("text, expected", [
-    ("()", [([], [], [])]),
-    ("(at pH 4.5, 30°C)", [
-        ([], "at pH 4.5, 30°C".split(), []),
-    ]),
-    ("(#11# at pH 4.5, 30°C <100>)", [
-        ([11], "at pH 4.5, 30°C".split(), [100]),
-    ]),
-    ("(#11# at pH 4.5, 30°C <100>; #11# at pH 5.5, 30°C\n\t<100>)", [
-        ([11], "at pH 4.5, 30°C".split(), [100]),
-        ([11], "at pH 5.5, 30°C".split(), [100]),
-    ]),
-])
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        ("()", [([], [], [])]),
+        ("(at pH 4.5, 30°C)", [([], "at pH 4.5, 30°C".split(), []),]),
+        ("(#11# at pH 4.5, 30°C <100>)", [([11], "at pH 4.5, 30°C".split(), [100]),]),
+        (
+            "(#11# at pH 4.5, 30°C <100>; #11# at pH 5.5, 30°C\n\t<100>)",
+            [
+                ([11], "at pH 4.5, 30°C".split(), [100]),
+                ([11], "at pH 5.5, 30°C".split(), [100]),
+            ],
+        ),
+    ],
+)
 def test_comment(text, expected):
-    comnt = (
-        Optional(PyParsingEnzymeParser.comment)("comments")
-    )
+    comnt = Optional(PyParsingEnzymeParser.comment)("comments")
     result = comnt.parseString(text, parseAll=True)
     for comment, outcome in zip_longest(result.comments, expected):
         assert list(comment.proteins) == outcome[0]
@@ -129,24 +164,31 @@ def test_comment(text, expected):
         assert list(comment.references) == outcome[2]
 
 
-@pytest.mark.parametrize("text, expected", [
-    ("1", "1"),
-    ("1.1", "1.1"),
-    ("1.1.1", "1.1.1"),
-    ("1.1.1.1", "1.1.1.1"),
-    ("1.1.1.n1", "1.1.1.n1"),
-])
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        ("1", "1"),
+        ("1.1", "1.1"),
+        ("1.1.1", "1.1.1"),
+        ("1.1.1.1", "1.1.1.1"),
+        ("1.1.1.n1", "1.1.1.n1"),
+    ],
+)
 def test_ec_number(text, expected):
     result = PyParsingEnzymeParser.ec_number.parseString(text, parseAll=True)
     assert result[0] == expected
 
 
-@pytest.mark.parametrize("text, expected", [
-    ("ID\t1.1.1.1", ("1.1.1.1", [])),
-    ("ID\t1.1.1.109 (transferred to EC 1.3.1.28)",
-        ("1.1.1.109", [([], "transferred to EC 1.3.1.28".split(), [])])
-    ),
-])
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        ("ID\t1.1.1.1", ("1.1.1.1", [])),
+        (
+            "ID\t1.1.1.109 (transferred to EC 1.3.1.28)",
+            ("1.1.1.109", [([], "transferred to EC 1.3.1.28".split(), [])]),
+        ),
+    ],
+)
 def test_enzyme_begin(text, expected):
     result = PyParsingEnzymeParser.enzyme_begin.parseString(text, parseAll=True)
     assert result.ec_number == expected[0]
@@ -156,9 +198,9 @@ def test_enzyme_begin(text, expected):
         assert list(comment.references) == outcome[2]
 
 
-@pytest.mark.parametrize("text, expected", [
-    ("KI\t#12# 0.0000001 {korormicin} <13>", ""),
-])
+@pytest.mark.parametrize(
+    "text, expected", [("KI\t#12# 0.0000001 {korormicin} <13>", ""),]
+)
 def test_ki_value(text, expected):
     result = PyParsingEnzymeParser.ki_value.parseString(text, parseAll=True)
     assert result.key == expected.key
@@ -169,19 +211,22 @@ def test_ki_value(text, expected):
     assert list(result.citations) == expected.citations
 
 
-@pytest.mark.parametrize("text, expected", [
-    ("RN\tlactate aldolase", ""),
-    ("SN\t(S)-lactate acetaldehyde-lyase (formate-forming)", ""),
-    ("RE\t(S)-lactate = formate + acetaldehyde", ""),
-    ("NSP\t#1# formate + acetaldehyde = lactate <1>", ""),
-    ("PU\t#1# <1>", ""),
-    ("SN\t", ""),
-    (
-        "TN\t#105# 13.1 {benzaldehyde}  (#105# mutant enzyme W95L/N249Y in 0.1 M\n"
-        "glycine-NaOH buffer (pH 10.5), at 65°C <207>) <207>",
-        ""
-    ),
-])
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        ("RN\tlactate aldolase", ""),
+        ("SN\t(S)-lactate acetaldehyde-lyase (formate-forming)", ""),
+        ("RE\t(S)-lactate = formate + acetaldehyde", ""),
+        ("NSP\t#1# formate + acetaldehyde = lactate <1>", ""),
+        ("PU\t#1# <1>", ""),
+        ("SN\t", ""),
+        (
+            "TN\t#105# 13.1 {benzaldehyde}  (#105# mutant enzyme W95L/N249Y in 0.1 M\n"
+            "glycine-NaOH buffer (pH 10.5), at 65°C <207>) <207>",
+            "",
+        ),
+    ],
+)
 def test_field_entry(text, expected):
     result = PyParsingEnzymeParser.field_entry.parseString(text, parseAll=True)
     assert result.key == expected.key
@@ -191,12 +236,16 @@ def test_field_entry(text, expected):
     assert list(result.citations) == expected.citations
 
 
-@pytest.mark.parametrize("text, expected", [
-    ("///\n", "///"),
-    ("///\r\n", "///"),
-    pytest.param("\t///\n", None, marks=pytest.mark.raises(
-        exception=ParseException)),
-])
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        ("///\n", "///"),
+        ("///\r\n", "///"),
+        pytest.param(
+            "\t///\n", None, marks=pytest.mark.raises(exception=ParseException)
+        ),
+    ],
+)
 def test_enzyme_end(text, expected):
     result = PyParsingEnzymeParser.enzyme_end.parseString(text, parseAll=True)
     assert result[0] == expected

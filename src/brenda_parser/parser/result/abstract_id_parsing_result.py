@@ -31,15 +31,14 @@
 
 from typing import List
 
-from .abstract_parsing_result import AbstractParsingResult
 from .abstract_comment_parsing_result import AbstractCommentParsingResult
+from .abstract_parsing_result import AbstractParsingResult
 
 
 __all__ = ("AbstractIDParsingResult",)
 
 
 class AbstractIDParsingResult(AbstractParsingResult):
-
     def __init__(
         self,
         key: str = "ID",

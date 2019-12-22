@@ -30,8 +30,8 @@
 
 
 from .abstract_enzyme_section_visitor import AbstractEnzymeSectionVisitor
-from .parser import AbstractEnzymeParser
 from .builder import AbstractEnzymeBuilder
+from .parser import AbstractEnzymeParser
 
 
 class EnzymeSectionBuildDirector(AbstractEnzymeSectionVisitor):
@@ -67,9 +67,7 @@ class EnzymeSectionBuildDirector(AbstractEnzymeSectionVisitor):
 
     """
 
-    def __init__(
-        self, parser: AbstractEnzymeParser, builder: AbstractEnzymeBuilder
-    ):
+    def __init__(self, parser: AbstractEnzymeParser, builder: AbstractEnzymeBuilder):
         self.parser = parser
         self.builder = builder
         self._dispatch = {
@@ -99,11 +97,11 @@ class EnzymeSectionBuildDirector(AbstractEnzymeSectionVisitor):
 
     def _visit_natural_substrate_product(self, text: str):
         self.builder.build_natural_substrate_product(
-            self.parser.parse_natural_substrate_product(text))
+            self.parser.parse_natural_substrate_product(text)
+        )
 
     def _visit_substrate_product(self, text: str):
-        self.builder.build_substrate_product(
-            self.parser.parse_substrate_product(text))
+        self.builder.build_substrate_product(self.parser.parse_substrate_product(text))
 
     def _visit_turnover_number(self, text: str):
         self.builder.build_turnover_number(self.parser.parse_turnover_number(text))

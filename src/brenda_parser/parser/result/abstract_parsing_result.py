@@ -36,9 +36,6 @@ __all__ = ("AbstractParsingResult",)
 
 
 class AbstractParsingResult(ABC):
-
-    def __init__(
-        self, key: str, **kwargs
-    ):
+    def __init__(self, key: str, **kwargs):
         super().__init__(**kwargs)
         self.key = key

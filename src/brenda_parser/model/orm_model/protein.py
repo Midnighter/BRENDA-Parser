@@ -29,10 +29,11 @@
 """Provide a data model for a protein."""
 
 
-from brenda_parser.exceptions import ValidationError
-from brenda_parser.models import Base
 from sqlalchemy import Column, ForeignKey, Integer, Table
 from sqlalchemy.orm import relationship, validates
+
+from brenda_parser.exceptions import ValidationError
+from brenda_parser.models import Base
 
 
 __all__ = ("Protein",)

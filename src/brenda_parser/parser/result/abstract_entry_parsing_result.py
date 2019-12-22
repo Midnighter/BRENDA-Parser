@@ -39,7 +39,6 @@ __all__ = ("AbstractEntryParsingResult",)
 
 
 class AbstractEntryParsingResult(AbstractParsingResult):
-
     def __init__(
         self,
         key: str,

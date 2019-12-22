@@ -29,10 +29,10 @@
 """Define public functions for parsing content."""
 
 
-from .enzyme_section_walker import EnzymeSectionWalker
-from .enzyme_build_director import EnzymeSectionBuildDirector
-from .parser import PyParsingEnzymeParser, enzyme_section_iter
 from .builder import ParsingResultLogger
+from .enzyme_build_director import EnzymeSectionBuildDirector
+from .enzyme_section_walker import EnzymeSectionWalker
+from .parser import PyParsingEnzymeParser, enzyme_section_iter
 
 
 def brenda_logger(filename: str):

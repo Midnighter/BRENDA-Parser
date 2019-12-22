@@ -31,22 +31,23 @@
 
 from typing import List
 
-from .abstract_parsing_result import AbstractParsingResult
 from .abstract_comment_parsing_result import AbstractCommentParsingResult
+from .abstract_parsing_result import AbstractParsingResult
 
 
 __all__ = ("AbstractTurnoverNumberParsingResult",)
 
 
 class AbstractTurnoverNumberParsingResult(AbstractParsingResult):
-
     def __init__(
-        self, key: str = "TN",
+        self,
+        key: str = "TN",
         protein: int = None,
         value: str = None,
         substrate: str = None,
         comments: List[AbstractCommentParsingResult] = None,
-        references: List[int] = None, **kwargs
+        references: List[int] = None,
+        **kwargs
     ):
         super().__init__(key=key, **kwargs)
         self.protein = protein

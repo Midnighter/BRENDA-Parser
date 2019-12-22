@@ -61,8 +61,7 @@ def enzyme_section_iter(lines: Iterable[str]):
     # We skip comment lines but keep empty lines since they are important
     # markers for the end of a sub-section.
     for index, line in (
-        (i, l) for i, l in enumerate(lines, start=1)
-        if not l.startswith(COMMENT)
+        (i, l) for i, l in enumerate(lines, start=1) if not l.startswith(COMMENT)
     ):
         if line.startswith(ENZYME_BEGIN):
             assert balance == 0
@@ -77,6 +76,3 @@ def enzyme_section_iter(lines: Iterable[str]):
             yield buffer
         elif collect:
             buffer.append(line)
-
-
-

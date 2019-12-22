@@ -39,7 +39,6 @@ __all__ = ("AbstractSubstrateProductParsingResult",)
 
 
 class AbstractSubstrateProductParsingResult(AbstractParsingResult):
-
     def __init__(
         self,
         key: str = "SP",

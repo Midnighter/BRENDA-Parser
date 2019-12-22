@@ -37,7 +37,6 @@ __all__ = ("AbstractCommentParsingResult",)
 
 
 class AbstractCommentParsingResult(ABC):
-
     def __init__(
         self,
         proteins: List[int] = None,

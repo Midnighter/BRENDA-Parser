@@ -39,7 +39,6 @@ __all__ = ("AbstractEnzymeBuilder",)
 
 
 class AbstractEnzymeBuilder(ABC):
-
     @abstractmethod
     def get_enzyme(self) -> AbstractEnzymeModel:
         pass
@@ -61,15 +60,21 @@ class AbstractEnzymeBuilder(ABC):
         pass
 
     @abstractmethod
-    def build_natural_substrate_product(self, raw_field: parser.AbstractNaturalSubstrateProductParsingResult):
+    def build_natural_substrate_product(
+        self, raw_field: parser.AbstractNaturalSubstrateProductParsingResult
+    ):
         pass
 
     @abstractmethod
-    def build_substrate_product(self, raw_field: parser.AbstractSubstrateProductParsingResult):
+    def build_substrate_product(
+        self, raw_field: parser.AbstractSubstrateProductParsingResult
+    ):
         pass
 
     @abstractmethod
-    def build_turnover_number(self, raw_field: parser.AbstractTurnoverNumberParsingResult):
+    def build_turnover_number(
+        self, raw_field: parser.AbstractTurnoverNumberParsingResult
+    ):
         pass
 
     @abstractmethod

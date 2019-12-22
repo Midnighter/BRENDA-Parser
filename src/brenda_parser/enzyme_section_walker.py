@@ -54,9 +54,7 @@ class EnzymeSectionWalker:
 
     """
 
-    def __init__(
-        self, visitor: AbstractEnzymeSectionVisitor
-    ):
+    def __init__(self, visitor: AbstractEnzymeSectionVisitor):
         self.visitor = visitor
 
     def __call__(self, lines: List[str]):

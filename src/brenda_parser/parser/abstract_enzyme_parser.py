@@ -38,7 +38,6 @@ __all__ = ("AbstractEnzymeParser",)
 
 
 class AbstractEnzymeParser(ABC):
-
     @abstractmethod
     def parse_id(self, text: str) -> result.AbstractIDParsingResult:
         pass
@@ -56,15 +55,21 @@ class AbstractEnzymeParser(ABC):
         pass
 
     @abstractmethod
-    def parse_natural_substrate_product(self, text: str) -> result.AbstractNaturalSubstrateProductParsingResult:
+    def parse_natural_substrate_product(
+        self, text: str
+    ) -> result.AbstractNaturalSubstrateProductParsingResult:
         pass
 
     @abstractmethod
-    def parse_substrate_product(self, text: str) -> result.AbstractSubstrateProductParsingResult:
+    def parse_substrate_product(
+        self, text: str
+    ) -> result.AbstractSubstrateProductParsingResult:
         pass
 
     @abstractmethod
-    def parse_turnover_number(self, text: str) -> result.AbstractTurnoverNumberParsingResult:
+    def parse_turnover_number(
+        self, text: str
+    ) -> result.AbstractTurnoverNumberParsingResult:
         pass
 
     @abstractmethod

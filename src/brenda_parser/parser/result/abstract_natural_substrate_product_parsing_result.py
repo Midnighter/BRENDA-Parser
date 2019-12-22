@@ -39,7 +39,6 @@ __all__ = ("AbstractNaturalSubstrateProductParsingResult",)
 
 
 class AbstractNaturalSubstrateProductParsingResult(AbstractParsingResult):
-
     def __init__(
         self,
         key: str = "NSP",

@@ -34,8 +34,9 @@ import re
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship, validates
 
-from . import Base
 from ..abstract_model import AbstractAccessionModel
+from . import Base
+
 
 __all__ = ("AccessionORMModel",)
 

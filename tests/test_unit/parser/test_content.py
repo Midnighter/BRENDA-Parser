@@ -34,33 +34,24 @@ import pytest
 from brenda_parser.parser import content
 
 
-@pytest.mark.parametrize("lines, lengths", [
-    ([
-        "ID\n",
-        "///\n",
-     ], [2]),
-    ([
-         "ID\n",
-         "\n",
-         "///\n",
-     ], [3]),
-    ([
-         "ID\n",
-         "///\n",
-         "ID\n",
-         "///\n",
-     ], [2, 2]),
-    pytest.param([
-         "ID\n",
-         "ID\n",
-         "///\n",
-     ], [None], marks=pytest.mark.raises(exception=AssertionError)),
-    pytest.param([
-        "ID\n",
-        "///\n",
-        "///\n",
-    ], [None], marks=pytest.mark.raises(exception=AssertionError)),
-])
+@pytest.mark.parametrize(
+    "lines, lengths",
+    [
+        (["ID\n", "///\n",], [2]),
+        (["ID\n", "\n", "///\n",], [3]),
+        (["ID\n", "///\n", "ID\n", "///\n",], [2, 2]),
+        pytest.param(
+            ["ID\n", "ID\n", "///\n",],
+            [None],
+            marks=pytest.mark.raises(exception=AssertionError),
+        ),
+        pytest.param(
+            ["ID\n", "///\n", "///\n",],
+            [None],
+            marks=pytest.mark.raises(exception=AssertionError),
+        ),
+    ],
+)
 def test_enzyme_section_iter(lines, lengths):
     for section, length in zip(content.enzyme_section_iter(lines), lengths):
         assert len(section) == length

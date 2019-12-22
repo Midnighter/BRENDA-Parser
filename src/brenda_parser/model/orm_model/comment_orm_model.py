@@ -32,8 +32,8 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Table
 from sqlalchemy.orm import relationship
 
-from . import Base
 from ..abstract_model import AbstractCommentModel
+from . import Base
 
 
 __all__ = ("CommentORMModel",)

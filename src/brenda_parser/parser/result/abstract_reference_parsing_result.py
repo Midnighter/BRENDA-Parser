@@ -38,7 +38,6 @@ __all__ = ("AbstractReferenceParsingResult",)
 
 
 class AbstractReferenceParsingResult(AbstractParsingResult):
-
     def __init__(
         self,
         key: str = "RF",

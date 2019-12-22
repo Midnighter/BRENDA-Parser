@@ -31,8 +31,8 @@
 
 import pyparsing as pp
 
-from .abstract_enzyme_parser import AbstractEnzymeParser
 from . import result
+from .abstract_enzyme_parser import AbstractEnzymeParser
 
 
 class PyParsingEnzymeParser(AbstractEnzymeParser):
@@ -78,7 +78,7 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
     """
 
     content = pp.Regex(r"[^#<>;(){}\s]+")
-    value = pp.Group(pp.OneOrMore('(' | content | ')'))("value")
+    value = pp.Group(pp.OneOrMore("(" | content | ")"))("value")
     value.setName("value")
     content.__doc__ = """
     Parse any unicode string that is not whitespace or of special meaning to BRENDA.
@@ -97,9 +97,9 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
     """
 
     inside = (
-        pp.Optional(protein_information) +
-        pp.Optional(value) +
-        pp.Optional(literature_citation)
+        pp.Optional(protein_information)
+        + pp.Optional(value)
+        + pp.Optional(literature_citation)
     )
     inside.setName("inside")
 
@@ -111,16 +111,16 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
 
     """
     comment <<= pp.Group(
-        pp.Suppress("(") +
-        pp.Optional(pp.delimitedList(inside, delim=';')) +
-        pp.Suppress(")")
+        pp.Suppress("(")
+        + pp.Optional(pp.delimitedList(inside, delim=";"))
+        + pp.Suppress(")")
     )
     comment.setName("comment")
 
     ec_number = pp.Combine(
-        pp.Word(pp.nums) +
-        ("." + pp.Word(pp.nums)) * (0, 2) +
-        pp.Optional("." + pp.Word("n" + pp.nums, pp.nums))
+        pp.Word(pp.nums)
+        + ("." + pp.Word(pp.nums)) * (0, 2)
+        + pp.Optional("." + pp.Word("n" + pp.nums, pp.nums))
     )
     ec_number.__doc__ = """
     Parse a full or partial EC number.
@@ -133,10 +133,10 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
     """
 
     enzyme_begin = (
-        pp.LineStart() +
-        pp.Keyword("ID")("key") +
-        ec_number("ec_number") +
-        pp.Optional(comment)("comments")
+        pp.LineStart()
+        + pp.Keyword("ID")("key")
+        + ec_number("ec_number")
+        + pp.Optional(comment)("comments")
     )
     enzyme_begin.setName("enzyme_begin")
     enzyme_begin.__doc__ = """
@@ -144,67 +144,77 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
     """
 
     field_entry = (
-        pp.LineStart() +
-        identifier("key") +
-        pp.Optional(protein_information) +
-        pp.Optional(value) +
-        pp.Optional(comment)("comments") +
-        pp.Optional(literature_citation)
+        pp.LineStart()
+        + identifier("key")
+        + pp.Optional(protein_information)
+        + pp.Optional(value)
+        + pp.Optional(comment)("comments")
+        + pp.Optional(literature_citation)
     )
     field_entry.setName("field_entry")
 
     ki_value = (
-        pp.LineStart() +
-        pp.Keyword("KI")("key") +
-        protein +
-        pp.Optional(value) +
-        "{" + pp.Group(pp.OneOrMore(content))("inhibitor") + "}" +
-        pp.Optional(comment)("comments") +
-        pp.Optional(literature_citation)
+        pp.LineStart()
+        + pp.Keyword("KI")("key")
+        + protein
+        + pp.Optional(value)
+        + "{"
+        + pp.Group(pp.OneOrMore(content))("inhibitor")
+        + "}"
+        + pp.Optional(comment)("comments")
+        + pp.Optional(literature_citation)
     )
     ki_value.setName("ki_value")
 
     km_value = (
-        pp.LineStart() +
-        pp.Keyword("KM")("key") +
-        protein +
-        pp.Optional(value) +
-        "{" + pp.Group(pp.OneOrMore(content))("substrate") + "}" +
-        pp.Optional(comment)("comments") +
-        pp.Optional(literature_citation)
+        pp.LineStart()
+        + pp.Keyword("KM")("key")
+        + protein
+        + pp.Optional(value)
+        + "{"
+        + pp.Group(pp.OneOrMore(content))("substrate")
+        + "}"
+        + pp.Optional(comment)("comments")
+        + pp.Optional(literature_citation)
     )
     km_value.setName("km_value")
 
     natural_substrate_product = (
-        pp.LineStart() +
-        pp.Keyword("NSP")("key") +
-        pp.Optional(protein_information) +
-        pp.Optional(value) +
-        pp.Optional(comment)("comments") +
-        "{" + pp.Group(pp.OneOrMore(content))("reversibility") + "}" +
-        pp.Optional(literature_citation)
+        pp.LineStart()
+        + pp.Keyword("NSP")("key")
+        + pp.Optional(protein_information)
+        + pp.Optional(value)
+        + pp.Optional(comment)("comments")
+        + "{"
+        + pp.Group(pp.OneOrMore(content))("reversibility")
+        + "}"
+        + pp.Optional(literature_citation)
     )
     natural_substrate_product.setName("natural_substrate_product")
 
     substrate_product = (
-        pp.LineStart() +
-        pp.Keyword("SP")("key") +
-        pp.Optional(protein_information) +
-        pp.Optional(value) +
-        pp.Optional(comment)("comments") +
-        "{" + pp.Group(pp.OneOrMore(content))("reversibility") + "}" +
-        pp.Optional(literature_citation)
+        pp.LineStart()
+        + pp.Keyword("SP")("key")
+        + pp.Optional(protein_information)
+        + pp.Optional(value)
+        + pp.Optional(comment)("comments")
+        + "{"
+        + pp.Group(pp.OneOrMore(content))("reversibility")
+        + "}"
+        + pp.Optional(literature_citation)
     )
     substrate_product.setName("substrate_product")
 
     turnover_number = (
-        pp.LineStart() +
-        pp.Keyword("TN")("key") +
-        protein +
-        pp.Optional(value) +
-        "{" + pp.Group(pp.OneOrMore(content))("substrate") + "}" +
-        pp.Optional(comment)("comments") +
-        pp.Optional(literature_citation)
+        pp.LineStart()
+        + pp.Keyword("TN")("key")
+        + protein
+        + pp.Optional(value)
+        + "{"
+        + pp.Group(pp.OneOrMore(content))("substrate")
+        + "}"
+        + pp.Optional(comment)("comments")
+        + pp.Optional(literature_citation)
     )
     turnover_number.setName("turnover_number")
 
@@ -220,28 +230,24 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
     registry.setName("registry")
 
     protein_entry = (
-        pp.LineStart() +
-        pp.Keyword("PR")("key") +
-        protein +
-        pp.Group(content[2, ...])("organism") +
-        pp.Optional(accession)("accession") +
-        pp.Optional(registry)("registry") +
-        pp.Optional(comment)("comments") +
-        pp.Optional(literature_citation)
+        pp.LineStart()
+        + pp.Keyword("PR")("key")
+        + protein
+        + pp.Group(content[2, ...])("organism")
+        + pp.Optional(accession)("accession")
+        + pp.Optional(registry)("registry")
+        + pp.Optional(comment)("comments")
+        + pp.Optional(literature_citation)
     )
     protein_entry.setName("protein_entry")
 
     reference_entry = (
-        pp.LineStart() +
-        pp.Keyword("RF")("key") +
-        reference +
-        pp.Group(value)("entry") +
-        pp.Optional(
-            "{" + pp.Group(pp.ZeroOrMore(content))("pubmed") + "}"
-        ) +
-        pp.Optional(
-            "(" + pp.Group(pp.ZeroOrMore(content))("type") + ")"
-        )
+        pp.LineStart()
+        + pp.Keyword("RF")("key")
+        + reference
+        + pp.Group(value)("entry")
+        + pp.Optional("{" + pp.Group(pp.ZeroOrMore(content))("pubmed") + "}")
+        + pp.Optional("(" + pp.Group(pp.ZeroOrMore(content))("type") + ")")
     )
     reference_entry.setName("reference_entry")
 
@@ -262,13 +268,19 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
     def parse_km_value(self, text: str) -> result.AbstractKmValueParsingResult:
         pass
 
-    def parse_natural_substrate_product(self, text: str) -> result.AbstractNaturalSubstrateProductParsingResult:
+    def parse_natural_substrate_product(
+        self, text: str
+    ) -> result.AbstractNaturalSubstrateProductParsingResult:
         pass
 
-    def parse_substrate_product(self, text: str) -> result.AbstractSubstrateProductParsingResult:
+    def parse_substrate_product(
+        self, text: str
+    ) -> result.AbstractSubstrateProductParsingResult:
         pass
 
-    def parse_turnover_number(self, text: str) -> result.AbstractTurnoverNumberParsingResult:
+    def parse_turnover_number(
+        self, text: str
+    ) -> result.AbstractTurnoverNumberParsingResult:
         pass
 
     def parse_protein(self, text: str) -> result.AbstractProteinParsingResult:

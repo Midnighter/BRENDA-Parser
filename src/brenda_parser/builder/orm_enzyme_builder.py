@@ -31,10 +31,9 @@
 
 import logging
 
-from .abstract_enzyme_builder import AbstractEnzymeBuilder
 from .. import parser
-from ..model import AbstractEnzymeModel
-from ..model import orm_model
+from ..model import AbstractEnzymeModel, orm_model
+from .abstract_enzyme_builder import AbstractEnzymeBuilder
 
 
 __all__ = ("ORMEnzymeBuilder",)
@@ -44,7 +43,6 @@ logger = logging.getLogger(__name__)
 
 
 class ORMEnzymeBuilder(AbstractEnzymeBuilder):
-
     def __init__(self):
         self._enzyme = None
 
@@ -52,7 +50,8 @@ class ORMEnzymeBuilder(AbstractEnzymeBuilder):
         return self._enzyme
 
     def build_enzyme(self, raw_enzyme: parser.AbstractIDParsingResult):
-        self._enzyme = orm_model.
+        # self._enzyme = orm_model.
+        pass
 
     def build_field_entry(self, raw_field: parser.AbstractEntryParsingResult):
         pass
@@ -63,13 +62,19 @@ class ORMEnzymeBuilder(AbstractEnzymeBuilder):
     def build_km_value(self, raw_field: parser.AbstractKmValueParsingResult):
         pass
 
-    def build_natural_substrate_product(self, raw_field: parser.AbstractNaturalSubstrateProductParsingResult):
+    def build_natural_substrate_product(
+        self, raw_field: parser.AbstractNaturalSubstrateProductParsingResult
+    ):
         pass
 
-    def build_substrate_product(self, raw_field: parser.AbstractSubstrateProductParsingResult):
+    def build_substrate_product(
+        self, raw_field: parser.AbstractSubstrateProductParsingResult
+    ):
         pass
 
-    def build_turnover_number(self, raw_field: parser.AbstractTurnoverNumberParsingResult):
+    def build_turnover_number(
+        self, raw_field: parser.AbstractTurnoverNumberParsingResult
+    ):
         pass
 
     def build_protein(self, raw_protein: parser.AbstractProteinParsingResult):
@@ -77,4 +82,3 @@ class ORMEnzymeBuilder(AbstractEnzymeBuilder):
 
     def build_reference(self, raw_reference: parser.AbstractReferenceParsingResult):
         pass
-

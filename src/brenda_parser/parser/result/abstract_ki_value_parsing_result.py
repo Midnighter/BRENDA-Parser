@@ -31,22 +31,23 @@
 
 from typing import List
 
-from .abstract_parsing_result import AbstractParsingResult
 from .abstract_comment_parsing_result import AbstractCommentParsingResult
+from .abstract_parsing_result import AbstractParsingResult
 
 
 __all__ = ("AbstractKiValueParsingResult",)
 
 
 class AbstractKiValueParsingResult(AbstractParsingResult):
-
     def __init__(
-        self, key: str = "KI",
+        self,
+        key: str = "KI",
         protein: int = None,
         value: str = None,
         inhibitor: str = None,
         comments: List[AbstractCommentParsingResult] = None,
-        references: List[int] = None, **kwargs
+        references: List[int] = None,
+        **kwargs
     ):
         super().__init__(key=key, **kwargs)
         self.protein = protein

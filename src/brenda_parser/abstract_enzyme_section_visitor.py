@@ -36,7 +36,6 @@ __all__ = ("AbstractEnzymeSectionVisitor",)
 
 
 class AbstractEnzymeSectionVisitor(ABC):
-
     @abstractmethod
     def visit_id(self, text: str):
         pass

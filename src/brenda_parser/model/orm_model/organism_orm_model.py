@@ -31,8 +31,8 @@
 
 from sqlalchemy import Column, Integer, String
 
-from . import Base
 from ..abstract_model import AbstractOrganismModel
+from . import Base
 
 
 __all__ = ("OrganismORMModel",)

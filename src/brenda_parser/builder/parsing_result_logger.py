@@ -31,10 +31,14 @@
 
 import logging
 
-from .abstract_enzyme_builder import AbstractEnzymeBuilder
-from ..parser import AbstractIDParsingResult, AbstractEntryParsingResult, \
-    AbstractProteinParsingResult, AbstractReferenceParsingResult
 from ..model import AbstractEnzymeModel
+from ..parser import (
+    AbstractEntryParsingResult,
+    AbstractIDParsingResult,
+    AbstractProteinParsingResult,
+    AbstractReferenceParsingResult,
+)
+from .abstract_enzyme_builder import AbstractEnzymeBuilder
 
 
 __all__ = ("ParsingResultLogger",)
@@ -44,7 +48,6 @@ logger = logging.getLogger(__name__)
 
 
 class ParsingResultLogger(AbstractEnzymeBuilder):
-
     def __init__(self):
         self._enzyme = None
 
@@ -52,8 +55,9 @@ class ParsingResultLogger(AbstractEnzymeBuilder):
         return self._enzyme
 
     def build_enzyme(self, raw_enzyme: AbstractIDParsingResult):
-        logger.info("ID(ec_number=%s, comment=%s)", raw_enzyme.ec_number,
-                    raw_enzyme.comments)
+        logger.info(
+            "ID(ec_number=%s, comment=%s)", raw_enzyme.ec_number, raw_enzyme.comments
+        )
 
     def build_field_entry(self, raw_field: AbstractEntryParsingResult):
         logger.info(
@@ -75,7 +79,5 @@ class ParsingResultLogger(AbstractEnzymeBuilder):
 
     def build_reference(self, raw_reference: AbstractReferenceParsingResult):
         logger.info(
-            "RF(id=%d, pubmed=%s)",
-            raw_reference.reference,
-            raw_reference.pubmed,
+            "RF(id=%d, pubmed=%s)", raw_reference.reference, raw_reference.pubmed,
         )

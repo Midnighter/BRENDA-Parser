@@ -29,9 +29,10 @@
 """Provide a data model for an information field entry."""
 
 
-from brenda_parser.models import Base
 from sqlalchemy import Column, ForeignKey, Integer, String, Table
 from sqlalchemy.orm import relationship
+
+from brenda_parser.models import Base
 
 
 __all__ = ("Enzyme",)
