@@ -29,5 +29,8 @@
 """Provide abstract data models for storing BRENDA EC-number-indexed information."""
 
 
+from .abstract_organism_model import *
+from .abstract_information_field_model import *
 from .abstract_accession_model import *
+from .abstract_comment_model import *
 from .abstract_enzyme_model import *

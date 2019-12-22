@@ -26,29 +26,24 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-"""Provide an abstract data model for a protein database cross-reference."""
+"""Provide an abstract data model for an organism."""
 
 
 from abc import ABC
 
 
-__all__ = ("AbstractAccessionModel",)
+__all__ = ("AbstractOrganismModel",)
 
 
-class AbstractAccessionModel(ABC):
+class AbstractOrganismModel(ABC):
     """
-    Define an abstract protein cross-reference.
+    Define an abstract organism.
 
     Attributes
     ----------
-    accession : str
-        The protein identifer (cross-reference) within the source database.
-    registry : str
-        A source database.
 
     """
 
-    def __init__(self, accession: str, registry: str = None, **kwargs):
+    def __init__(self, name: str, **kwargs):
         super().__init__(**kwargs)
-        self.accession = accession
-        self.registry = registry
+        self.name = name

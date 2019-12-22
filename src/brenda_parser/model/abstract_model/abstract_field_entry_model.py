@@ -26,29 +26,39 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-"""Provide an abstract data model for a protein database cross-reference."""
+"""Define an abstract field entry data model."""
 
 
 from abc import ABC
+from typing import List
+
+from .abstract_comment_model import AbstractCommentModel
 
 
-__all__ = ("AbstractAccessionModel",)
+__all__ = ("AbstractFieldEntryModel",)
 
 
-class AbstractAccessionModel(ABC):
+class AbstractFieldEntryModel(ABC):
     """
-    Define an abstract protein cross-reference.
+    Define an abstract field entry.
 
     Attributes
     ----------
-    accession : str
-        The protein identifer (cross-reference) within the source database.
-    registry : str
-        A source database.
 
     """
 
-    def __init__(self, accession: str, registry: str = None, **kwargs):
+    def __init__(
+        self,
+        key: str,
+        proteins: List[int] = None,
+        value: str = None,
+        comments: List[AbstractCommentModel] = None,
+        references: List[int] = None,
+        **kwargs
+    ):
         super().__init__(**kwargs)
-        self.accession = accession
-        self.registry = registry
+        self.key = key
+        self.proteins = proteins
+        self.value = value
+        self.comments = comments
+        self.references = references
