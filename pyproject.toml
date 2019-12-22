@@ -9,7 +9,6 @@ line-length = 88
 python-version = ['py37', 'py38']
 exclude = '''
 (
-    __init__.py
-    | _version.py
+    _version.py
 )
 '''
