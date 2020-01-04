@@ -91,10 +91,6 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
     """
 
     comment = pp.Forward()
-    comment.__doc__ = """
-    Define the expected format of a single (sub-)comment entry.
-
-    """
 
     inside = (
         pp.Optional(protein_information)
@@ -102,7 +98,17 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
         + pp.Optional(literature_citation)
     )
     inside.setName("inside")
+    inside.__doc__ = """
+    Define the expected format of a single (sub-)comment entry.
 
+    """
+
+    comment <<= pp.Group(
+        pp.Suppress("(")
+        + pp.Optional(pp.delimitedList(inside, delim=";"))
+        + pp.Suppress(")")
+    )
+    comment.setName("comment")
     comment.__doc__ = """
     Parse zero or more comments.
 
@@ -110,12 +116,6 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
     semi-colon (``;``) separated sub-comments.
 
     """
-    comment <<= pp.Group(
-        pp.Suppress("(")
-        + pp.Optional(pp.delimitedList(inside, delim=";"))
-        + pp.Suppress(")")
-    )
-    comment.setName("comment")
 
     ec_number = pp.Combine(
         pp.Word(pp.nums)
