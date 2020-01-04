@@ -143,6 +143,12 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
     Parse the beginning of an enzyme defining section.
     """
 
+    reversibility = (
+        "{" + pp.Optional(pp.Keyword("r") | pp.Keyword("ir"))("reversibility") + "}"
+    )
+    reversibility.setName("reversibility")
+    reversibility.__doc__ = """Parse reaction reversibility information."""
+
     field_entry = (
         pp.LineStart()
         + identifier("key")
@@ -185,9 +191,7 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
         + pp.Optional(protein_information)
         + pp.Optional(value)
         + pp.Optional(comment)("comments")
-        + "{"
-        + pp.Group(pp.OneOrMore(content))("reversibility")
-        + "}"
+        + pp.Optional(reversibility)
         + pp.Optional(literature_citation)
     )
     natural_substrate_product.setName("natural_substrate_product")
@@ -198,9 +202,7 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
         + pp.Optional(protein_information)
         + pp.Optional(value)
         + pp.Optional(comment)("comments")
-        + "{"
-        + pp.Group(pp.OneOrMore(content))("reversibility")
-        + "}"
+        + pp.Optional(reversibility)
         + pp.Optional(literature_citation)
     )
     substrate_product.setName("substrate_product")
