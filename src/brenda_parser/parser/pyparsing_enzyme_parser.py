@@ -59,7 +59,7 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
     protein_information.__doc__ = """
     Parse one or more comma-separated integers representing protein identifiers.
 
-    Parse a text representation of comma-separated integers enclosed by hashes 
+    Parse a text representation of comma-separated integers enclosed by hashes
     ``#`` to a list of integers.
 
     """
@@ -67,12 +67,12 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
     reference = "<" + pp.Group(integer)("reference") + ">"
     reference.setName("reference")
 
-    literature_citation = "<" + pp.Group(pp.delimitedList(integer))("references") + ">"
+    literature_citation = "<" + pp.Group(pp.delimitedList(integer)[1, ...])("references") + ">"
     literature_citation.setName("literature_citation")
     literature_citation.__doc__ = """
     Parse one or more comma-separated integers representing literature citations.
 
-    Parse a text representation of comma-separated integers enclosed by angled 
+    Parse a text representation of comma-separated integers enclosed by angled
     brackets ``<>`` to a list of integers.
 
     """
@@ -83,9 +83,9 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
     content.__doc__ = """
     Parse any unicode string that is not whitespace or of special meaning to BRENDA.
 
-    This is meant to parse content of comments. Within the special context of 
+    This is meant to parse content of comments. Within the special context of
     comments in the BRENDA format the following special symbols do not occur:
-    ``#<>;(){}``. Everything else that is not whitespace is considered valid 
+    ``#<>;(){}``. Everything else that is not whitespace is considered valid
     content.
 
     """
@@ -106,7 +106,7 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
     comment.__doc__ = """
     Parse zero or more comments.
 
-    Comments are enclosed by parentheses (``()``) and may contain none, or many 
+    Comments are enclosed by parentheses (``()``) and may contain none, or many
     semi-colon (``;``) separated sub-comments.
 
     """
@@ -125,8 +125,8 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
     ec_number.__doc__ = """
     Parse a full or partial EC number.
 
-    An EC number is a hierarchical number format that consists of up to four 
-    parts. Any of the parts following the first may be omitted to mean broader 
+    An EC number is a hierarchical number format that consists of up to four
+    parts. Any of the parts following the first may be omitted to mean broader
     categories. Preliminary EC numbers prefix the last number with an ``n``. Read
     more at https://en.wikipedia.org/wiki/Enzyme_Commission_number.
 

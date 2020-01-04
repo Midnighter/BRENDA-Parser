@@ -53,9 +53,11 @@ def test_protein_information(text, expected):
 @pytest.mark.parametrize(
     "text, expected",
     [
+        pytest.param("<>", None, marks=pytest.mark.raises(exception=ParseException)),
         ("<1>", [1]),
         ("<1,2,3>", [1, 2, 3]),
-        pytest.param("<>", None, marks=pytest.mark.raises(exception=ParseException)),
+        ("<1,2,3,\n\t4,5,6>", [1, 2, 3, 4, 5, 6]),
+        ("<1,2,3\n\t4,5,6>", [1, 2, 3, 4, 5, 6]),
     ],
 )
 def test_literature_citation(text, expected):
