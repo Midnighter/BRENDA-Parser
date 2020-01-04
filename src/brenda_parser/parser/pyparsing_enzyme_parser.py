@@ -54,7 +54,7 @@ class PyParsingEnzymeParser(AbstractEnzymeParser):
     protein = "#" + pp.Group(integer)("protein") + "#"
     protein.setName("protein")
 
-    protein_information = "#" + pp.Group(pp.delimitedList(integer))("proteins") + "#"
+    protein_information = "#" + pp.Group(pp.delimitedList(integer)[1, ...])("proteins") + "#"
     protein_information.setName("protein_information")
     protein_information.__doc__ = """
     Parse one or more comma-separated integers representing protein identifiers.
