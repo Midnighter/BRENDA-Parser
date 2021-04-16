@@ -79,5 +79,7 @@ class ParsingResultLogger(AbstractEnzymeBuilder):
 
     def build_reference(self, raw_reference: AbstractReferenceParsingResult):
         logger.info(
-            "RF(id=%d, pubmed=%s)", raw_reference.reference, raw_reference.pubmed,
+            "RF(id=%d, pubmed=%s)",
+            raw_reference.reference,
+            raw_reference.pubmed,
         )

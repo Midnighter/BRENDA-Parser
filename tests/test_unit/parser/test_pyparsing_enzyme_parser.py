@@ -148,8 +148,18 @@ def test_inside(text, proteins, content, citations):
     "text, expected",
     [
         ("()", [([], [], [])]),
-        ("(at pH 4.5, 30°C)", [([], "at pH 4.5, 30°C".split(), []),]),
-        ("(#11# at pH 4.5, 30°C <100>)", [([11], "at pH 4.5, 30°C".split(), [100]),]),
+        (
+            "(at pH 4.5, 30°C)",
+            [
+                ([], "at pH 4.5, 30°C".split(), []),
+            ],
+        ),
+        (
+            "(#11# at pH 4.5, 30°C <100>)",
+            [
+                ([11], "at pH 4.5, 30°C".split(), [100]),
+            ],
+        ),
         (
             "(#11# at pH 4.5, 30°C <100>; #11# at pH 5.5, 30°C\n\t<100>)",
             [
@@ -203,7 +213,10 @@ def test_enzyme_begin(text, expected):
 
 
 @pytest.mark.parametrize(
-    "text, expected", [("KI\t#12# 0.0000001 {korormicin} <13>", ""),]
+    "text, expected",
+    [
+        ("KI\t#12# 0.0000001 {korormicin} <13>", ""),
+    ],
 )
 def test_ki_value(text, expected):
     result = PyParsingEnzymeParser.ki_value.parseString(text, parseAll=True)
