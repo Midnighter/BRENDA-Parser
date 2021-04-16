@@ -40,8 +40,8 @@ def brenda_logger(filename: str):
         lines = handler.readlines()
     parser = PyParsingEnzymeParser()
     builder = ParsingResultLogger()
-    director = EnzymeSectionBuildDirector(parser, builder)
-    walker = EnzymeSectionWalker(director)
+    director = EnzymeSectionBuildDirector(parser=parser, builder=builder)
+    walker = EnzymeSectionWalker(visitor=director)
     for i, section in enumerate(enzyme_section_iter(lines)):
         walker(section)
         if i > 2:
