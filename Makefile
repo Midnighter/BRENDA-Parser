@@ -6,7 +6,7 @@
 
 ## Apply code quality assurance tools.
 qa:
-	isort --recursive src/brenda_parser tests/ setup.py
+	isort src/brenda_parser tests/ setup.py
 	black src/brenda_parser tests/ setup.py
 
 ################################################################################
