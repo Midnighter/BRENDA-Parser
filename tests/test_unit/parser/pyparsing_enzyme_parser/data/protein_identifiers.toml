@@ -1,0 +1,59 @@
+[[cases]]
+text = "Q83WH5 SwissProt"
+accessions = ["Q83WH5"]
+registry = "SwissProt"
+
+[[cases]]
+text = "Q9ZHI0"
+accessions = ["Q9ZHI0"]
+registry = ""
+
+[[cases]]
+text = "Q9AIU7 UniProt"
+accessions = ["Q9AIU7"]
+registry = "UniProt"
+
+[[cases]]
+text = "Q86TN4 swissProt"
+accessions = ["Q86TN4"]
+registry = "SwissProt"
+
+[[cases]]
+text = "X5ELY0 UniPro"
+accessions = ["X5ELY0"]
+registry = "UniPro"
+
+[[cases]]
+text = "Q56317 and 05650 and Q56316 and O05651"
+accessions = ["Q56317", "05650", "Q56316", "O05651"]
+registry = ""
+
+[[cases]]
+text = "P41022 AND P41021 AND P41020 UniProt"
+accessions = ["P41022", "P41021", "P41020"]
+registry = "UniProt"
+
+[[cases]]
+text = "Q75ZQ5 and Q75ZQ6 and Q75ZQ4 SwissProt"
+accessions = ["Q75ZQ5", "Q75ZQ6", "Q75ZQ4"]
+registry = "SwissProt"
+
+[[cases]]
+text = "O58649 GenBank"
+accessions = ["O58649"]
+registry = "GenBank"
+
+[[cases]]
+text = "Q885L4 TREMBL"
+accessions = ["Q885L4"]
+registry = "TREMBL"
+
+[[cases]]
+text = "Q872L4 EMBL"
+accessions = ["Q872L4"]
+registry = "EMBL"
+
+[[cases]]
+text = "D4HRL0 ?"
+accessions = ["D4HRL0"]
+registry = "?"

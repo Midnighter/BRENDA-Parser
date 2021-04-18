@@ -1,0 +1,190 @@
+[[cases]]
+text = "PR	#49#    <39>"
+key = "PR"
+id = 49
+references = [39]
+
+[[cases]]
+text = "PR	#2# Cricetulus griseus   <1>"
+key = "PR"
+id = 2
+organism = ["Cricetulus", "griseus"]
+references = [1]
+
+[[cases]]
+text = """PR	#45# Sulfolobus solfataricus
+	<56,66,70,152,153,154,155,158,159,160,163,164,165>"""
+key = "PR"
+id = 45
+organism = ["Sulfolobus", "solfataricus"]
+references = [56,66,70,152,153,154,155,158,159,160,163,164,165]
+
+[[cases]]
+text = "PR	#16# Hordeum vulgare   (#16# isoenzyme mMDH <79>) <79>"
+key = "PR"
+id = 16
+organism = ["Hordeum", "vulgare"]
+comment = "(#16# isoenzyme mMDH <79>)"
+references = [79]
+
+[[cases]]
+text = "PR	#41# Acidithiobacillus ferrooxidans ATCC 23270   <66>"
+key = "PR"
+id = 41
+organism = ["Acidithiobacillus", "ferrooxidans", "ATCC", "23270"]
+references = [66]
+
+[[cases]]
+text = "PR	#63# Halomonas sp. #593 Q83WH5 SwissProt <47,91,101,127>"
+key = "PR"
+id = 63
+organism = ["Halomonas", "sp.", "#593"]
+identifier = {accessions = ["Q83WH5"], registry = "SwissProt"}
+references = [47,91,101,127]
+
+[[cases]]
+text = "PR	#35# Thermus filiformis Q9ZHI0  <18,50,61>"
+key = "PR"
+id = 35
+organism = ["Thermus", "filiformis"]
+identifier = {accessions = ["Q9ZHI0"]}
+references = [18,50,61]
+
+[[cases]]
+text = "PR	#63# Staphylococcus aureus Q9AIU7 UniProt <63>"
+key = "PR"
+id = 63
+organism = ["Staphylococcus", "aureus"]
+identifier = {accessions = ["Q9AIU7"], registry = "UniProt"}
+references = [63]
+
+[[cases]]
+text = "PR	#27# Homo sapiens Q86TN4 swissProt <3>"
+key = "PR"
+id = 27
+organism = ["Homo", "sapiens"]
+identifier = {accessions = ["Q86TN4"], registry = "SwissProt"}
+references = [3]
+
+[[cases]]
+text = "PR	#28# Saccharomyces cerevisiae Q12272 SwissProt <1>"
+key = "PR"
+id = 28
+organism = ["Saccharomyces", "cerevisiae"]
+identifier = {accessions = ["Q12272"], registry = "SwissProt"}
+references = [1]
+
+[[cases]]
+text = "PR	#29# Fusobacterium nucleatum Q8R5N7 UniProt <16>"
+key = "PR"
+id = 29
+organism = ["Fusobacterium", "nucleatum"]
+identifier = {accessions = ["Q8R5N7"], registry = "UniProt"}
+references = [16]
+
+[[cases]]
+text = "PR	#14# Neisseria meningitidis X5ELY0 UniPro <5,9>"
+key = "PR"
+id = 14
+organism = ["Neisseria", "meningitidis"]
+identifier = {accessions = ["X5ELY0"], registry = "UniPro"}
+references = [5,9]
+
+[[cases]]
+text = "PR	#23# Thermotoga maritima Q56317 and 05650 and Q56316 and O05651  <30>"
+key = "PR"
+id = 23
+organism = ["Thermotoga", "maritima"]
+identifier = {accessions = ["Q56317", "05650", "Q56316", "O05651"]}
+references = [30]
+
+[[cases]]
+text = "PR	#74# Sporosarcina pasteurii P41022 AND P41021 AND P41020 UniProt <130>"
+key = "PR"
+id = 74
+organism = ["Sporosarcina", "pasteurii"]
+identifier = {accessions = ["P41022", "P41021", "P41020"], registry = "UniProt"}
+references = [130]
+
+[[cases]]
+text = "PR	#71# Haloarcula marismortui Q75ZQ5 and Q75ZQ6 and Q75ZQ4 SwissProt <120>"
+key = "PR"
+id = 71
+organism = ["Haloarcula", "marismortui"]
+identifier = {accessions = ["Q75ZQ5", "Q75ZQ6", "Q75ZQ4"], registry = "SwissProt"}
+references = [120]
+
+[[cases]]
+text = "PR	#3# Pyrococcus horikoshii O58649 GenBank <1>"
+key = "PR"
+id = 3
+organism = ["Pyrococcus", "horikoshii"]
+identifier = {accessions = ["O58649"], registry = "GenBank"}
+references = [1]
+
+[[cases]]
+text = "PR	#23# Pseudomonas syringae pv. tomato Q885L4 TREMBL <31>"
+key = "PR"
+id = 23
+organism = ["Pseudomonas", "syringae", "pv.", "tomato"]
+identifier = {accessions = ["Q885L4"], registry = "TREMBL"}
+references = [31]
+
+[[cases]]
+text = "PR	#153# Yarrowia lipolytica Q872L4 EMBL <203>"
+key = "PR"
+id = 153
+organism = ["Yarrowia", "lipolytica"]
+identifier = {accessions = ["Q872L4"], registry = "EMBL"}
+references = [203]
+
+[[cases]]
+text = "PR	#93# Limnoria quadripunctata D4HRL0 ? <157>"
+key = "PR"
+id = 93
+organism = ["Limnoria", "quadripunctata"]
+identifier = {accessions = ["D4HRL0"], registry = "?"}
+references = [157]
+
+[[cases]]
+text = "PR	#81# Scytonema hofmannii A0A0139XBW5 UniProt <78>"
+key = "PR"
+id = 81
+organism = ["Scytonema", "hofmannii"]
+identifier = {accessions = ["A0A0139XBW5"], registry = "UniProt"}
+references = [78]
+
+[[cases]]
+text = "PR	#82# Tolypothrix sp. A0A0D6KU47 UniProt <78>"
+key = "PR"
+id = 82
+organism = ["Tolypothrix", "sp."]
+identifier = {accessions = ["A0A0D6KU47"], registry = "UniProt"}
+references = [78]
+
+[[cases]]
+text = "PR      #21# Coniophora puteana (Schum ex Fr) Karsten   <9,15>"
+key = "PR"
+id = 21
+organism = ["Coniophora", "puteana"]
+postfix = "(Schum ex Fr) Karsten"
+references = [9,15]
+
+[[cases]]
+text = """PR	#1# Pseudomonas denitrificans (nomen rejiciendum)   (#1# PHA synthase
+	subunit PhaC and PhaC <2>) <1,2,4>"""
+key = "PR"
+id = 1
+organism = ["Pseudomonas", "denitrificans"]
+postfix = "(nomen rejiciendum)"
+comment = "(#1# PHA synthase subunit PhaC and PhaC <2>)"
+references = [1,2,4]
+
+[[cases]]
+text = "PR	#11# Gaussia princeps (T. Scott, 1894) Q9BLZ2 UniProt <33,41,42>"
+key = "PR"
+id = 11
+organism = ["Gaussia", "princeps"]
+comment = "(T. Scott, 1894)"
+identifier = {accessions = ["Q9BLZ2"], registry = "UniProt"}
+references = [33,41,42]
