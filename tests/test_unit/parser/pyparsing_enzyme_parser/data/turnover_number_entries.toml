@@ -1,0 +1,37 @@
+[[cases]]
+text = """TN	#10# 143 {ethanol}  (#10# in 50 mM Tris-HCl, pH 8.0 at 25°C <209>)
+	<209>"""
+key = "TN"
+proteins = [10]
+value = 143.0
+substrate = "ethanol"
+references = [209]
+
+[[cases]]
+text = """TN	#104# 0.52 {NAD+}  (#104# mutant enzyme W95L, in 0.1 M glycine-NaOH
+	buffer (pH 10.5), at 65°C <207>) <207>"""
+key = "TN"
+proteins = [104]
+value = 0.52
+substrate = "NAD+"
+references = [207]
+
+[[cases]]
+text = """TN	#118,154# 1 {NAD+}  (#118# mutant W49F/W87F/V260A, 30°C, pH not
+	specified in the publication <257>; #154# cosubstrate butan-1-ol, pH
+	7.0, 30°C <271>) <257,271>"""
+key = "TN"
+proteins = [118, 154]
+value = 1.0
+substrate = "NAD+"
+references = [257, 271]
+
+[[cases]]
+text = """TN	#122,123# 2-8 {NADH}  (#123# pH 5.5, 65°C <219>; #122# 65°C, pH 5.5
+	<219>) <219>"""
+key = "TN"
+proteins = [122, 123]
+value = 2.0
+range = 8.0
+substrate = "NADH"
+references = [219]
