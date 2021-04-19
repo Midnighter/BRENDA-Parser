@@ -56,7 +56,7 @@ with (Path(__file__).parent / "data" / "protein_entries.toml").open() as handle:
 )
 def test_protein_id(text: str, expected: str):
     result = protein.protein_id.parseString(text, parseAll=True)
-    assert result.number == expected
+    assert result.id == expected
 
 
 @pytest.mark.parametrize(
