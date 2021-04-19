@@ -36,9 +36,6 @@ integer = pp.pyparsing_common.integer
 
 content = pp.Regex(r"[^#<>{}()\s]+")
 
-identifier = pp.Regex(r"[A-Z50]{2,4}")
-identifier.setName("identifier")
-
 protein_information = (
     "#" + pp.Group(pp.delimitedList(integer)[1, ...])("proteins") + "#"
 )
