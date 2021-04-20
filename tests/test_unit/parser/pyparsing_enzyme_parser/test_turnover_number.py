@@ -34,7 +34,10 @@ from pathlib import Path
 import pytest
 import toml
 
-from brenda_parser.parser.pyparsing_enzyme_parser import turnover_number
+from brenda_parser.parser.pyparsing_enzyme_parser import (
+    sanitize_control_codes,
+    turnover_number,
+)
 
 
 with (Path(__file__).parent / "data" / "turnover_number_entries.toml").open() as handle:
@@ -42,8 +45,10 @@ with (Path(__file__).parent / "data" / "turnover_number_entries.toml").open() as
 
 
 @pytest.mark.parametrize("case", entry_cases["cases"])
-def test_reference_entry(case: dict):
-    result = turnover_number.entry.parseString(case.pop("text"), parseAll=True)[0]
+def test_entry(case: dict):
+    result = turnover_number.entry.parseString(
+        sanitize_control_codes(case.pop("text")), parseAll=True
+    )[0]
     for attribute, expected in case.items():
         if isinstance(expected, list):
             assert list(getattr(result, attribute)) == expected

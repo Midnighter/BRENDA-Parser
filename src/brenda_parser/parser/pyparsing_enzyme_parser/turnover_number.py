@@ -49,6 +49,6 @@ entry = pp.Group(
     + pp.Optional(comment("comment"))
     + literature_citation
 )
-entry.setName("reference_entry")
+entry.setName("turnover_number_entry")
 
 section = pp.Optional("TURNOVER_NUMBER" + pp.Group(entry[1, ...])("turnover_numbers"))
