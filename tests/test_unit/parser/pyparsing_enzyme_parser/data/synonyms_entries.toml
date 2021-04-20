@@ -1,0 +1,33 @@
+[[cases]]
+text = """SY	#59# 2° Adh <34>"""
+key = "SY"
+proteins = [59]
+synonym = "2° Adh"
+references = [34]
+
+[[cases]]
+text = """SY	 GLDH <Swissprot>"""
+key = "SY"
+synonym = "GLDH"
+registry = "SwissProt"
+
+[[cases]]
+text = """SY	#16# 17alphahydroxylase <80>"""
+key = "SY"
+proteins = [16]
+synonym = "17alphahydroxylase"
+references = [80]
+
+[[cases]]
+text = """SY	#3# steroid 5alpüha-reductase type 3 <2>"""
+key = "SY"
+proteins = [3]
+synonym = "steroid 5alpüha-reductase type 3"
+references = [2]
+
+[[cases]]
+text = """SY	#2# wollknäuel <15>"""
+key = "SY"
+proteins = [2]
+synonym = "wollknäuel"
+references = [15]
