@@ -1,0 +1,8 @@
+[[cases]]
+text = """KI	#10# 0.0028 {2-deoxy-2-amino-D-glucitol 6-phosphate}  (#10# pH 7.8,
+	25°C, substrate : D-glucosamine-6-phosphate <14>) <14>"""
+key = "KI"
+proteins = [10]
+value = 0.0028
+inhibitor = "2-deoxy-2-amino-D-glucitol 6-phosphate"
+references = [14]
