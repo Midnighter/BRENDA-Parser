@@ -1,0 +1,8 @@
+[[cases]]
+text = """SN	carnitine:NAD+ 3-oxidoreductase"""
+key = "SN"
+name = "carnitine:NAD+ 3-oxidoreductase"
+
+[[cases]]
+text = """SN	"""
+key = "SN"
