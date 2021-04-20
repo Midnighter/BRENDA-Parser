@@ -84,6 +84,10 @@ protein_entry = pp.Group(
         protein_identifier("identifier")
         | pp.Literal("(nomen rejiciendum)")("postfix")
         | pp.Literal("(Schum ex Fr) Karsten")("postfix")
+        | (
+            pp.originalTextFor("(in:" + organism + ")")("postfix")
+            + pp.Optional(protein_identifier("identifier"))
+        )
     )
     + pp.Optional(comment("comment"))
     + pp.Optional(protein_identifier("identifier"))

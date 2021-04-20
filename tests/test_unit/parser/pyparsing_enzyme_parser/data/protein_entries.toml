@@ -188,3 +188,45 @@ organism = ["Gaussia", "princeps"]
 comment = "(T. Scott, 1894)"
 identifier = {accessions = ["Q9BLZ2"], registry = "UniProt"}
 references = [33,41,42]
+
+[[cases]]
+text = """PR	#15# Bacillus sp. (in: Bacteria) Q6ITC6 SwissProt (#15# BCA2 <36>)
+	<36,64>"""
+key = "PR"
+id = 15
+organism = ["Bacillus", "sp."]
+postfix = "(in: Bacteria)"
+comment = "(#15# BCA2 <36>)"
+identifier = {accessions = ["Q6ITC6"], registry = "SwissProt"}
+references = [36,64]
+
+[[cases]]
+text = """PR	#19# Bacillus sp. (in: Bacteria)   (#19# dipeptidylpeptidase 4b
+	<12,13>) <12,13>"""
+key = "PR"
+id = 19
+organism = ["Bacillus", "sp."]
+postfix = "(in: Bacteria)"
+comment = "(#19# dipeptidylpeptidase 4b <12,13>)"
+references = [12,13]
+
+[[cases]]
+text = """PR	#35# Candida sp. (in: Saccharomycetales)   (#35# topoisomerase IIalpha
+	<3>) <3,4>"""
+key = "PR"
+id = 35
+organism = ["Candida", "sp."]
+postfix = "(in: Saccharomycetales)"
+comment = "(#35# topoisomerase IIalpha <3>)"
+references = [3,4]
+
+[[cases]]
+text = """PR	#4# More   (#4# member of the glycyl radical enzyme family <3>; #4#
+	member of the non-processive glycosyltransferase family <3>; #4#
+	N-terminal region of open reading frame, PH1510 (residues 16236,
+	designated as 1510-N) is a serine protease <3>; #4# NirD polypeptide
+	<1,2,3,4,6,7,8>) <1,2,3,4,6,7,8>"""
+key = "PR"
+id = 4
+organism = ["More"]
+references = [1,2,3,4,6,7,8]
