@@ -29,4 +29,6 @@
 from pyparsing import ParserElement
 
 
-ParserElement.setDefaultWhitespaceChars(" \t\n\r" + " ")
+# TODO: Consider pre-processing the text file and removing non-whitespace control
+#  characters.
+ParserElement.setDefaultWhitespaceChars(" \t\n\r" + " ")

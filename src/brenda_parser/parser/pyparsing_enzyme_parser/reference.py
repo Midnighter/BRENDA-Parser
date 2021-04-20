@@ -41,7 +41,7 @@ citation = pp.Word(
     pp.pyparsing_unicode.Latin1.printables
     + pp.pyparsing_unicode.LatinA.printables
     + pp.pyparsing_unicode.LatinB.printables
-    + "°–¯§¸‘’‡…—‚€Œ„•“”"
+    + "°–¯§¸‘’‡…—‚€Œ„•“”\x80"
 )
 
 entry = pp.Group(
@@ -49,9 +49,10 @@ entry = pp.Group(
     + pp.Keyword("RF")("key")
     + id
     + pp.ZeroOrMore(citation, stopOn="{Pubmed:")("entry")
-    + "{Pubmed:"
+    + pp.Suppress("{Pubmed:")
     + pp.Optional(pp.Word(pp.nums))("pubmed_id")
-    + "}"
+    + pp.Suppress("}")
+    + pp.Optional(pp.Suppress("}"))
     + pp.Optional(pp.nestedExpr()("type"))
 )
 entry.setName("reference_entry")

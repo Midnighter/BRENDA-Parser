@@ -146,3 +146,85 @@ text = """RF	<76> Khan, M.A.; Lopez-Munoz, M.M.; Kaspar, C.W.; Hung, K.F.:
 	Activities of methionine-gamma-lyase in the acidophilic archaeon
 	“Ferroplasma acidarmanus” strain fer1. Res. Rep. Biol. (2013) 4,
 	11-22. {Pubmed:}"""
+
+[[cases]]
+text = """RF	<72> Dhar, T.G.M.; Shen, Z.; Gu, H.H.; Chen, P.; Norris, D.; Watterson,
+	S.H.; Ballentine, S.K.; Fleener, C.A.; Rouleau, K.A.; Barrish, J.C.;
+	Townsend, R.; Hollenbaugh, D.L.; Iwanowicz, E.J.: 3-Cyanoindole-based
+	inhibitors of inosine monophosphate dehydrogenase: synthesis and
+	initial structureactivity relationships. Bioorg. Med. Chem. Lett.
+	(2003) 13, 3557-3560. {Pubmed:14505670}"""
+
+[[cases]]
+text = """RF	<32> Dewanti, A.R.; Duine, J.A.: Reconstitution of membrane.integrated
+	quinoprotein glucose dehydrogenase apoenzyme with PQQ and the
+	holoenzymes mechanism of action. Biochemistry (1998) 37, 6810-6818.
+	{Pubmed:9578566} (c)"""
+
+[[cases]]
+text = """RF	<57> Ni Eidhinn, D.M.; Murphy, E.; O'Beirne, D.: Polyphenol oxidase
+	from apple (Malus domestica Borkh. cv Bramleys seedling): purification
+	strategies and characterization. J. Food Sci. (2006) 71, C51-C58.
+	{Pubmed:}"""
+
+[[cases]]
+text = """RF	<8> Beermann, B; Guddorf, J.; Boehm, K.; Albers, A.; Kolkenbrock, S.;
+	Fetzner, S.; Hinz, H.-J.: Stability, unfolding, and structural changes
+	of cofactor-free 1H-3-hydroxy-4-oxoquinaldine 2,4-dioxygenase.
+	Biochemistry (2007) 46, 4241-4249. {Pubmed:17371045}"""
+
+[[cases]]
+text = """RF	<9> Walkiewicz, K.; Davlieva, M.; Wu, G.; Shamoo, Y.: Crystal structure
+	of Bacteroides thetaiotaomicron TetX2: A tetracycline degrading
+	monooxygenase at 2.8 Ã resolution. Proteins (2011) 79, 2335-2340.
+	{Pubmed:21590745}"""
+
+[[cases]]
+text = """RF	<123> Ha, S.K.; Koketsu, M.; Lee, K.; Choi, S.Y.; Park, J.H.; Ishihara,
+	H.; Kim, S.Y.: Inhibition of tyrosinase activity by N,N-unsubstituted
+	selenourea derivatives. Biol. Pharm. Bull. (2005) 28, 838840.
+	{Pubmed:15863889}"""
+
+[[cases]]
+text = """RF	<34> Latowski, D.; Goss, R.; Bojko, M.; StrzaÅka, K.: Violaxanthin and
+	diadinoxanthin de-epoxidation in various model lipid systems. Acta
+	Biochim. Pol. (2012) 59, 101-103. {Pubmed:22428134}"""
+
+[[cases]]
+text = """RF	<105> Estarellas, C.; Frontera, A.; Quinonero, D.; Deya, P.: Relevant
+	anion-Ï interactions in biological systems: The case of urate oxidase.
+	Angew. Chem. Int. Ed. Engl. (2011) 50, 415-418. {Pubmed:21132687}"""
+
+[[cases]]
+text = """RF	<2> Shimotohno, K.; Seto, H.; Åtake, N.; Imai, S.; Murakami, T.:
+	Studies on the biosynthesis of bialaphos (SF-1293). 8. Purification and
+	characterization of 2-phosphinomethylmalic acid synthase from
+	Streptomyces hygroscopicus SF-1293. J. Antibiot. (1988) 41, 1057-1065.
+	{Pubmed:3170341}"""
+
+[[cases]]
+text = """RF	<1> Neumann, M.; Mittelstdt, G.; Seduk, F.; Iobbi-Nivol, C.;
+	Leimkuhler, S.: MocA is a specific cytidylyltransferase involved in
+	molybdopterin cytosine dinucleotide biosynthesis in Escherichia coli.
+	J. Biol. Chem. (2009) 284, 21891-21898. {Pubmed:19542235}"""
+
+[[cases]]
+text = """RF	<28> Yellaturu, C.; Deng, X.; Park, E.; Raghow, R.; Elam, M.: Insulin
+	enhances the biogenesis of nuclear sterol regulatory element-binding
+	protein (SREBP)-1c by posttranscriptionaldown-regulation of insig-2A
+	and its dissociation from SREBP cleavage-activating protein
+	(SCAP)SREBP-1c complex. J. Biol. Chem. (2009) 284, 31726-31734.
+	{Pubmed:19759400}"""
+
+[[cases]]
+text = """RF	<168> Seki, H.; Xue, S.; Hixon, M.; Pellett, S.; Reme, M.; Johnson,
+	E.; Janda, K.: Toward the discovery of dual inhibitors for botulinum
+	neurotoxin A: Concomitant targeting of endocytosis and light chain
+	protease activity. Chem. Commun. (Camb. ) (2015) 51, 6226-6229.
+	{Pubmed:25759983}"""
+
+[[cases]]
+text = """RF	<76> Khan, M.A.; Lopez-Munoz, M.M.; Kaspar, C.W.; Hung, K.F.:
+	Activities of methionine-gamma-lyase in the acidophilic archaeon
+	Ferroplasma acidarmanus strain fer1. Res. Rep. Biol. (2013) 4, 11-22.
+	{Pubmed:}"""
