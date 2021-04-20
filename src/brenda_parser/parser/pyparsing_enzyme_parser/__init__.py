@@ -1,4 +1,4 @@
-# Copyright 2011-2019 Moritz Emanuel Beber
+# Copyright 2011-2021 Moritz Emanuel Beber
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -26,16 +26,14 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-from pyparsing import ParserElement
-
-
-# TODO: Consider pre-processing the text file and removing non-whitespace control
-#  characters.
-WHITESPACE_CONTROL_CODES = " "
 CONTROL_CODES = "\x80"
-TRANSLATION_TABLE = str.maketrans(dict.fromkeys(CONTROL_CODES, None))
-
-ParserElement.setDefaultWhitespaceChars(" \t\n\r" + WHITESPACE_CONTROL_CODES)
+WHITESPACE_CONTROL_CODES = " "
+TRANSLATION_TABLE = str.maketrans(
+    {
+        **dict.fromkeys(CONTROL_CODES, None),
+        **dict.fromkeys(WHITESPACE_CONTROL_CODES, " "),
+    }
+)
 
 
 def sanitize_control_codes(text: str) -> str:
