@@ -1,0 +1,18 @@
+[[cases]]
+text = """KM	#1# 0.29 {L-xylulose}  <1>"""
+key = "KM"
+proteins = [1]
+value = 0.29
+substrate = "L-xylulose"
+references = [1]
+
+[[cases]]
+text = """KM	#56,57,58# -999 {succinyl-Ala-Ala-(cis)-Pro-Phe-4-nitroanilide}  (#58#
+	kcat/Km ratio is 14.1 per mM and s <159>; #57# kcat/Km ratio is 21 per
+	mM and s <159>; #56# specificity constant kcat/Km for (His)6-RcCYP1 is
+	9.48 per microM and s <157>) <157,159>"""
+key = "KM"
+proteins = [56,57,58]
+value = -999.0
+substrate = "succinyl-Ala-Ala-(cis)-Pro-Phe-4-nitroanilide"
+references = [157,159]
