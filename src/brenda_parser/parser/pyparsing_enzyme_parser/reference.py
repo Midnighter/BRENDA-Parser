@@ -41,7 +41,7 @@ citation = pp.Word(
     pp.pyparsing_unicode.Latin1.printables
     + pp.pyparsing_unicode.LatinA.printables
     + pp.pyparsing_unicode.LatinB.printables
-    + "°–¯§¸‘’‡…—‚€Œ„•“”\x80"
+    + "°–¯§¸‘’‡…—‚€Œ„•“”"
 )
 
 entry = pp.Group(

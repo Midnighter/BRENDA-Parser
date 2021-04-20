@@ -31,4 +31,12 @@ from pyparsing import ParserElement
 
 # TODO: Consider pre-processing the text file and removing non-whitespace control
 #  characters.
-ParserElement.setDefaultWhitespaceChars(" \t\n\r" + " ")
+WHITESPACE_CONTROL_CODES = " "
+CONTROL_CODES = "\x80"
+TRANSLATION_TABLE = str.maketrans(dict.fromkeys(CONTROL_CODES, None))
+
+ParserElement.setDefaultWhitespaceChars(" \t\n\r" + WHITESPACE_CONTROL_CODES)
+
+
+def sanitize_control_codes(text: str) -> str:
+    return text.translate(TRANSLATION_TABLE)

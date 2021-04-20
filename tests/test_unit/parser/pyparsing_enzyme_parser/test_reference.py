@@ -35,7 +35,10 @@ import pytest
 import toml
 from pyparsing import ParseException
 
-from brenda_parser.parser.pyparsing_enzyme_parser import reference
+from brenda_parser.parser.pyparsing_enzyme_parser import (
+    reference,
+    sanitize_control_codes,
+)
 
 
 with (Path(__file__).parent / "data" / "reference_entries.toml").open() as handle:
@@ -57,7 +60,9 @@ def test_id(text: str, expected: str):
 
 @pytest.mark.parametrize("case", entry_cases["cases"])
 def test_reference_entry(case: dict):
-    result = reference.entry.parseString(case.pop("text"), parseAll=True)[0]
+    result = reference.entry.parseString(
+        sanitize_control_codes(case.pop("text")), parseAll=True
+    )[0]
     for attribute, expected in case.items():
         if isinstance(expected, list):
             assert list(getattr(result, attribute)) == expected
