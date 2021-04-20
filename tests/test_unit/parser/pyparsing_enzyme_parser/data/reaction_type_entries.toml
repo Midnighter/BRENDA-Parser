@@ -1,0 +1,19 @@
+[[cases]]
+text = """RT	reduction (#40# highly regioselective and enantioselective reduction
+	<74>)"""
+key = "RT"
+type = "reduction"
+comment = "(#40# highly regioselective and enantioselective reduction <74>)"
+
+[[cases]]
+text = """RT	side-chain migration"""
+key = "RT"
+type = "side-chain migration"
+
+[[cases]]
+text = """RT	reduction (#9# reduces insulin disulfide in the presence of
+	dithiothreitol at 30°C <6>; #11# the enzyme catalyzes the DTT-mediated
+	reduction of insulin disulfides <4>)"""
+key = "RT"
+type = "reduction"
+comment = "(#9# reduces insulin disulfide in the presence of dithiothreitol at 30°C <6>; #11# the enzyme catalyzes the DTT-mediated reduction of insulin disulfides <4>)"
