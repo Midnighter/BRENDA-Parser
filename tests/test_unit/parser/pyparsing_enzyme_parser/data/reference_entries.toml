@@ -3,38 +3,56 @@ text = """RF	<3> Pessione, E.; Pergola, L.; Cavaletto, M.; Giunta, C.; Trotta, A
 	Vanni, A.: Extraction, purification and characterization of ADH1 from
 	the budding yeast Kluyveromyces marxianus. Ital. J. Biochem. (1990) 39,
 	71-82. {Pubmed:2193901}"""
+key = "RF"
+id = 3
+pubmed_id = "2193901"
 
 [[cases]]
 text = """RF	<4> Leblova, S.; El Ahmad, M.: Characterization of alcohol
 	dehydrogenase isolated from germinating bean (Vicia faba) seeds.
 	Collect. Czech. Chem. Commun. (1989) 54, 2519-2527. {Pubmed:}"""
+key = "RF"
+id = 4
 
 [[cases]]
 text = """RF	<14> Ditlow, C.C.; Holmquist, B.; Morelock, M.M.; Vallee, B.L.:
 	Physical and enzymatic properties of a class II alcohol dehydrogenase
 	isozyme of human liver: pi-ADH. Biochemistry (1984) 23, 6363-6368.
 	{Pubmed:6397223} (c)"""
+key = "RF"
+id = 14
+pubmed_id = "6397223"
 
 [[cases]]
 text = """RF	<10> Herrera, E.; Zorzano, A.; Fresneda, V.: Comparative kinetics of
 	human and rat liver alcohol dehydrogenase. Biochem. Soc. Trans. (1983)
 	11, 729-730. {Pubmed:} (c,review)"""
+key = "RF"
+id = 10
 
 [[cases]]
 text = """RF	<110> Stroemberg, P.; Svensson, S.; Berst, K.B.; Plapp, B.V.; Höög,
 	J.O.: Enzymatic mechanism of low-activity mouse alcohol dehydrogenase
 	2. Biochemistry (2004) 43, 1323-1328. {Pubmed:14756569}"""
+key = "RF"
+id = 110
+pubmed_id = "14756569"
 
 [[cases]]
 text = """RF	<249> Chung, D.; Cha, M.; Snyder, E.; Elkins, J.; Guss, A.;
 	Westpheling, J.: Cellulosic ethanol production via consolidated
 	bioprocessing at 75°C by engineered Caldicellulosiruptor bescii.
 	Biotechnol. Biofuels (2015) 8, 163. {Pubmed:26442761}"""
+key = "RF"
+id = 249
+pubmed_id = "26442761"
 
 [[cases]]
 text = """RF	<7> Bergmeyer, H.U.; Gra¯l, M.; Walter, H.E.: Glyoxylate reductase.
 	Methods Enzym. Anal. , 3rd Ed. (Bergmeyer, H. U. , ed. ) (1974) 2,
 	126-328. {Pubmed:}"""
+key = "RF"
+id = 7
 
 [[cases]]
 text = """RF	<6> Krasnov, A.; Reinisalo, M.; Pitk§nen, T.I.; Nishikimi, M.; M¸lsa,
@@ -42,6 +60,9 @@ text = """RF	<6> Krasnov, A.; Reinisalo, M.; Pitk§nen, T.I.; Nishikimi, M.; M¸
 	enzyme of L-ascorbic acid biosynthesis, in guinea pig cells and in
 	teleost fish rainbow trout (Oncorhynchus mykiss). Biochim. Biophys.
 	Acta (1998) 1381, 241-248. {Pubmed:9685663}"""
+key = "RF"
+id = 6
+pubmed_id = "9685663"
 
 [[cases]]
 text = """RF	<73> Hu, Z.; Shen, Y.; Shen, F.; Su, X.: Effects of feeding Clostera
@@ -49,12 +70,17 @@ text = """RF	<73> Hu, Z.; Shen, Y.; Shen, F.; Su, X.: Effects of feeding Closter
 	peroxidase, catalase, and ascorbate peroxidase in Populus
 	simonii × P. pyramidalis Opera 8277 leaves. Acta Physiol. Plant.
 	(2009) 2009, 1-8. {Pubmed:}"""
+key = "RF"
+id = 73
 
 [[cases]]
 text = """RF	<8> Beermann, B; Guddorf, J.; Boehm,‡ K.; Albers, A.; Kolkenbrock,
 	S.; Fetzner, S.; Hinz, H.-J.: Stability, unfolding, and structural
 	changes of cofactor-free 1H-3-hydroxy-4-oxoquinaldine 2,4-dioxygenase.
 	Biochemistry (2007) 46, 4241-4249. {Pubmed:17371045}"""
+key = "RF"
+id = 8
+pubmed_id = "17371045"
 
 [[cases]]
 text = """RF	<24> Ye, S.; Price, J.C.; Barr, E.W.; Green, M.T.; Bollinger, J.M.;
@@ -62,6 +88,9 @@ text = """RF	<24> Ye, S.; Price, J.C.; Barr, E.W.; Green, M.T.; Bollinger, J.M.;
 	taurine:alpha-ketoglutarate dioxygenase (TauD) yields an elusive
 	{FeNO}(8) species. J. Am. Chem. Soc. (2010) 132, 4739-4751.
 	{Pubmed:20218714}"""
+key = "RF"
+id = 24
+pubmed_id = "20218714"
 
 [[cases]]
 text = """RF	<232> Giersberg, M.; Degelmann, A.; Bode, R.; Piontek, M.; Kunze, G.:
@@ -69,6 +98,9 @@ text = """RF	<232> Giersberg, M.; Degelmann, A.; Bode, R.; Piontek, M.; Kunze, G
 	ruber in three different yeast species using the Xplor2
 	transformation/expression platform. J. Ind. Microbiol. Biotechnol.
 	(2012) 39, 1385-1396. {Pubmed:22584819}"""
+key = "RF"
+id = 232
+pubmed_id = "22584819"
 
 [[cases]]
 text = """RF	<28> Yellaturu, C.; Deng, X.; Park, E.; Raghow, R.; Elam, M.: Insulin
@@ -77,12 +109,18 @@ text = """RF	<28> Yellaturu, C.; Deng, X.; Park, E.; Raghow, R.; Elam, M.: Insul
 	and its dissociation from SREBP cleavage-activating protein
 	(SCAP)•SREBP-1c complex. J. Biol. Chem. (2009) 284, 31726-31734.
 	{Pubmed:19759400}"""
+key = "RF"
+id = 28
+pubmed_id = "19759400"
 
 [[cases]]
 text = """RF	<9> Walkiewicz, K.; Davlieva, M.; Wu, G.; Shamoo, Y.: Crystal structure
 	of Bacteroides thetaiotaomicron TetX2: A tetracycline degrading
 	monooxygenase at 2.8 Ã… resolution. Proteins (2011) 79, 2335-2340.
 	{Pubmed:21590745}"""
+key = "RF"
+id = 9
+pubmed_id = "21590745"
 
 [[cases]]
 text = """RF	<45> Spivak, S.; Berdichevets, I.; IarmolinskiÇ, D.; Maneshina, T.;
@@ -90,35 +128,53 @@ text = """RF	<45> Spivak, S.; Berdichevets, I.; IarmolinskiÇ, D.; Maneshina, 
 	transgenic tobacco Nicotiana tabacum L. plants expressing CYP11A1 cDNA
 	encoding cytochrome P450scc. Genetika (2009) 45, 1217-1224.
 	{Pubmed:19824542}"""
+key = "RF"
+id = 45
+pubmed_id = "19824542"
 
 [[cases]]
 text = """RF	<123> Ha, S.K.; Koketsu, M.; Lee, K.; Choi, S.Y.; Park, J.H.; Ishihara,
 	H.; Kim, S.Y.: Inhibition of tyrosinase activity by N,N-unsubstituted
 	selenourea derivatives. Biol. Pharm. Bull. (2005) 28, 838—840.
 	{Pubmed:15863889}"""
+key = "RF"
+id = 123
+pubmed_id = "15863889"
 
 [[cases]]
 text = """RF	<34> Latowski, D.; Goss, R.; Bojko, M.; StrzaÅ‚ka, K.: Violaxanthin
 	and diadinoxanthin de-epoxidation in various model lipid systems. Acta
 	Biochim. Pol. (2012) 59, 101-103. {Pubmed:22428134}"""
+key = "RF"
+id = 34
+pubmed_id = "22428134"
 
 [[cases]]
 text = """RF	<105> Estarellas, C.; Frontera, A.; Quinonero, D.; Deya, P.: Relevant
 	anion-Ï€ interactions in biological systems: The case of urate
 	oxidase. Angew. Chem. Int. Ed. Engl. (2011) 50, 415-418.
 	{Pubmed:21132687}"""
+key = "RF"
+id = 105
+pubmed_id = "21132687"
 
 [[cases]]
 text = """RF	<27> Arnesen, T.; Gromyko, D.; Kagabo, D.; Betts, M.; Starheim, K.;
 	Varhaug, J.; Anderson, D.; Lillehaug, J.: A novel human NatA
 	N<sup>Œ±</sup>-terminal acetyltransferase complex: HNaa16p-hNaa10p
 	(hNat2-hArd1). BMC Biochem. (2009) 10, 0000. {Pubmed:19480662}"""
+key = "RF"
+id = 27
+pubmed_id = "19480662"
 
 [[cases]]
 text = """RF	<1> Neumann, M.; Mittelst„dt, G.; Seduk, F.; Iobbi-Nivol, C.;
 	Leimkuhler, S.: MocA is a specific cytidylyltransferase involved in
 	molybdopterin cytosine dinucleotide biosynthesis in Escherichia coli.
 	J. Biol. Chem. (2009) 284, 21891-21898. {Pubmed:19542235}"""
+key = "RF"
+id = 1
+pubmed_id = "19542235"
 
 [[cases]]
 text = """RF	<11> Ling, N.; Lee, J.; Ellis, M.; Liao, M.; Mau, S.; Guest, D.;
@@ -126,6 +182,9 @@ text = """RF	<11> Ling, N.; Lee, J.; Ellis, M.; Liao, M.; Mau, S.; Guest, D.;
 	exo-beta-(1->3)-D-galactanase from Streptomyces sp. provides insights
 	into type II arabinogalactan structure. Carbohydr. Res. (2012) 352,
 	70-81. {Pubmed:22464224}"""
+key = "RF"
+id = 11
+pubmed_id = "22464224"
 
 [[cases]]
 text = """RF	<168> Seki, H.; Xue, S.; Hixon, M.; Pellett, S.; Remeš, M.; Johnson,
@@ -133,6 +192,9 @@ text = """RF	<168> Seki, H.; Xue, S.; Hixon, M.; Pellett, S.; Remeš, M.; Johnso
 	neurotoxin A: Concomitant targeting of endocytosis and light chain
 	protease activity. Chem. Commun. (Camb. ) (2015) 51, 6226-6229.
 	{Pubmed:25759983}"""
+key = "RF"
+id = 168
+pubmed_id = "25759983"
 
 [[cases]]
 text = """RF	<1> Adams, N.E; Thiaville, J.J; Proestos, J.; Juarez-Vazquez, A.L.;
@@ -140,12 +202,17 @@ text = """RF	<1> Adams, N.E; Thiaville, J.J; Proestos, J.; Juarez-Vazquez, A.L.;
 	Maurelli, A.T.: Promiscuous and adaptable enzymes fill "holes" in the
 	tetrahydrofolate pathway in Chlamydia species. mBio (2014) 5,
 	e01378-14. {Pubmed:25006229}"""
+key = "RF"
+id = 1
+pubmed_id = "25006229"
 
 [[cases]]
 text = """RF	<76> Khan, M.A.; Lopez-Munoz, M.M.; Kaspar, C.W.; Hung, K.F.:
 	Activities of methionine-gamma-lyase in the acidophilic archaeon
 	“Ferroplasma acidarmanus” strain fer1. Res. Rep. Biol. (2013) 4,
 	11-22. {Pubmed:}"""
+key = "RF"
+id = 76
 
 [[cases]]
 text = """RF	<72> Dhar, T.G.M.; Shen, Z.; Gu, H.H.; Chen, P.; Norris, D.; Watterson,
@@ -154,46 +221,69 @@ text = """RF	<72> Dhar, T.G.M.; Shen, Z.; Gu, H.H.; Chen, P.; Norris, D.; Watter
 	inhibitors of inosine monophosphate dehydrogenase: synthesis and
 	initial structureactivity relationships. Bioorg. Med. Chem. Lett.
 	(2003) 13, 3557-3560. {Pubmed:14505670}"""
+key = "RF"
+id = 72
+pubmed_id = "14505670"
 
 [[cases]]
 text = """RF	<32> Dewanti, A.R.; Duine, J.A.: Reconstitution of membrane.integrated
 	quinoprotein glucose dehydrogenase apoenzyme with PQQ and the
 	holoenzymes mechanism of action. Biochemistry (1998) 37, 6810-6818.
 	{Pubmed:9578566} (c)"""
+key = "RF"
+id = 32
+pubmed_id = "9578566"
 
 [[cases]]
 text = """RF	<57> Ni Eidhinn, D.M.; Murphy, E.; O'Beirne, D.: Polyphenol oxidase
 	from apple (Malus domestica Borkh. cv Bramleys seedling): purification
 	strategies and characterization. J. Food Sci. (2006) 71, C51-C58.
 	{Pubmed:}"""
+key = "RF"
+id = 57
 
 [[cases]]
 text = """RF	<8> Beermann, B; Guddorf, J.; Boehm, K.; Albers, A.; Kolkenbrock, S.;
 	Fetzner, S.; Hinz, H.-J.: Stability, unfolding, and structural changes
 	of cofactor-free 1H-3-hydroxy-4-oxoquinaldine 2,4-dioxygenase.
 	Biochemistry (2007) 46, 4241-4249. {Pubmed:17371045}"""
+key = "RF"
+id = 8
+pubmed_id = "17371045"
 
 [[cases]]
 text = """RF	<9> Walkiewicz, K.; Davlieva, M.; Wu, G.; Shamoo, Y.: Crystal structure
 	of Bacteroides thetaiotaomicron TetX2: A tetracycline degrading
 	monooxygenase at 2.8 Ã resolution. Proteins (2011) 79, 2335-2340.
 	{Pubmed:21590745}"""
+key = "RF"
+id = 9
+pubmed_id = "21590745"
 
 [[cases]]
 text = """RF	<123> Ha, S.K.; Koketsu, M.; Lee, K.; Choi, S.Y.; Park, J.H.; Ishihara,
 	H.; Kim, S.Y.: Inhibition of tyrosinase activity by N,N-unsubstituted
 	selenourea derivatives. Biol. Pharm. Bull. (2005) 28, 838840.
 	{Pubmed:15863889}"""
+key = "RF"
+id = 123
+pubmed_id = "15863889"
 
 [[cases]]
 text = """RF	<34> Latowski, D.; Goss, R.; Bojko, M.; StrzaÅka, K.: Violaxanthin and
 	diadinoxanthin de-epoxidation in various model lipid systems. Acta
 	Biochim. Pol. (2012) 59, 101-103. {Pubmed:22428134}"""
+key = "RF"
+id = 34
+pubmed_id = "22428134"
 
 [[cases]]
 text = """RF	<105> Estarellas, C.; Frontera, A.; Quinonero, D.; Deya, P.: Relevant
 	anion-Ï interactions in biological systems: The case of urate oxidase.
 	Angew. Chem. Int. Ed. Engl. (2011) 50, 415-418. {Pubmed:21132687}"""
+key = "RF"
+id = 105
+pubmed_id = "21132687"
 
 [[cases]]
 text = """RF	<2> Shimotohno, K.; Seto, H.; Åtake, N.; Imai, S.; Murakami, T.:
@@ -201,12 +291,18 @@ text = """RF	<2> Shimotohno, K.; Seto, H.; Åtake, N.; Imai, S.; Murakami, T.:
 	characterization of 2-phosphinomethylmalic acid synthase from
 	Streptomyces hygroscopicus SF-1293. J. Antibiot. (1988) 41, 1057-1065.
 	{Pubmed:3170341}"""
+key = "RF"
+id = 2
+pubmed_id = "3170341"
 
 [[cases]]
 text = """RF	<1> Neumann, M.; Mittelstdt, G.; Seduk, F.; Iobbi-Nivol, C.;
 	Leimkuhler, S.: MocA is a specific cytidylyltransferase involved in
 	molybdopterin cytosine dinucleotide biosynthesis in Escherichia coli.
 	J. Biol. Chem. (2009) 284, 21891-21898. {Pubmed:19542235}"""
+key = "RF"
+id = 1
+pubmed_id = "19542235"
 
 [[cases]]
 text = """RF	<28> Yellaturu, C.; Deng, X.; Park, E.; Raghow, R.; Elam, M.: Insulin
@@ -215,6 +311,9 @@ text = """RF	<28> Yellaturu, C.; Deng, X.; Park, E.; Raghow, R.; Elam, M.: Insul
 	and its dissociation from SREBP cleavage-activating protein
 	(SCAP)SREBP-1c complex. J. Biol. Chem. (2009) 284, 31726-31734.
 	{Pubmed:19759400}"""
+key = "RF"
+id = 28
+pubmed_id = "19759400"
 
 [[cases]]
 text = """RF	<168> Seki, H.; Xue, S.; Hixon, M.; Pellett, S.; Reme, M.; Johnson,
@@ -222,9 +321,14 @@ text = """RF	<168> Seki, H.; Xue, S.; Hixon, M.; Pellett, S.; Reme, M.; Johnso
 	neurotoxin A: Concomitant targeting of endocytosis and light chain
 	protease activity. Chem. Commun. (Camb. ) (2015) 51, 6226-6229.
 	{Pubmed:25759983}"""
+key = "RF"
+id = 168
+pubmed_id = "25759983"
 
 [[cases]]
 text = """RF	<76> Khan, M.A.; Lopez-Munoz, M.M.; Kaspar, C.W.; Hung, K.F.:
 	Activities of methionine-gamma-lyase in the acidophilic archaeon
 	Ferroplasma acidarmanus strain fer1. Res. Rep. Biol. (2013) 4, 11-22.
 	{Pubmed:}"""
+key = "RF"
+id = 76
