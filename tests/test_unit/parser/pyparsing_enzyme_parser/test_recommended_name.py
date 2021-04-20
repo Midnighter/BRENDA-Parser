@@ -40,7 +40,9 @@ from brenda_parser.parser.pyparsing_enzyme_parser import (
 )
 
 
-with (Path(__file__).parent / "data" / "recommended_name_entries.toml").open() as handle:
+with (
+    Path(__file__).parent / "data" / "recommended_name_entries.toml"
+).open() as handle:
     entry_cases = toml.load(handle)
 
 

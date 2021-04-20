@@ -41,4 +41,4 @@ entry = pp.Group(
 )
 entry.setName("recommended_name_entry")
 
-section = pp.Optional("RECOMMENDED_NAME" + pp.Group(entry[1, ...])("recommended_name"))
+section = pp.Optional("RECOMMENDED_NAME" + pp.Group(entry[1, ...])("recommended_names"))
