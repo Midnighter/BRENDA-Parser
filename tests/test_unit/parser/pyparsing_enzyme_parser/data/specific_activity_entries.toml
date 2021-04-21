@@ -1,0 +1,88 @@
+[[cases]]
+text = """SA	#1# 1.9e-05 (#1# S)-3-myristoyl-[acyl-carrier-protein] as substrate
+	<14>) <14>"""
+key = "SA"
+proteins = [1]
+value = 1.9e-5
+references = [14]
+
+[[cases]]
+text = """SA	#3,5,6# -999.0 (#3# vitamin B12 has little effect on the activity in
+	proteoliposomes, as well as in the presence of lauryl
+	dimethylamine-N-oxide, dodecyl maltoside and Triton X-100 <7>; #5#
+	crystal structure of BtuCD-F complex presented, displacement of vitamin
+	B12 from binding pocket shown, subunits of transmembrane BtuC protein
+	shown to have two distinct conformations, translocation pathway shown
+	to be closed to both sides of the membrane, electron paramagnetic
+	resonance spectra of spin-labeled cysteine mutants shown to be
+	consistent with the conformation of BtuCD-F observed in the crystal
+	structure, structure of BtuCD-F discussed as a posttranslocation
+	intermediate <13>; #5# intrinsic flexibility of isolated BtuC and BtuD
+	dimers evaluated, conformational movement of intact BtuCD transporter
+	studied in the context of conformational coupling between BtuC and
+	BtuD, effect of BtuF association on the transporter conformational
+	movement discussed <12>; #6# perturbed anisotropic network model and
+	molecular dynamics simulations applied, essential dynamics sampling and
+	cavity and pathway analysis, structural response of BtuC protein
+	quantified in terms of X-shifts shown, transport model discussed <11>;
+	#5# principal motions and conformational changes of apo and holo forms
+	studied, closed conformation for the ligand-bound state identified,
+	empty form shown to fluctuate between open and closed conformations,
+	simulation system and force field parameters described, elastic network
+	normal-mode analysis performed, conformational changes summarized,
+	domain motions indicated, link to previous simulations and biological
+	implications discussed <8>; #5# principal motions of BtuCD-F
+	transporter system and conformation of ATP-binding sites analyzed,
+	protein subunits representing simulation components indicated, design
+	of simulation system described, conformational drift summarized, model
+	of the BtuCD-F complex discussed <9>; #6# steered molecular dynamics
+	simulations performed, principal component analysis and energetics of
+	vitamin B12 unbinding analyzed, potential of mean force along
+	postulated vitamin B12 unbinding pathway constructed through Jarzynskis
+	equality, motion modes and intrinsic flexibility of BtuF calculated,
+	Trp44-Gln45 pair situated at binding pocket suggested to act as a gate
+	in the vitamin B12 binding and unbinding process <10>)
+	<7,8,9,10,11,12,13>"""
+key = "SA"
+proteins = [3, 5, 6]
+value = -999.0
+references = [7,8,9,10,11,12,13]
+
+[[cases]]
+text = """SA	#106# 0.5 (#106# purified mutant enzyme W95L, using benzyl alcohol as
+	substrate, in 0.1 M glycine-NaOH buffer (pH 10.5), at 65°C <207>) <207>"""
+key = "SA"
+proteins = [106]
+value = 0.5
+references = [207]
+
+[[cases]]
+text = "SA	#1# 64.0 (#1# (1S)-(+)-camphorquinone <6>) <6>"
+key = "SA"
+proteins = [1]
+value = 64.0
+comment = "(#1# (1S)-(+)-camphorquinone <6>)"
+references = [6]
+
+[[cases]]
+text = """SA	#1# 1.1e-06 (#1# S)-3-hydroxymyristoyl-[acyl-carrier-protein] as
+	substrate <14>) <14>"""
+key = "SA"
+proteins = [1]
+value = 1.1e-6
+references = [14]
+
+[[cases]]
+text = """SA	#26# 16.5 (#26# purified recombinant enzyme, pH 6.5, 30°C, substrate
+	(S)-3-hydroxybutanoyl-CoA with NAD+ <54>) <54>"""
+key = "SA"
+proteins = [26]
+value = 16.5
+references = [54]
+
+[[cases]]
+text = "SA	#1# 0.012 (#1# S)-mandelonitrile <2>) <2>"
+key = "SA"
+proteins = [1]
+value = 0.012
+references = [2]
