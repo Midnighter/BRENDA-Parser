@@ -1,0 +1,9 @@
+[[cases]]
+text = """PM	#104,105# proteolytic modification (#104# sequence contains a
+	N-terminal mitochondrial import sequence of 24 amino acids <177>; #105#
+	sequence contains a N-terminal mitochondrial import sequence of 28
+	amino acids <177>) <177>"""
+key = "PM"
+proteins = [104, 105]
+modification = "proteolytic modification"
+references = [177]
