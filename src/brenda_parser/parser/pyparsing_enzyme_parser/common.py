@@ -74,3 +74,11 @@ Comments are enclosed by parentheses (``()``) and may contain none, or many
 semi-colon (``;``) separated sub-comments.
 
 """
+
+reversibility = pp.Optional(
+    pp.Suppress("{")
+    + (pp.Keyword("r") | pp.Keyword("ir"))("reversibility")
+    + pp.Suppress("}")
+)
+reversibility.setName("reversibility")
+reversibility.__doc__ = """Parse reaction reversibility information."""
