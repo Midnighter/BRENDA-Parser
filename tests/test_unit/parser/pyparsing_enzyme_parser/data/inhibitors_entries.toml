@@ -1,0 +1,46 @@
+[[cases]]
+text = "IN	#10# 2-fluoroethanol <94>"
+key = "IN"
+proteins = [10]
+compound = "2-fluoroethanol"
+references = [94]
+
+[[cases]]
+text = """IN	#10# tert-butyl hydroperoxide (#10# irreversible, inactivation is
+	associated with -SH group oxidation <86>) <86>"""
+key = "IN"
+proteins = [10]
+compound = "tert-butyl hydroperoxide"
+references = [86]
+
+[[cases]]
+text = """IN	#3# N-(3-aminopropyl)-N-2,3-butadienyl-1,4-butanediamine (#3# strong
+	inhibition <14>) <14>"""
+key = "IN"
+proteins = [3]
+compound = "N-(3-aminopropyl)-N-2,3-butadienyl-1,4-butanediamine"
+references = [14]
+
+[[cases]]
+text = """IN	#3# N-(3-aminopropyl)-N-2-propenyl-1,4-butanediamine (#3# moderate
+	inhibition <14>) <14>"""
+key = "IN"
+proteins = [3]
+compound = "N-(3-aminopropyl)-N-2-propenyl-1,4-butanediamine"
+references = [14]
+
+[[cases]]
+text = """IN	#78# glycerol (#78# high concentration of glycerol decreases the
+	branching activity of the enzyme (97.9% residual activity at 30% (v/v)
+	<126>) <126>"""
+key = "IN"
+proteins = [78]
+compound = "glycerol"
+references = [126]
+
+[[cases]]
+text = "IN	#4# IN-1166 <20>"
+key = "IN"
+proteins = [4]
+compound = "IN-1166"
+references = [20]
