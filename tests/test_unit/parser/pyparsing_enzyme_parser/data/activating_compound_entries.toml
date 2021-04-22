@@ -1,0 +1,32 @@
+[[cases]]
+text = "AC	#29# YZ-33-046 <47>"
+key = "AC"
+proteins = [29]
+compound = "YZ-33-046"
+references = [47]
+
+[[cases]]
+text = """AC	#3,5,6,7,14,15,17,19,22,27,28,29,30,46,55# putrescine (#7# required
+	<9,12>; #3,5,6,7,19,28,29,30# stimulation
+	<9,14,16,17,19,20,23,25,28,34,35>; #27# no stimulation <7>; #14# weak
+	stimulation, relatively insensitive to activation as compared with the
+	mammalian enzyme <5>; #6# 0.25 mM required for maximal activation <14>;
+	#22# no requirement <36>; #6# accelarates the conversion of the
+	proenzyme into the enzyme subunits <23>; #29# maximal stimulation at 1
+	mM <28>; #15# strong <49>; #17# enhances activity up to 350fold <48>;
+	#46# increase of kcat up to 9fold <56>; #19# stimulates ration kcat/Km
+	for wild-type 27fold, also stimulates binding of inhibitors
+	(2E)-2-[4-[amino(imino)methyl]-2
+	3-dihydro-1H-inden-1-ylidene]hydrazinecarboximidamide and
+	3-[(E)-[(2E)-[amino[(2E)-2-[3
+	[amino(imino
+	methyl]benzylidene]hydrazino]methylene]hydrazono]methyl]benzenecarboximi
+	amide <74>; #6# the activity and processing of S-adenosylmethionine
+	decarboxylase is stimulated by putrescine. About 80% of its activity
+	remained after treatment with iodoacetic acid in the presence of
+	putrescine <110>)
+	<5,7,9,12,14,16,17,19,20,23,25,28,34,35,36,47,48,49,56,74,90,97,110,118>"""
+key = "AC"
+proteins = [3,5,6,7,14,15,17,19,22,27,28,29,30,46,55]
+compound = "putrescine"
+references = [5,7,9,12,14,16,17,19,20,23,25,28,34,35,36,47,48,49,56,74,90,97,110,118]
