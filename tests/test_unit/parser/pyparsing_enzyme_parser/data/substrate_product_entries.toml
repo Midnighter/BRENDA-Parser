@@ -1,0 +1,163 @@
+[[cases]]
+text = "SP	#10# n-propanol + NAD+ = n-propanal + NADH {r} <120>"
+key = "SP"
+proteins = [10]
+equation = "n-propanol + NAD+ = n-propanal + NADH"
+reversibility = "r"
+references = [120]
+
+[[cases]]
+text = "SP	#10# 2-propanol + NAD+ = acetone + NADH <122>"
+key = "SP"
+proteins = [10]
+equation = "2-propanol + NAD+ = acetone + NADH"
+references = [122]
+
+[[cases]]
+text = "SP	#10# Tris + NAD+ = ? + NADH {r} <120>"
+key = "SP"
+proteins = [10]
+equation = "Tris + NAD+ = ? + NADH"
+reversibility = "r"
+references = [120]
+
+[[cases]]
+text = """SP	#10# phenylglyoxylic acid + NADH + H+ = hydroxy(phenyl)acetic acid +
+	NAD+ (#10# enzyme covalently immobilized to magnetic Fe3O4
+	nanoparticles via glutaraldehyde retains 48.77% activity of its
+	original activity <182>) <182>"""
+key = "SP"
+proteins = [10]
+equation = "phenylglyoxylic acid + NADH + H+ = hydroxy(phenyl)acetic acid + NAD+"
+references = [182]
+
+[[cases]]
+text = """SP	#10,114# (R,S)-2-methylbutan-1-ol + NAD+ = (R,S)-2-methyl-butan-1-one +
+	NADH + H+ <202>"""
+key = "SP"
+proteins = [10, 114]
+equation = "(R,S)-2-methylbutan-1-ol + NAD+ = (R,S)-2-methyl-butan-1-one + NADH + H+"
+references = [202]
+
+[[cases]]
+text = """SP	#106# 2-[3-(2-phenyl-1,3-dioxolan-2-yl)phenyl]propanal + NADH + H+ =
+	(S)-2-(3-(2-phenyl-1,3-dioxolan-2-yl)phenyl)propanol + NAD+ (#106# 18
+	h, 95% yield, 61% enantiomeric excess <235>) <235>"""
+key = "SP"
+proteins = [106]
+equation = "2-[3-(2-phenyl-1,3-dioxolan-2-yl)phenyl]propanal + NADH + H+ = (S)-2-(3-(2-phenyl-1,3-dioxolan-2-yl)phenyl)propanol + NAD+"
+references = [235]
+
+[[cases]]
+text = """SP	#27,30# D-2 -hydroxyisocaproate + O2 = 2-oxoisocaproate + H2O2 (#27#
+	liver enzyme is much less active with C4 or C5 alpha-hydroxy acids but
+	as active as with glycolate <13>; #30# 48% of the activity compared to
+	glycolate <2>) <2,13>"""
+key = "SP"
+proteins = [27,30]
+equation = "D-2 -hydroxyisocaproate + O2 = 2-oxoisocaproate + H2O2"
+references = [2,13]
+
+[[cases]]
+text = """SP	#3# linolenate + O2 + = (11S)-hydroperoxyoctadecadienoic acid +
+	(13R)-hydroperoxyoctadecadienoic acid + (9S)-hydroperoxyoctadecadienoic
+	acid <14>"""
+key = "SP"
+proteins = [3]
+equation = "linolenate + O2 + = (11S)-hydroperoxyoctadecadienoic acid + (13R)-hydroperoxyoctadecadienoic acid + (9S)-hydroperoxyoctadecadienoic acid"
+references = [14]
+
+[[cases]]
+text = """SP	#4,18,19# beta-carotene + 2 reduced ferredoxin [iron-sulfur] cluster +
+	+ H+ + O2 = cryptoxanthin + 2 oxidized ferredoxin [iron-sulfur] cluster
+	+ H2O <18,21,27>"""
+key = "SP"
+proteins = [4,18,19]
+equation = "beta-carotene + 2 reduced ferredoxin [iron-sulfur] cluster + + H+ + O2 = cryptoxanthin + 2 oxidized ferredoxin [iron-sulfur] cluster + H2O"
+references = [18,21,27]
+
+[[cases]]
+text = """SP	#4# dodecanoyl-CoA + electron-transfer flavoprotein = +
+	trans-dodec-2-enoyl-CoA reduced electron-transfer flavoprotein {r} <61>"""
+key = "SP"
+proteins = [4]
+equation = "dodecanoyl-CoA + electron-transfer flavoprotein = + trans-dodec-2-enoyl-CoA reduced electron-transfer flavoprotein"
+reversibility = "r"
+references = [61]
+
+[[cases]]
+text = """SP	#29# palmitoyl-CoA + [synaptotagmin I ]-L-cysteine = [synaptotagmin I
+	]-S-palmitoyl-L-cysteine + CoA {r} <10>"""
+key = "SP"
+proteins = [29]
+equation = "palmitoyl-CoA + [synaptotagmin I ]-L-cysteine = [synaptotagmin I ]-S-palmitoyl-L-cysteine + CoA"
+reversibility = "r"
+references = [10]
+
+[[cases]]
+text = """SP	#16# UDP-N-acetyl-D-glucosamine +
+	Manalpha(1->6)[GlcNAcbeta(1->2)-Manbeta(1->3)]Manbeta(1->4)GlcNAcbeta(1
+	>4)GlcNAcbeta-2-pyridyl-aminoside = ? (#16# the enzyme can transfer a
+	second N-acetylglucosamine residue to the product of the first
+	transferase reaction but in an extremely slow reaction that is unlikely
+	to be biologically relevant <35>) <35>"""
+key = "SP"
+proteins = [16]
+equation = "UDP-N-acetyl-D-glucosamine + Manalpha(1->6)[GlcNAcbeta(1->2)-Manbeta(1->3)]Manbeta(1->4)GlcNAcbeta(1 >4)GlcNAcbeta-2-pyridyl-aminoside = ?"
+references = [35]
+
+[[cases]]
+text = "SP	#6# more =  (#6# in vitro assays with Escherichia coli RNA <18>) <18>"
+key = "SP"
+proteins = [6]
+equation = "more ="
+references = [18]
+
+[[cases]]
+text = """SP	#1# L-cysteine + Bacillus subtilis 'activated' tRNA = L-serine + tRNA
+	containing a thionucleotide {r} <1>"""
+key = "SP"
+proteins = [1]
+equation = "L-cysteine + Bacillus subtilis 'activated' tRNA = L-serine + tRNA containing a thionucleotide"
+reversibility = "r"
+references = [1]
+
+[[cases]]
+text = """SP	#1# benzyloxycarbonyl-Ala-Glu-methyl ester + leucine * HCl =
+	benzyloxycarbonyl-Ala-Glu-Leu + methanol (#1# peptide synthesis <16>)
+	<16>"""
+key = "SP"
+proteins = [1]
+equation = "benzyloxycarbonyl-Ala-Glu-methyl ester + leucine * HCl = benzyloxycarbonyl-Ala-Glu-Leu + methanol"
+references = [16]
+
+[[cases]]
+text = """SP	#7#
+	5-[(5-phospho-1-deoxy-D-ribulos-1-ylamino)methylideneamino]-1-(5
+	phospho-ß-D-ribosyl)imidazole-4-carboxamide + NH3 =
+	5-amino-1-(5-phospho-ß-D-ribosyl)imidazole-4-carboxamide +
+	D-erythro-1-(imidazol-4-yl)glycerol 3-phosphate + H2O (#7# IGPS
+	heterodimeric enzyme comprised of two proteins, HisH and HisF, that
+	catalyze the hydrolysis of glutamine to produce NH3 in the HisH active
+	site and the cyclization of ammonia with
+	5-[(5-phospho-1-deoxy-D-ribulos-1-ylamino)methylideneamino]-1-(5
+	phospho-beta-D-ribosyl)imidazole-4-carboxamide in HisF to produce
+	5-amino-1-(5-phospho-beta-D-ribosyl)imidazole-4-carboxamide and
+	D-erythro-1-(imidazol-4-yl)glycerol 3-phosphate. Binding of
+	5-[(5-phospho-1-deoxy-D-ribulos-1-ylamino)methylideneamino]-1-(5
+	phospho-beta-D-ribosyl)imidazole-4-carboxamide and
+	D-erythro-1-(imidazol-4-yl)glycerol 3-phosphate stimulates glutaminase
+	activity in the HisH enzyme over 5000 and 100-fold, respectively,
+	despite the active sites being more than 25 A apart <11>) <11>"""
+key = "SP"
+proteins = [7]
+equation = "5-[(5-phospho-1-deoxy-D-ribulos-1-ylamino)methylideneamino]-1-(5 phospho-ß-D-ribosyl)imidazole-4-carboxamide + NH3 = 5-amino-1-(5-phospho-ß-D-ribosyl)imidazole-4-carboxamide + D-erythro-1-(imidazol-4-yl)glycerol 3-phosphate + H2O"
+references = [11]
+
+[[cases]]
+text = """SP	#10# ATP + H2O + rhodamine 123 /in = ADP + phosphate + rhodamine 123
+	/out <71>"""
+key = "SP"
+proteins = [10]
+equation = "ATP + H2O + rhodamine 123 /in = ADP + phosphate + rhodamine 123 /out"
+references = [71]
