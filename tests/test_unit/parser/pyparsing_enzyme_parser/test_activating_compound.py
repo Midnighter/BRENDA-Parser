@@ -33,6 +33,7 @@ from pathlib import Path
 
 import pytest
 import toml
+from helpers import check_entry
 
 from brenda_parser.parser.pyparsing_enzyme_parser import (
     activating_compound,
@@ -48,13 +49,9 @@ with (
 
 @pytest.mark.parametrize("case", entry_cases["cases"])
 def test_entry(case: dict):
-    result = activating_compound.entry.parseString(
-        sanitize_control_codes(case.pop("text")), parseAll=True
-    )[0]
-    for attribute, expected in case.items():
-        if isinstance(expected, list):
-            assert list(getattr(result, attribute)) == expected
-        elif isinstance(expected, dict):
-            assert getattr(result, attribute).asDict() == expected
-        else:
-            assert getattr(result, attribute) == expected
+    check_entry(
+        activating_compound.entry.parseString(
+            sanitize_control_codes(case.pop("text")), parseAll=True
+        )[0],
+        case,
+    )
