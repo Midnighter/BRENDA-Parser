@@ -31,21 +31,23 @@
 
 import pyparsing as pp
 
-from .common import literature_citation, protein_information, reversibility
-
-
-metabolite = pp.Word(
-    initChars=pp.alphanums + "?()[]->'ß/",
-    bodyChars=pp.printables + "ß",
-    excludeChars="=#",
+from .common import (
+    literature_citation,
+    metabolite,
+    operator,
+    protein_information,
+    reversibility,
 )
-operator = pp.Literal("+") | pp.Literal("*")
+
+
 side = (
     pp.Optional("+")
     + pp.OneOrMore(metabolite, stopOn="(#")
     + (operator + pp.Optional("+") + pp.OneOrMore(metabolite, stopOn="(#"))[...]
 )
-equation = (side + pp.Optional("+") + "=" + pp.Optional(side)).setParseAction(" ".join)
+equation = (
+    side + pp.Optional("+") + pp.Optional("=") + pp.Optional(side)
+).setParseAction(" ".join)
 
 entry = pp.Group(
     pp.LineStart()

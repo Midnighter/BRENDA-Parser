@@ -82,3 +82,10 @@ reversibility = pp.Optional(
 )
 reversibility.setName("reversibility")
 reversibility.__doc__ = """Parse reaction reversibility information."""
+
+metabolite = pp.Word(
+    initChars=pp.alphanums + "?()[]->'ß/",
+    bodyChars=pp.printables + "ß",
+    excludeChars="=#",
+)
+operator = pp.Literal("+") | pp.Literal("*")
