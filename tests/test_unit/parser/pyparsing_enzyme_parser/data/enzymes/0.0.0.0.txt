@@ -1,0 +1,66 @@
+ID	0.0.0.0
+********************************************************************************
+*                                                                              *
+* Copyrighted by Dietmar Schomburg, Techn. University Braunschweig, GERMANY    *
+* Distributed under the License as stated at http:/www.brenda-enzymes.org      *
+*                                                                              *
+********************************************************************************
+
+RECOMMENDED_NAME
+RN	spontaneous reaction
+
+
+SYSTEMATIC_NAME
+SN	spontaneous non-enzymatic reaction
+
+
+REACTION
+RE	9alpha-hydroxyandrosta-1,4-diene-3,17-dione =
+	3-hydroxy-9,10-secoandrosta-1,3,5(10)-triene-9,17-dione
+RE	H2O + L-dehydroascorbate = (4R,5S)-4,5,6-trihydroxy-2,3-dioxohexanoate
+RE	L-ascorbate = L-dehydroascorbate
+RE	D-glucaro-1,5-lactone = D-glucaro-1,4-lactone
+RE	2-monoacylglycerol = 1-monoacylglycerol
+RE	4-carboxy-2-hydroxyhexa-2,4-dienedioate = 4-carboxy-2-oxo-3-hexenedioate
+RE	L-sorbosone = 2-dehydro-L-gulonolactone
+RE	previtamin D3 = Ccolecalciferol
+RE	7-dehydrocholesterol = previtamin D3
+RE	2-acetolactate + oxidized electron acceptor = diacetyl + CO2 + reduced
+	electron acceptor
+RE	3-hydroxy-cis,cis-muconate = 4-oxohex-2-enedioate
+RE	D-ribofuranose = D-ribose
+RE	(2S)-2-amino-3-oxo-4-phosphonooxybutanoate + H+ =
+	3-amino-1-hydroxyacetone 1-phosphate + CO2
+RE	ubiquinol-8 = H+ + ubiquinone
+RE	5-amino-2-oxopentanoate = DELTA1-pyrroline-2-carboxylate
+RE	L-glutamate 5-semialdehyde = (S)-1-pyrroline-5-carboxylate + H+ + H2O
+RE	H2O + 4-oxoglutaramate = 2-oxoglutarate + NH3 + H+
+RE	3-(5-oxo-4,5-dihydro-3H-imidazol-4-yl)propanoate + H2O =
+	4-oxoglutaramate + formate + NH3
+RE	H2O + formyl-isoglutamine = isoglutamine + formate
+RE	H+ + H2O + 3-(5-oxo-4,5-dihydro-3H-imidazol-4-yl)propanoate =
+	formyl-isoglutamine
+RE	H2O + 3-sulfinylpyruvate = H+ + pyruvate + sulfite
+RE	L-2-amino-6-oxopimelate = 2,3,4,5-tetrahydrodipicolinate
+RE	L-2-amino-3-oxobutanoate + H+ = aminoacetone + CO2
+RE	2-oxo-6-amino-hexanoate + hydrogen peroxide = 5-aminopentanoate + H2O +
+	CO2
+RE	2-oxo-6-amino-hexanoate + D-lysine = DELTA1-piperidine 2-carboxylate
+RE	enolaldehyde + H+ = methylglyoxal
+RE	(2S)-2-isopropyl-3-oxosuccinate + H+ = 4-methyl-2-oxopentanoate + CO2
+RE	biotin-carboxyl-carrier protein = biotin-carboxyl-carrier protein
+	(dimer)
+RE	4-(2-aminophenyl)-2,4-dioxobutanoate = kynurenate + H2O + H+
+RE	cellobiono-1,5-lactone + H2O = cellobionate
+RE	cellooligosaccharide-C1-lactone + H2O = C1/C4-oxidized
+	cello-oligosaccharides
+RE	2-aminobenzoylacetyl-CoA = 4-hydroxy-2(1H)-quinolone + CoA
+RE	artemisinate + O2 + H+ = (-)-arteannuin B + H2O
+RE	(+)-5-oxo-1,2-campholide =
+	[(1R)-2,2,3-trimethyl-5-oxocyclopent-3-enyl]acetate + H+
+RE	[(2R)-3,3,4-trimethyl-6-oxo-3,6-dihydro-1H-pyran-2-yl]acetyl-CoA =
+	DELTA2,5-3,4,4-trimethylpimeloyl-CoA + H+
+RE	(-)-5-oxo-1,2-campholide =
+	[(1R)-2,2,3-trimethyl-5-oxocyclopent-3-enyl]acetate + H+
+
+///

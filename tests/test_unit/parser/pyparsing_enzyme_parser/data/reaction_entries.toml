@@ -1,0 +1,100 @@
+[[cases]]
+text = """RE	9alpha-hydroxyandrosta-1,4-diene-3,17-dione =
+	3-hydroxy-9,10-secoandrosta-1,3,5(10)-triene-9,17-dione"""
+key = "RE"
+equation = "9alpha-hydroxyandrosta-1,4-diene-3,17-dione = 3-hydroxy-9,10-secoandrosta-1,3,5(10)-triene-9,17-dione"
+
+[[cases]]
+text = "RE	H2O + L-dehydroascorbate = (4R,5S)-4,5,6-trihydroxy-2,3-dioxohexanoate"
+key = "RE"
+equation = "H2O + L-dehydroascorbate = (4R,5S)-4,5,6-trihydroxy-2,3-dioxohexanoate"
+
+[[cases]]
+text = """RE	a primary alcohol + NAD+ = an aldehyde + NADH + H+ (#4,41# ordered
+	bi-bi mechanism <31,43>; #4,76# rapid equilibrium random mechanism
+	<63>; #8# ordered bi bi mechanism with cofactor adding first to form a
+	binary enzyme complex <23>; #41# isoenzyme EE and SS: ordered bi bi
+	mechanism <35>; #10,33# mechanism is predominantly ordered with
+	ethanol, but partially random with butanol <91>; #41# kinetic mechanism
+	is random for ethanol oxidation and compulsory ordered for acetaldehyde
+	reduction <41>; #38# oxidizes ethanol in an ordered bi-bi mechanism
+	with NAD+ as the first substrate fixed <85>; #10# compulsory-order
+	mechanism with the rate-limiting step being the dissociation of the
+	product enzyme-NAD+ complex <90>; #28,68,79# Theorell-Chance mechanism
+	<38,69,74>; #44# sequential reaction mechanism <114>; #88# active site
+	structure <127>; #79# catalytic mechanism involves a proton relay
+	modulated by the coupled ionization of the active site Lys155/Tyr151
+	pair, and a NAD+ ribose 2-OH switch, other active site residues are
+	Ser138 and Trp144, ionization properties, substrate binding, overview
+	<130>; #8# class IV alcohol dehydrogenase also functions as retinol
+	dehydrogenase, reaction and kinetic mechanism: asymmetric rapid
+	equilibrium random mechanism with 2 dead-end ternary complexes fro
+	retinol oxidation and a rapid equilibrium ordered mechanism with one
+	dead-end ternary complex for retinal reduction, a unique mechanistic
+	form fro zinc-containing ADH in the medium chain
+	dehydrogenase/reductase superfamily of enzymes <124>; #10# detailed
+	determination of the reaction and kinetic mechanisms, active site
+	structure and determination of amino acid residues involved in
+	catalysis, 3 isozymes <120>; #117# ordered bibi mechanism, structural
+	and functional implications of amino acid residue 47 <110>; #41#
+	ordered sequential bibi reaction mechanism, modeling of oxidation
+	kinetic mechanism <117>; #119# reaction mechanism, His51 is involved,
+	but not essential, in catalysis facilitating the deprotonation of the
+	hydroxyl group of water or alcohol ligated to the catalytic zinc <111>;
+	#8# Ser48 is involved in catalysis, isozyme gamma(2)gamma(2) <109>;
+	#27# the catalytic triad consists of Cys44, His67, and Cys154, active
+	site structure <129>)"""
+key = "RE"
+equation = "a primary alcohol + NAD+ = an aldehyde + NADH + H+"
+
+[[cases]]
+text = """RE	Cleavage of cis-1,4-polyisoprene polymers into a mixture of compounds,
+	including a C20 compound
+	((4Z,8Z,12Z,16Z,20Z,24Z)-4,8,12,16,20,24-hexamethyl-28-oxononacosa-4,8
+	12,16,20,24-hexaenal), a C25 compound
+	((4Z,8Z,12Z,16Z,20Z)-4,8,12,16,20-pentamethyl-24-oxopentacosa-4,8,12,16
+	20-pentaenal), a C30 compound
+	((4Z,8Z,12Z,16Z)-4,8,12,16-tetramethyl-20-oxohenicosa-4,8,12
+	16-tetraenal), and larger isoprenologes such as C35, C40, C45, and
+	higher analogues"""
+key = "RE"
+equation = "Cleavage of cis-1,4-polyisoprene polymers into a mixture of compounds, including a C20 compound ((4Z,8Z,12Z,16Z,20Z,24Z)-4,8,12,16,20,24-hexamethyl-28-oxononacosa-4,8 12,16,20,24-hexaenal), a C25 compound ((4Z,8Z,12Z,16Z,20Z)-4,8,12,16,20-pentamethyl-24-oxopentacosa-4,8,12,16 20-pentaenal), a C30 compound ((4Z,8Z,12Z,16Z)-4,8,12,16-tetramethyl-20-oxohenicosa-4,8,12 16-tetraenal), and larger isoprenologes such as C35, C40, C45, and higher analogues"
+
+[[cases]]
+text = """RE	Transfers alternately an alpha-D-glucosyl residue from sucrose to the
+	6-position and the 3-position of the non-reducing terminal residue of
+	an alpha-D-glucan, thus producing a glucan having alternating
+	alpha-(1->6)- and alpha-(1->3)-linkages"""
+key = "RE"
+equation = "Transfers alternately an alpha-D-glucosyl residue from sucrose to the 6-position and the 3-position of the non-reducing terminal residue of an alpha-D-glucan, thus producing a glucan having alternating alpha-(1->6)- and alpha-(1->3)-linkages"
+
+[[cases]]
+text = """RE	transfers the non-reducing terminal alpha-D-glucose residue from a
+	(1->4)-alpha-D-glucan to the 4-position of a free glucose or of a
+	glucosyl residue at the non-reducing terminus of a
+	(1->4)-alpha-D-glucan, thus bringing about the rearrangement of
+	oligosaccharides"""
+key = "RE"
+equation = "transfers the non-reducing terminal alpha-D-glucose residue from a (1->4)-alpha-D-glucan to the 4-position of a free glucose or of a glucosyl residue at the non-reducing terminus of a (1->4)-alpha-D-glucan, thus bringing about the rearrangement of oligosaccharides"
+
+[[cases]]
+text = """RE	Transfers a beta-D-glucosyl residue from UDP-glucose on to a glucose
+	residue in xyloglucan, forming a beta-(1->4)-D-glucosyl-D-glucose
+	linkage"""
+key = "RE"
+equation = "Transfers a beta-D-glucosyl residue from UDP-glucose on to a glucose residue in xyloglucan, forming a beta-(1->4)-D-glucosyl-D-glucose linkage"
+
+[[cases]]
+text = """RE	Transfers a segment of a (1->4)-alpha-D-glucan chain to a primary
+	hydroxy group in a similar glucan chain (#44# interchain mechanism <74>)"""
+key = "RE"
+equation = "Transfers a segment of a (1->4)-alpha-D-glucan chain to a primary hydroxy group in a similar glucan chain"
+
+[[cases]]
+text = """RE	[1-beta-D-fructofuranosyl-(2->1)-]m+1-alpha-D-glucopyranoside +
+	[1-beta-D-fructofuranosyl-(2->1)-]n-alpha-D-glucopyranoside =
+	[1-beta-D-fructofuranosyl-(2->1)-]m-alpha-D-glucopyranoside +
+	[1-beta-D-fructofuranosyl-(2->1)-]n-beta-D-fructofuranosyl-(2->6)-alpha
+	D-glucopyranoside (m > 0; n >= 0)"""
+key = "RE"
+equation = "[1-beta-D-fructofuranosyl-(2->1)-]m+1-alpha-D-glucopyranoside + [1-beta-D-fructofuranosyl-(2->1)-]n-alpha-D-glucopyranoside = [1-beta-D-fructofuranosyl-(2->1)-]m-alpha-D-glucopyranoside + [1-beta-D-fructofuranosyl-(2->1)-]n-beta-D-fructofuranosyl-(2->6)-alpha D-glucopyranoside"
